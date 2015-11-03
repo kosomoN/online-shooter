@@ -1,0 +1,21 @@
+﻿Build started 3.11.2015 21:25:53.
+     1>Project "C:\Users\Hugo\Documents\dayz2\dayz2\dayz2.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Hugo\Documents\dayz2\x64\Debug\dayz2.exe" /INCREMENTAL /NOLOGO glu32.lib glew32.lib glfw3.lib opengl32.lib /NODEFAULTLIB:glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Hugo\Documents\dayz2\x64\Debug\dayz2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Hugo\Documents\dayz2\x64\Debug\dayz2.lib" /MACHINE:X64 x64\Debug\GlobalSystem.obj
+         x64\Debug\main.obj
+         x64\Debug\WindowSystem.obj
+     1>main.obj : error LNK2019: unresolved external symbol glfwWindowShouldClose referenced in function "public: bool __cdecl CWindowSystem::shouldClose(void)" (?shouldClose@CWindowSystem@@QEAA_NXZ)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwInit referenced in function "public: void __cdecl CWindowSystem::init(int,int)" (?init@CWindowSystem@@QEAAXHH@Z)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwTerminate referenced in function "public: __cdecl CWindowSystem::~CWindowSystem(void)" (??1CWindowSystem@@QEAA@XZ)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwCreateWindow referenced in function "public: void __cdecl CWindowSystem::init(int,int)" (?init@CWindowSystem@@QEAAXHH@Z)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwPollEvents referenced in function "public: void __cdecl CWindowSystem::updateWindow(void)" (?updateWindow@CWindowSystem@@QEAAXXZ)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwMakeContextCurrent referenced in function "public: void __cdecl CWindowSystem::init(int,int)" (?init@CWindowSystem@@QEAAXHH@Z)
+     1>WindowSystem.obj : error LNK2019: unresolved external symbol glfwSwapBuffers referenced in function "public: void __cdecl CWindowSystem::updateWindow(void)" (?updateWindow@CWindowSystem@@QEAAXXZ)
+     1>C:\Users\Hugo\Documents\dayz2\lib\glew32.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+     1>C:\Users\Hugo\Documents\dayz2\lib\glfw3.lib : warning LNK4272: library machine type 'X86' conflicts with target machine type 'x64'
+     1>C:\Users\Hugo\Documents\dayz2\x64\Debug\dayz2.exe : fatal error LNK1120: 7 unresolved externals
+     1>Done Building Project "C:\Users\Hugo\Documents\dayz2\dayz2\dayz2.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.21
