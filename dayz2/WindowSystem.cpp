@@ -2,11 +2,14 @@
 #include "GlobalSystem.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "Player.h"
 
 CWindowSystem::~CWindowSystem()
 {
 	glfwTerminate();
 }
+
+
 
 void CWindowSystem::init(int x, int y)
 {
@@ -22,8 +25,11 @@ void CWindowSystem::init(int x, int y)
 	glfwMakeContextCurrent(m_pWin);
 }
 
+
 void CWindowSystem::updateWindow()
 {
+	if(gSys->pEntitySystem != nullptr)
+		gSys->pEntitySystem->update();
 	glfwSwapBuffers(m_pWin);
 	glfwPollEvents();
 }

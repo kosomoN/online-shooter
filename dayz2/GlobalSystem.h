@@ -1,15 +1,19 @@
 #pragma once
 #include "WindowSystem.h"
+#include "EntitySystem.h"
 #include <string>
-
+typedef std::string string;
 class CGlobalSystem
 {
 public:
 	CGlobalSystem() {};
 	~CGlobalSystem();
 	void init();
+
 	CWindowSystem* pWindowSystem;
-	void log(std::string);
+	CEntitySystem* pEntitySystem;
+
+	void log(string);
 private:
 
 };

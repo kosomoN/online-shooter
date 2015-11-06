@@ -23,7 +23,6 @@ void CMain::init()
 
 	while (!gSys->pWindowSystem->shouldClose())
 	{
-
 		gSys->pWindowSystem->updateWindow();
 	}
 	delete gSys;

@@ -71,8 +71,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\Hugo\Documents\dayz2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Hugo\Documents\dayz2\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,13 +148,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="GlobalSystem.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntitySystem.h" />
     <ClInclude Include="GlobalSystem.h" />
+    <ClInclude Include="IActor.h" />
+    <ClInclude Include="IEntity.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

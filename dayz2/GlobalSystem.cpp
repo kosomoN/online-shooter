@@ -3,15 +3,18 @@
 CGlobalSystem::~CGlobalSystem()
 {
 	delete pWindowSystem;
+	delete pEntitySystem;
 }
 
 void CGlobalSystem::init()
 {
+	pEntitySystem = new CEntitySystem;
+
 	pWindowSystem = new CWindowSystem;
-	pWindowSystem->init(1280,720);
+	pWindowSystem->init(1280, 720);
 }
 
-void CGlobalSystem::log(std::string text)
+void CGlobalSystem::log(string text)
 {
-	printf(text.c_str());
+	printf(std::string(text+"\n").c_str());
 }

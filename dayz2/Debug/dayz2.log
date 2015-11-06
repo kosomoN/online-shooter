@@ -1,16 +1,33 @@
-﻿Build started 3.11.2015 21:31:58.
-     1>Project "C:\Users\Hugo\Documents\dayz2\dayz2\dayz2.vcxproj" on node 2 (Build target(s)).
+﻿Build started 04/11/2015 22:34:57.
+     1>Project "H:\VSProjects\dayz2\dayz2\dayz2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt WindowSystem.cpp
+         H:\Programs\VS2015\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt GlobalSystem.cpp WindowSystem.cpp
          WindowSystem.cpp
-     1>c:\users\hugo\documents\dayz2\dayz2\windowsystem.h(14): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+     1>h:\vsprojects\dayz2\dayz2\windowsystem.h(14): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+         GlobalSystem.cpp
+     1>h:\vsprojects\dayz2\dayz2\windowsystem.h(14): warning C4800: 'int': forcing value to bool 'true' or 'false' (performance warning)
+         Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Hugo\Documents\dayz2\Debug\dayz2.exe" /INCREMENTAL /NOLOGO glu32.lib glew32.lib glfw3.lib opengl32.lib /NODEFAULTLIB:glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Hugo\Documents\dayz2\Debug\dayz2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Hugo\Documents\dayz2\Debug\dayz2.lib" /MACHINE:X86 Debug\GlobalSystem.obj
+         H:\Programs\VS2015\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"H:\VSProjects\dayz2\Debug\dayz2.exe" /INCREMENTAL /NOLOGO glu32.lib glew32.lib glfw3.lib opengl32.lib /NODEFAULTLIB:glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"H:\VSProjects\dayz2\Debug\dayz2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"H:\VSProjects\dayz2\Debug\dayz2.lib" /MACHINE:X86 Debug\EntitySystem.obj
+         Debug\GlobalSystem.obj
          Debug\main.obj
+         Debug\Player.obj
          Debug\WindowSystem.obj
-         dayz2.vcxproj -> C:\Users\Hugo\Documents\dayz2\Debug\dayz2.exe
-     1>Done Building Project "C:\Users\Hugo\Documents\dayz2\dayz2\dayz2.vcxproj" (Build target(s)).
+     1>glfw3.lib(context.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(context.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(init.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(init.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(input.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(input.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(monitor.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(monitor.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(wgl_context.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(wgl_context.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(win32_init.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(win32_init.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(win32_monitor.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(win32_monitor.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(win32_time.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(win32_time.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(win32_tls.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(win32_tls.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(win32_window.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(win32_window.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(window.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(window.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+     1>glfw3.lib(winmm_joystick.obj) : warning LNK4099: PDB 'GLFWVS2015.pdb' was not found with 'glfw3.lib(winmm_joystick.obj)' or at 'H:\VSProjects\dayz2\Debug\GLFWVS2015.pdb'; linking object as if no debug info
+         dayz2.vcxproj -> H:\VSProjects\dayz2\Debug\dayz2.exe
+     1>Done Building Project "H:\VSProjects\dayz2\dayz2\dayz2.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.90
+Time Elapsed 00:00:02.38
