@@ -23,6 +23,12 @@ void CWindowSystem::init(int x, int y)
 		return;
 	}
 	glfwMakeContextCurrent(m_pWin);
+
+	GLenum err = glewInit();
+	if (GLEW_OK != err)
+	{
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
 }
 
 
