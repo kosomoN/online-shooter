@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL\glew.h>
-#include "Vec2.h"
+#include <glm\vec2.hpp>
 
 class Sprite 
 {
@@ -10,7 +10,7 @@ class Sprite
 			: m_width(width), m_height(height), m_u(u), m_v(v), m_texture(texture) {}
         ~Sprite() {}
 private:
-        Vec2 m_pos;
+        glm::vec2 m_pos;
         float m_rotation;
         float m_u, m_v;
         int m_width, m_height;

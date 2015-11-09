@@ -1,4 +1,5 @@
 #include "SpriteBatch.h"
+#include <GLFW\glfw3.h>
 
 SpriteBatch::SpriteBatch(int maxSprites) : m_bufferData((3 + 2 + 4) * 6 * maxSprites)
 {

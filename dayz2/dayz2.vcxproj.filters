@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Game\Entities">
       <UniqueIdentifier>{b0578c7f-a313-4bc1-917e-ccfda6b33217}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Engine\Interfaces">
+      <UniqueIdentifier>{e6c046d8-ebf3-4a28-8a88-7b6ac52cc2af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Input">
+      <UniqueIdentifier>{33a3d014-ea25-4cc7-af9c-ce75851a2453}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +63,9 @@
     <ClCompile Include="Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\Engine\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalSystem.h">
@@ -67,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="WindowSystem.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IEntity.h">
-      <Filter>Source Files\Game\Interfaces</Filter>
     </ClInclude>
     <ClInclude Include="Vec2.h">
       <Filter>Source Files\Engine\Math</Filter>
@@ -90,6 +96,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputListener.h">
+      <Filter>Source Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Source Files\Engine\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

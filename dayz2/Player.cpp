@@ -5,7 +5,7 @@ CPlayer::CPlayer()
 	gSys->pEntitySystem->registerEntity(this);
 }
 
-void CPlayer::setPosition(Vec2& pos)
+void CPlayer::setPosition(glm::vec2& pos)
 {
 	m_pos = pos;
 }
