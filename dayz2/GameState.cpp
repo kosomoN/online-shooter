@@ -11,7 +11,7 @@ GameState::~GameState()
 
 void GameState::init()
 {
-	//Just testing, don't judge
+	//Just testing, don't judge EleJiggle
 	sprite = new Sprite(128, 128, 0, 0, 1, 1, 0);
 	m_spriteRenderer.registerSprite(sprite);
 
