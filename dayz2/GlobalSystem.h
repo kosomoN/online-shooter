@@ -3,6 +3,8 @@
 #include "EntitySystem.h"
 #include "Input.h"
 #include <string>
+#include "SpriteBatch.h"
+#include "StateSystem.h"
 
 typedef std::string string;
 typedef unsigned int uint;
@@ -17,6 +19,8 @@ public:
 	CWindowSystem* pWindowSystem;
 	CEntitySystem* pEntitySystem;
 	CInput* pInput;
+	SpriteBatch* pSpriteBatch;
+	StateSystem* pStateSystem;
 
 	void log(string);
 private:

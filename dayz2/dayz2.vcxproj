@@ -148,28 +148,39 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
+    <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GlobalSystem.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
+    <ClCompile Include="SpriteRenderer.cpp" />
+    <ClCompile Include="StateSystem.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="EntitySystem.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalSystem.h" />
     <ClInclude Include="IActor.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="IInputListener.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="IState.h" />
+    <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
+    <ClInclude Include="SpriteRenderer.h" />
+    <ClInclude Include="StateSystem.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
   </ItemGroup>

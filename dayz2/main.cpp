@@ -7,6 +7,7 @@
 #include <iostream>
 #include "GlobalSystem.h"
 #include "main.h"
+#include "GameState.h"
 
 CGlobalSystem* gSys;
 
@@ -21,10 +22,21 @@ void CMain::init()
 	gSys = new CGlobalSystem;
 	gSys->init();
 
+	GameState* gameState = new GameState();
+	gameState->init();
+	gSys->pStateSystem->enterState(gameState);
+	
+	float dt, lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
 	{
 		gSys->pWindowSystem->updateWindow();
+		dt = float(glfwGetTime() - lastTime); 
+
+		gSys->pStateSystem->getCurrentState()->update(dt);
+		gSys->pStateSystem->getCurrentState()->render();
 	}
+
+	delete gameState;
 	delete gSys;
 	return;
 }
