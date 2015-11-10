@@ -5,14 +5,23 @@
 #include <fstream>
 #include <sstream>
 #include <GLFW\glfw3.h>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(std::string filePath)
 {
 	loadShader(filePath);
+	glUseProgram(program);
+	mvpLocation = glGetUniformLocation(program, "mvp");
 }
 
 Shader::~Shader()
 {
+	glDeleteProgram(program);
+}
+
+void Shader::setMatrix(const glm::mat4 & matrix)
+{
+	glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void Shader::loadShader(std::string filePath)
