@@ -7,6 +7,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pWindowSystem;
 	delete pEntitySystem;
 	delete pInput;
+	delete pSpriteRenderer;
 }
 
 void CGlobalSystem::init()
@@ -17,6 +18,7 @@ void CGlobalSystem::init()
 	pWindowSystem->init(1280, 720);
 	pSpriteBatch = new SpriteBatch(256);
 	pStateSystem = new StateSystem();
+	pSpriteRenderer = new SpriteRenderer;
 }
 
 void CGlobalSystem::log(string text)

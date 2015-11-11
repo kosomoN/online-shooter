@@ -1,7 +1,6 @@
 #include "Input.h"
 #include "IInputListener.h"
 #include "GlobalSystem.h"
-
 CInput::CInput() {}
 
 CInput::~CInput(){}

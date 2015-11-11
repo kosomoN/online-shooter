@@ -5,6 +5,7 @@
 #include <string>
 #include "SpriteBatch.h"
 #include "StateSystem.h"
+#include "SpriteRenderer.h"
 
 typedef std::string string;
 typedef unsigned int uint;
@@ -21,6 +22,7 @@ public:
 	CInput* pInput;
 	SpriteBatch* pSpriteBatch;
 	StateSystem* pStateSystem;
+	SpriteRenderer* pSpriteRenderer;
 
 	void log(string);
 private:

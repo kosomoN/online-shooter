@@ -6,24 +6,22 @@
 
 GameState::~GameState()
 {
-	delete sprite;
 }
 
 void GameState::init()
 {
-	//Just testing, don't judge EleJiggle
-	sprite = new Sprite(128, 128, 0, 0, 1, 1, 0);
-	m_spriteRenderer.registerSprite(sprite);
-
+	Sprite* sprite = gSys->pSpriteRenderer->addSprite(128, 128, 0, 0, 1, 1, 0);
 	camera.setPosition(glm::vec2(540, 0));
 }
 
 void GameState::render()
 {
+	glClear(GL_COLOR_BUFFER_BIT);
 	glUseProgram(shader.getProgram());
 	shader.setMatrix(camera.getCombined());
-	m_spriteRenderer.renderSprites();
+	gSys->pSpriteRenderer->renderSprites();
 	glUseProgram(0);
+
 }
 
 void GameState::update(float dt)

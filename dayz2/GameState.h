@@ -17,9 +17,7 @@ public:
 	void exit();
 
 private:
-	SpriteRenderer m_spriteRenderer;
 	Shader shader = Shader("data/basic.glsl");
 	Camera camera = Camera(1280, 720);
-	Sprite* sprite;
 };
 
