@@ -1,7 +1,7 @@
 #include "SpriteBatch.h"
 #include <GLFW\glfw3.h>
 
-SpriteBatch::SpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 * maxSprites)
+CSpriteBatch::CSpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 * maxSprites)
 {
 	glGenBuffers(1, &m_vb);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vb);
@@ -10,7 +10,7 @@ SpriteBatch::SpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 
 	glBindBuffer(GL_ARRAY_BUFFER, m_vb);
 }
 
-void SpriteBatch::begin(GLuint texture)
+void CSpriteBatch::begin(GLuint texture)
 {
 	if (m_isDrawing)
 		end();
@@ -20,7 +20,7 @@ void SpriteBatch::begin(GLuint texture)
 	m_vertices = 0;
 }
 
-void SpriteBatch::end()
+void CSpriteBatch::end()
 {
 	if (!m_isDrawing)
 		throw "SpriteBatch not in use!";
@@ -56,7 +56,7 @@ void SpriteBatch::end()
 	m_bufferData.clear();
 }
 
-void SpriteBatch::setColor(float red, float green, float blue, float alpha)
+void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
 {
 	m_r = red;
 	m_g = green;
@@ -64,14 +64,16 @@ void SpriteBatch::setColor(float red, float green, float blue, float alpha)
 	m_a = alpha;
 }
 
-void SpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2)
+void CSpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation)
 {
 	m_vertices += 6;
 
-	//Bottom left
-	m_bufferData.push_back(x);
-	m_bufferData.push_back(y);
-	
+	//Bottom left'
+	glm::vec2 p = glm::vec2(x, y);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u1);
 	m_bufferData.push_back(v1);
 
@@ -81,9 +83,11 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	m_bufferData.push_back(m_a);
 
 	//Bottom right
-	m_bufferData.push_back(x + width);
-	m_bufferData.push_back(y);
-	
+	p = glm::vec2(x + width, y);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u2);
 	m_bufferData.push_back(v1);
 
@@ -93,9 +97,11 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	m_bufferData.push_back(m_a);
 
 	//Top left
-	m_bufferData.push_back(x);
-	m_bufferData.push_back(y + height);
-	
+	p = glm::vec2(x, y + height);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u1);
 	m_bufferData.push_back(v2);
 
@@ -108,9 +114,11 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	//Second triangle
 
 	//Top left
-	m_bufferData.push_back(x);
-	m_bufferData.push_back(y + height);
-	
+	p = glm::vec2(x, y + height);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u1);
 	m_bufferData.push_back(v2);
 
@@ -120,9 +128,11 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	m_bufferData.push_back(m_a);
 
 	//Bottom right
-	m_bufferData.push_back(x + width);
-	m_bufferData.push_back(y);
-	
+	p = glm::vec2(x + width, y);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u2);
 	m_bufferData.push_back(v1);
 
@@ -132,9 +142,11 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	m_bufferData.push_back(m_a);
 
 	//Top right
-	m_bufferData.push_back(x + width);
-	m_bufferData.push_back(y + height);
-	
+	p = glm::vec2(x + width, y + height);
+	CalcPoint(width / 2, height / 2, rotation, p);
+	m_bufferData.push_back(p.x);
+	m_bufferData.push_back(p.y);
+
 	m_bufferData.push_back(u2);
 	m_bufferData.push_back(v2);
 
@@ -144,12 +156,27 @@ void SpriteBatch::draw(float x, float y, float width, float height, float u1, fl
 	m_bufferData.push_back(m_a);
 }
 
-void SpriteBatch::draw(Sprite* pSprite)
+void CSpriteBatch::draw(CSprite* pSprite)
 {
-	draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2);
+	draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation);
 }
 
-SpriteBatch::~SpriteBatch()
+void CSpriteBatch::CalcPoint(float cx, float cy, float rot, glm::vec2& point)
+{
+	float cosTheta = cos(rot);
+	float sinTheta = sin(rot);
+
+	point.x -= cx;
+	point.y -= cy;
+
+	float x = point.x * cosTheta - point.y * sinTheta;
+	float y = point.x * sinTheta + point.y * cosTheta;
+
+	point.x = x + cx;
+	point.y = y + cy;
+}
+
+CSpriteBatch::~CSpriteBatch()
 {
 	glDeleteBuffers(1, &m_vb);
 }

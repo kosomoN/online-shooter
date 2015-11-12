@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Engine\Input">
       <UniqueIdentifier>{33a3d014-ea25-4cc7-af9c-ce75851a2453}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Camera">
+      <UniqueIdentifier>{f62827ad-d67d-4916-ba4d-83f100d05e1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\States">
+      <UniqueIdentifier>{90780899-ce16-4cea-8abd-4e9142807b9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -72,14 +78,14 @@
     <ClCompile Include="lodepng.cpp">
       <Filter>Source Files\Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="StateSystem.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game\States</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="StateSystem.cpp">
+      <Filter>Source Files\Game\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

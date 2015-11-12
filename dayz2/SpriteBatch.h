@@ -7,15 +7,16 @@
 
 const int ELEMENTS_PER_VERTEX = 8;
 
-class SpriteBatch
+class CSpriteBatch
 {
 public:
-	SpriteBatch(int maxSprites);
-	~SpriteBatch();
+	CSpriteBatch(int maxSprites);
+	~CSpriteBatch();
 	void begin(GLuint texture);
 	void end();
-	void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2);
-	void draw(Sprite* pSprite);
+	void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation);
+	void draw(CSprite* pSprite);
+	void CalcPoint(float cx, float cy, float rot, glm::vec2& point);
 	void setColor(float r, float g, float b, float a);
 	GLuint getCurrentTexture() { return  m_currentTexture; }
 private:
