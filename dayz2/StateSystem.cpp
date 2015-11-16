@@ -1,6 +1,6 @@
 #include "StateSystem.h"
 
-void StateSystem::enterState(IState* pState)
+void CStateSystem::enterState(IState* pState)
 {
 	if (m_pCurrentState != nullptr)
 	{

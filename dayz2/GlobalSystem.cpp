@@ -16,9 +16,9 @@ void CGlobalSystem::init()
 	pInput = new CInput;
 	pWindowSystem = new CWindowSystem;
 	pWindowSystem->init(1280, 720);
-	pSpriteBatch = new SpriteBatch(256);
-	pStateSystem = new StateSystem();
-	pSpriteRenderer = new SpriteRenderer;
+	pSpriteBatch = new CSpriteBatch(256);
+	pStateSystem = new CStateSystem();
+	pSpriteRenderer = new CSpriteRenderer;
 }
 
 void CGlobalSystem::log(string text)

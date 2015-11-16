@@ -3,38 +3,43 @@
 #include "GlobalSystem.h"
 #include "lodepng.h"
 #include <vector>
+#include "Player.h"
 
-GameState::~GameState()
+CGameState::~CGameState()
 {
 }
 
-void GameState::init()
+std::vector<CSprite*>sprites;
+
+
+void CGameState::init()
 {
-	Sprite* sprite = gSys->pSpriteRenderer->addSprite(128, 128, 0, 0, 1, 1, 0);
+	new CPlayer;
 	camera.setPosition(glm::vec2(540, 0));
 }
 
-void GameState::render()
+void CGameState::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glUseProgram(shader.getProgram());
 	shader.setMatrix(camera.getCombined());
 	gSys->pSpriteRenderer->renderSprites();
+	for(auto s : sprites)
+		s->m_rotation += 0.01;
 	glUseProgram(0);
-
 }
 
-void GameState::update(float dt)
+void CGameState::update(float dt)
 {
 
 }
 
-void GameState::enter()
+void CGameState::enter()
 {
 
 }
 
-void GameState::exit()
+void CGameState::exit()
 {
 
 }

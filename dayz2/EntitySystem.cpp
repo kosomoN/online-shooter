@@ -1,6 +1,7 @@
 #include "EntitySystem.h"
 #include "Player.h"
 
+
 CEntitySystem::~CEntitySystem()
 {
 	for (IEntity* e : m_entityContainer)
@@ -18,5 +19,5 @@ void CEntitySystem::update()
 void CEntitySystem::registerEntity(IEntity* obj)
 {
 	m_entityContainer.push_back(obj);
-	float a;
+	obj->init();
 }

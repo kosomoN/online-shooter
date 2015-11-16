@@ -70,7 +70,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Bottom left'
 	glm::vec2 p = glm::vec2(x, y);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -84,7 +84,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -98,7 +98,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -115,7 +115,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -129,7 +129,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -143,7 +143,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top right
 	p = glm::vec2(x + width, y + height);
-	CalcPoint(width / 2, height / 2, rotation, p);
+	CalcPoint(x+width / 2, y+height / 2, rotation, p);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 

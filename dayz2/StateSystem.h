@@ -2,11 +2,11 @@
 
 #include "IState.h"
 
-class StateSystem
+class CStateSystem
 {
 public:
-	StateSystem() {};
-	~StateSystem() {};
+	CStateSystem() {};
+	~CStateSystem() {};
 
 	void enterState(IState* pState);
 	IState* getCurrentState() { return m_pCurrentState; }

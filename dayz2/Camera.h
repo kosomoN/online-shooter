@@ -2,11 +2,11 @@
 
 #include <glm/glm.hpp>
 
-class Camera
+class CCamera
 {
 public:
-	Camera(int width, int height);
-	~Camera();
+	CCamera(int width, int height);
+	~CCamera();
 
 	void resize(int width, int height);
 	void setPosition(const glm::vec2& pos);

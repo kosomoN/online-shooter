@@ -4,11 +4,11 @@
 #include <string>
 #include <glm/glm.hpp>
 
-class Shader
+class CShader
 {
 public:
-	Shader(std::string filePath);
-	~Shader();
+	CShader(std::string filePath);
+	~CShader();
 
 	GLuint getProgram() { return program; }
 	void setMatrix(const glm::mat4& matrix);

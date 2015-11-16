@@ -8,24 +8,24 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <Windows.h>
 
-Shader::Shader(std::string filePath)
+CShader::CShader(std::string filePath)
 {
 	loadShader(filePath);
 	glUseProgram(program);
 	mvpLocation = glGetUniformLocation(program, "mvp");
 }
 
-Shader::~Shader()
+CShader::~CShader()
 {
 	glDeleteProgram(program);
 }
 
-void Shader::setMatrix(const glm::mat4 & matrix)
+void CShader::setMatrix(const glm::mat4 & matrix)
 {
 	glUniformMatrix4fv(mvpLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void Shader::loadShader(std::string filePath)
+void CShader::loadShader(std::string filePath)
 {
 	std::ifstream fileStream(filePath);
 

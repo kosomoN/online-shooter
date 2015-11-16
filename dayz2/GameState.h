@@ -5,10 +5,10 @@
 #include <string>
 #include "Camera.h"
 
-class GameState : public IState
+class CGameState : public IState
 {
 public:
-	~GameState();
+	~CGameState();
 	
 	void init();
 	void render();
@@ -17,7 +17,7 @@ public:
 	void exit();
 
 private:
-	Shader shader = Shader("data/basic.glsl");
-	Camera camera = Camera(1280, 720);
+	CShader shader = CShader("data/basic.glsl");
+	CCamera camera = CCamera(1280, 720);
 };
 

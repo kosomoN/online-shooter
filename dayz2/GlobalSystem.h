@@ -20,9 +20,9 @@ public:
 	CWindowSystem* pWindowSystem;
 	CEntitySystem* pEntitySystem;
 	CInput* pInput;
-	SpriteBatch* pSpriteBatch;
-	StateSystem* pStateSystem;
-	SpriteRenderer* pSpriteRenderer;
+	CSpriteBatch* pSpriteBatch;
+	CStateSystem* pStateSystem;
+	CSpriteRenderer* pSpriteRenderer;
 
 	void log(string);
 private:

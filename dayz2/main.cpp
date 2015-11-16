@@ -22,7 +22,7 @@ void CMain::init()
 	gSys = new CGlobalSystem;
 	gSys->init();
 
-	GameState* gameState = new GameState();
+	CGameState* gameState = new CGameState();
 	gameState->init();
 	gSys->pStateSystem->enterState(gameState);
 	
