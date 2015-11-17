@@ -31,7 +31,7 @@ void CGameState::render()
 
 void CGameState::update(float dt)
 {
-
+	gSys->pClient->update();
 }
 
 void CGameState::enter()
