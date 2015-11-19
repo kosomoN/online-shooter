@@ -9,6 +9,8 @@ struct IEntity
 	
 	virtual void setPosition(const glm::vec2& pos) { m_pos = pos; }
 	virtual const glm::vec2& getPosition() { return m_pos; }
-private:
+	virtual uint32_t getID() { return m_id; }
+protected:
 	glm::vec2 m_pos;
+	uint32_t m_id;
 };

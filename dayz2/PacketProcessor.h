@@ -1,6 +1,7 @@
 #pragma once
 
 #include <enet/enet.h>
+#include <cstdint>
 
 class CPacketProcessor
 {
@@ -9,5 +10,11 @@ public:
 	~CPacketProcessor() {}
 
 	void packetReceived(ENetEvent& event);
+
+	
+};
+
+struct PacketTypes
+{
 };
 

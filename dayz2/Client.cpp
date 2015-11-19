@@ -24,10 +24,12 @@ void CClient::update()
 		case ENET_EVENT_TYPE_RECEIVE:
 			packetProcessor.packetReceived(event);
 			enet_packet_destroy(event.packet);
+			break;
 		case ENET_EVENT_TYPE_DISCONNECT:
 			gSys->log("Disconnected from host");
 			//TODO Add proper shutdown
 			exit(1);
+			break;
 		} 
 	} 
 }

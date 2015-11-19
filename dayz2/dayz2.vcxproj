@@ -92,6 +92,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/FS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -166,6 +167,7 @@
     <ClCompile Include="WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ByteDecoder.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EntitySystem.h" />

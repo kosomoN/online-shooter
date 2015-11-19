@@ -23,6 +23,42 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
+	bool shouldClose = false;
+
+	ENetEvent event;
+	while (!shouldClose)
+	{
+		while (enet_host_service(server, &event, 1000))
+		{
+			switch (event.type)
+			{
+			case ENET_EVENT_TYPE_CONNECT:
+			{
+				printf("A new client connected from %x:%u.\n",
+					event.peer->address.host,
+					event.peer->address.port);
+
+				ENetPacket* packet = enet_packet_create("packet",
+					strlen("packet") + 1,
+					ENET_PACKET_FLAG_RELIABLE);
+				enet_peer_send(event.peer, 0, packet);
+			}
+			break;
+			case ENET_EVENT_TYPE_RECEIVE:
+				printf("A packet of length %u containing %s was received on channel %u.\n",
+					event.packet->dataLength,
+					event.packet->data,
+					event.channelID);
+				enet_packet_destroy(event.packet);
+
+				break;
+
+			case ENET_EVENT_TYPE_DISCONNECT:
+				printf("%s disconnected.\n", event.peer->data);
+			}
+		}
+	}
+
 	enet_host_destroy(server);
 	enet_deinitialize();
 }

@@ -7,9 +7,9 @@
 #include "StateSystem.h"
 #include "SpriteRenderer.h"
 #include "Client.h"
+#include <cstdint>
 
 typedef std::string string;
-typedef unsigned int uint;
 
 class CGlobalSystem
 {

@@ -1,7 +1,8 @@
 #include "Player.h"
 
-CPlayer::CPlayer()
+CPlayer::CPlayer(uint32_t id)
 {
+	m_id = id;
 	gSys->pEntitySystem->registerEntity(this);
 	gSys->pInput->addListener(this);
 

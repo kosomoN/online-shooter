@@ -158,5 +158,8 @@
     <ClInclude Include="PacketProcessor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ByteDecoder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

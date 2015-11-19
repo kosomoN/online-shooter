@@ -1,6 +1,7 @@
 #include "PacketProcessor.h"
 
-#include <iostream>
+#include <string>
+#include "GlobalSystem.h"
 
 void CPacketProcessor::packetReceived(ENetEvent & event)
 {
@@ -8,4 +9,14 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 		event.packet->dataLength,
 		event.packet->data,
 		event.channelID);
+
+	if (event.packet->dataLength > 0) {
+		//First byte is the packet type
+		switch (*(event.packet->data))
+		{
+		default:
+			fprintf(stderr, "Unknown packet type: %u", *(event.packet->data));
+			break;
+		}
+	}
 }

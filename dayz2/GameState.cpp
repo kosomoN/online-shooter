@@ -14,7 +14,7 @@ std::vector<CSprite*>sprites;
 
 void CGameState::init()
 {
-	new CPlayer;
+	new CPlayer(0);
 	camera.setPosition(glm::vec2(540, 0));
 }
 

@@ -8,7 +8,7 @@
 class CPlayer : public IActor, public IInputListener
 {
 public:
-	CPlayer();
+	CPlayer(uint32_t id);
 	~CPlayer() {};
 
 	// IActor
