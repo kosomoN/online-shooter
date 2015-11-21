@@ -8,7 +8,7 @@ CPlayer::CPlayer(uint32_t id)
 	m_y = 0;
 	m_x = 0;
 
-	m_attributes.movementSpeed = 0.01f;
+	m_attributes.movementSpeed = 1.f;
 }
 
 void CPlayer::init()

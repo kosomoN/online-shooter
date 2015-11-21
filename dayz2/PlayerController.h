@@ -12,8 +12,10 @@ public:
 
 	// IInput
 	virtual bool onInputEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
-	void updateMovement(CPlayer * pEnt);
 	//~IInput
+
+	void updateMovement(CPlayer * pEnt);
+	uint8_t& getInputSequence() { return m_inputSequence; }
 	
 private:
 	int m_xCoeff, m_yCoeff;

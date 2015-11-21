@@ -1,177 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Source Files\Game">
-      <UniqueIdentifier>{0f15e5cb-584c-41e7-b64d-1fd652a7bcc2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine">
-      <UniqueIdentifier>{271475d1-2111-4265-888a-2708d335f4fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Rendering">
-      <UniqueIdentifier>{2b601f2a-b22e-4019-97ab-e6843f6fd181}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Interfaces">
-      <UniqueIdentifier>{00fd903d-9cdf-4f66-a503-f52759d58074}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Math">
-      <UniqueIdentifier>{69989061-8edf-4580-88ce-fb9fca0e2a14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Entities">
-      <UniqueIdentifier>{b0578c7f-a313-4bc1-917e-ccfda6b33217}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Interfaces">
-      <UniqueIdentifier>{e6c046d8-ebf3-4a28-8a88-7b6ac52cc2af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Engine\Input">
-      <UniqueIdentifier>{33a3d014-ea25-4cc7-af9c-ce75851a2453}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Camera">
-      <UniqueIdentifier>{f62827ad-d67d-4916-ba4d-83f100d05e1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\States">
-      <UniqueIdentifier>{90780899-ce16-4cea-8abd-4e9142807b9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Game\Sys">
-      <UniqueIdentifier>{7a9cd4bd-b811-43f2-aa52-5503df86fcb3}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowSystem.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="GlobalSystem.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="EntitySystem.cpp">
-      <Filter>Source Files\Game\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Game\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files\Engine\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteBatch.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
+    <ClCompile Include="PacketProcessor.cpp">
+      <Filter>Engine\Net stuff</Filter>
     </ClCompile>
     <ClCompile Include="lodepng.cpp">
-      <Filter>Source Files\Engine\Rendering</Filter>
+      <Filter>Engine\Util</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\Game\Camera</Filter>
+    <ClCompile Include="EntitySystem.cpp">
+      <Filter>Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalSystem.cpp">
+      <Filter>Engine\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Engine\Net stuff</Filter>
     </ClCompile>
     <ClCompile Include="GameState.cpp">
-      <Filter>Source Files\Game\States</Filter>
+      <Filter>Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteBatch.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Engine\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="StateSystem.cpp">
-      <Filter>Source Files\Game\States</Filter>
+      <Filter>Engine\Systems</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Source Files\Game\Sys</Filter>
-=======
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PacketProcessor.cpp">
-      <Filter>Source Files</Filter>
->>>>>>> 3b32d9c8b17e06926d2de195ace1c83b090d47ba
+    <ClCompile Include="WindowSystem.cpp">
+      <Filter>Engine\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GlobalSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Source Files\Engine\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="IActor.h">
-      <Filter>Source Files\Game\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="EntitySystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteBatch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IInputListener.h">
-      <Filter>Source Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IEntity.h">
-      <Filter>Source Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lodepng.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StateSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IState.h">
-      <Filter>Source Files\Engine\Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="GameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-<<<<<<< HEAD
-    <ClInclude Include="PlayerController.h">
-=======
-    <ClInclude Include="Client.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ByteDecoder.h">
+      <Filter>Engine\Net stuff</Filter>
     </ClInclude>
     <ClInclude Include="PacketProcessor.h">
-      <Filter>Header Files</Filter>
+      <Filter>Engine\Net stuff</Filter>
     </ClInclude>
-    <ClInclude Include="ByteDecoder.h">
->>>>>>> 3b32d9c8b17e06926d2de195ace1c83b090d47ba
-      <Filter>Header Files</Filter>
+    <ClInclude Include="lodepng.h">
+      <Filter>Engine\Util</Filter>
     </ClInclude>
+    <ClInclude Include="EntitySystem.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalSystem.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="IActor.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IEntity.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputListener.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="IState.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Engine\Net stuff</Filter>
+    </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteBatch.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="StateSystem.h">
+      <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Vec2.h">
+      <Filter>Engine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSystem.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{7b88915c-b35e-49df-a7dc-19ce3b38384f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{28c48520-70da-4d84-a3b2-ea997f505a8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Net stuff">
+      <UniqueIdentifier>{fb54b009-69aa-44c4-8f72-5d5ea9ede439}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Rendering">
+      <UniqueIdentifier>{902648b9-430d-46a0-b43d-c51f30532b5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Systems">
+      <UniqueIdentifier>{e78a8660-b665-4337-ac09-96818d4e67f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Util">
+      <UniqueIdentifier>{a9bb77cb-7075-4907-b470-7d89eed7311a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interfaces">
+      <UniqueIdentifier>{bed90295-42c9-4ec8-b9fd-8f8383ca124b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{232b9ec4-7d79-4c91-bdd2-a7f80818cf2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\States">
+      <UniqueIdentifier>{cb755b49-4798-40d1-8e3e-ef81ff9d3641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Camera">
+      <UniqueIdentifier>{9d731ea9-1339-4168-84dc-dc2127940a6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Entities">
+      <UniqueIdentifier>{6b6314b8-640e-45d7-9c68-1b0a93f2c339}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

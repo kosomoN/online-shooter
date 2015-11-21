@@ -3,7 +3,6 @@
 #include "GlobalSystem.h"
 #include "lodepng.h"
 #include <vector>
-#include "Player.h"
 
 CGameState::~CGameState()
 {
@@ -14,7 +13,7 @@ std::vector<CSprite*>sprites;
 
 void CGameState::init()
 {
-	new CPlayer(0);
+	m_pClientPlayer = new CPlayer(0);
 	camera.setPosition(glm::vec2(540, 0));
 }
 
@@ -32,6 +31,7 @@ void CGameState::render()
 void CGameState::update(float dt)
 {
 	gSys->pClient->update();
+	gSys->pPlayerController->updateMovement(m_pClientPlayer);
 }
 
 void CGameState::enter()
