@@ -6,6 +6,7 @@
 #include "SpriteBatch.h"
 #include "StateSystem.h"
 #include "SpriteRenderer.h"
+#include "PlayerController.h"
 
 typedef std::string string;
 typedef unsigned int uint;
@@ -23,6 +24,7 @@ public:
 	CSpriteBatch* pSpriteBatch;
 	CStateSystem* pStateSystem;
 	CSpriteRenderer* pSpriteRenderer;
+	CPlayerController* pPlayerController;
 
 	void log(string);
 private:

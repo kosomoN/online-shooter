@@ -43,6 +43,9 @@
     <Filter Include="Source Files\Game\States">
       <UniqueIdentifier>{90780899-ce16-4cea-8abd-4e9142807b9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Sys">
+      <UniqueIdentifier>{7a9cd4bd-b811-43f2-aa52-5503df86fcb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +89,9 @@
     </ClCompile>
     <ClCompile Include="StateSystem.cpp">
       <Filter>Source Files\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerController.cpp">
+      <Filter>Source Files\Game\Sys</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +150,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

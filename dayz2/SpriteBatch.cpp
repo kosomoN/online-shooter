@@ -67,10 +67,14 @@ void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
 void CSpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation)
 {
 	m_vertices += 6;
+	
+	float cosTheta = cos(rotation);
+	float sinTheta = sin(rotation);
+
 
 	//Bottom left'
 	glm::vec2 p = glm::vec2(x, y);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -84,7 +88,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -98,7 +102,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -115,7 +119,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -129,7 +133,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -143,7 +147,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 
 	//Top right
 	p = glm::vec2(x + width, y + height);
-	CalcPoint(x+width / 2, y+height / 2, rotation, p);
+	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
 	m_bufferData.push_back(p.x);
 	m_bufferData.push_back(p.y);
 
@@ -161,16 +165,13 @@ void CSpriteBatch::draw(CSprite* pSprite)
 	draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation);
 }
 
-void CSpriteBatch::CalcPoint(float cx, float cy, float rot, glm::vec2& point)
+void CSpriteBatch::calcPoint(float cx, float cy, float rot, glm::vec2& point, float cos, float sin)
 {
-	float cosTheta = cos(rot);
-	float sinTheta = sin(rot);
-
 	point.x -= cx;
 	point.y -= cy;
 
-	float x = point.x * cosTheta - point.y * sinTheta;
-	float y = point.x * sinTheta + point.y * cosTheta;
+	float x = point.x * cos - point.y * sin;
+	float y = point.x * sin + point.y * cos;
 
 	point.x = x + cx;
 	point.y = y + cy;

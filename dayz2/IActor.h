@@ -8,7 +8,7 @@ struct Attributes
 
 struct IActor : IEntity
 {
-	Attributes& getAttributes() { return attributes; };
+	virtual Attributes& getAttributes() { return attributes; };
 
 private:
 	Attributes attributes;

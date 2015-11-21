@@ -8,12 +8,14 @@ CGlobalSystem::~CGlobalSystem()
 	delete pEntitySystem;
 	delete pInput;
 	delete pSpriteRenderer;
+	delete pPlayerController;
 }
 
 void CGlobalSystem::init()
 {
 	pEntitySystem = new CEntitySystem;
 	pInput = new CInput;
+	pPlayerController = new CPlayerController;
 	pWindowSystem = new CWindowSystem;
 	pWindowSystem->init(1280, 720);
 	pSpriteBatch = new CSpriteBatch(256);

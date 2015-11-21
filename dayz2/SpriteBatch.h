@@ -16,10 +16,10 @@ public:
 	void end();
 	void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation);
 	void draw(CSprite* pSprite);
-	void CalcPoint(float cx, float cy, float rot, glm::vec2& point);
 	void setColor(float r, float g, float b, float a);
 	GLuint getCurrentTexture() { return  m_currentTexture; }
 private:
+	void calcPoint(float cx, float cy, float rot, glm::vec2& point, float cos, float sin);
 	int m_vertices;
 	std::vector<GLfloat> m_bufferData;
 	float m_r = 1, m_g = 1, m_b = 1, m_a = 1;

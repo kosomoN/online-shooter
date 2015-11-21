@@ -4,8 +4,9 @@
 #include "GlobalSystem.h"
 #include "IInputListener.h"
 #include <glm\vec2.hpp>
+#include "PlayerController.h"
 
-class CPlayer : public IActor, public IInputListener
+class CPlayer : public IActor
 {
 public:
 	CPlayer();
@@ -14,13 +15,14 @@ public:
 	// IActor
 	virtual void init();
 	virtual void update();
+	virtual const glm::vec2& getPosition() { return m_pos; }
+	virtual void setPosition(const glm::vec2& pos) { m_pos = pos; }
+	virtual Attributes& getAttributes() { return m_attributes; };
 	// ~IActor
 
-	// IInput
-	virtual bool key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
-	// ~IInput
-
 private:
+	Attributes m_attributes;
+	glm::vec2 m_pos;
 	CSprite* m_pPlayerSprite;
 	int m_x, m_y;
 };
