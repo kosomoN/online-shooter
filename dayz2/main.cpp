@@ -1,9 +1,6 @@
 #include <GL\glew.h>
 #include <GL\GL.h>
 #include <GLFW\glfw3.h>
-#include <Windows.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include <iostream>
 #include "GlobalSystem.h"
 #include "main.h"
@@ -21,6 +18,11 @@ void CMain::init()
 {
 	gSys = new CGlobalSystem;
 	gSys->init();
+
+	ENetAddress address;
+	enet_address_set_host(&address, "localhost");
+	address.port = 12321;
+	gSys->pClient->connect(address);
 
 	CGameState* gameState = new CGameState();
 	gameState->init();

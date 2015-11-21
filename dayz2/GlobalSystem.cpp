@@ -9,6 +9,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pInput;
 	delete pSpriteRenderer;
 	delete pPlayerController;
+	delete pClient;
 }
 
 void CGlobalSystem::init()
@@ -21,6 +22,8 @@ void CGlobalSystem::init()
 	pSpriteBatch = new CSpriteBatch(256);
 	pStateSystem = new CStateSystem();
 	pSpriteRenderer = new CSpriteRenderer;
+	pClient = new CClient;
+	pClient->init();
 }
 
 void CGlobalSystem::log(string text)

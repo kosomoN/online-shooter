@@ -8,6 +8,7 @@ CInput::~CInput(){}
 void CInput::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	for (uint i = 0; i < listeners.size(); i++)
+	for (int i = 0; i < listeners.size(); i++)
 		if (listeners[i]->onInputEvent(window, key, scancode, action, mods))
 			return;
 }
@@ -19,7 +20,7 @@ void CInput::addListener(IInputListener *listener)
 
 void CInput::removeListener(const IInputListener* listener)
 {
-	for (uint i = 0; i < listeners.size(); i++)
+	for (int i = 0; i < listeners.size(); i++)
 	{
 		if (listeners[i] == listener)
 		{

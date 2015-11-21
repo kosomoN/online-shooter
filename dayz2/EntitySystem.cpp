@@ -4,20 +4,20 @@
 
 CEntitySystem::~CEntitySystem()
 {
-	for (IEntity* e : m_entityContainer)
-		delete e;
+	for (auto e : m_entityContainer)
+		delete e.second;
 }
 
 void CEntitySystem::update()
 {
-	for (IEntity* e : m_entityContainer)
+	for (auto e : m_entityContainer)
 	{
-		e->update();
+		e.second->update();
 	}
 }
 
 void CEntitySystem::registerEntity(IEntity* obj)
 {
-	m_entityContainer.push_back(obj);
+	m_entityContainer[obj->getID()] = obj;
 	obj->init();
 }

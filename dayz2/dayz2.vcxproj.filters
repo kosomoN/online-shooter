@@ -90,8 +90,16 @@
     <ClCompile Include="StateSystem.cpp">
       <Filter>Source Files\Game\States</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="PlayerController.cpp">
       <Filter>Source Files\Game\Sys</Filter>
+=======
+    <ClCompile Include="Client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketProcessor.cpp">
+      <Filter>Source Files</Filter>
+>>>>>>> 3b32d9c8b17e06926d2de195ace1c83b090d47ba
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +160,17 @@
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="PlayerController.h">
+=======
+    <ClInclude Include="Client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ByteDecoder.h">
+>>>>>>> 3b32d9c8b17e06926d2de195ace1c83b090d47ba
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

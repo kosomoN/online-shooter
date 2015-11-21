@@ -9,7 +9,7 @@
 class CPlayer : public IActor
 {
 public:
-	CPlayer();
+	CPlayer(uint32_t id);
 	~CPlayer() {};
 
 	// IActor
