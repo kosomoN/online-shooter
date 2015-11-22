@@ -3,13 +3,13 @@
 
 struct Attributes
 {
-	float health, movementSpeed;
+	uint32_t health;
+	float movementSpeed;
 };
 
 struct IActor : IEntity
 {
-	virtual Attributes& getAttributes() { return attributes; };
-
-private:
-	Attributes attributes;
+	virtual Attributes& getAttributes() { return m_attributes; };
+protected:
+	Attributes m_attributes;
 };
