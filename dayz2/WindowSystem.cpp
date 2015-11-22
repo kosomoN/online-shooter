@@ -1,6 +1,5 @@
 #include "WindowSystem.h"
 #include "GlobalSystem.h"
-#include <stdlib.h>
 #include <stdio.h>
 #include "Player.h"
 

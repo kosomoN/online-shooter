@@ -1,5 +1,4 @@
 #pragma once
-#include "WindowSystem.h"
 #include "EntitySystem.h"
 #include "Input.h"
 #include <string>
@@ -9,6 +8,7 @@
 #include "PlayerController.h"
 #include "Client.h"
 #include <cstdint>
+#include "WindowSystem.h"
 
 typedef std::string string;
 typedef unsigned int uint;

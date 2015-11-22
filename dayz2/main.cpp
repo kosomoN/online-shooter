@@ -1,7 +1,3 @@
-#include <GL\glew.h>
-#include <GL\GL.h>
-#include <GLFW\glfw3.h>
-#include <iostream>
 #include "GlobalSystem.h"
 #include "main.h"
 #include "GameState.h"
@@ -28,7 +24,7 @@ void CMain::init()
 	gameState->init();
 	gSys->pStateSystem->enterState(gameState);
 	
-	float dt, lastTime = glfwGetTime();
+	double dt, lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
 	{
 		gSys->pWindowSystem->updateWindow();

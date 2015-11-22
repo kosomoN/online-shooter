@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <vector>
 #include "Sprite.h"
 
@@ -14,7 +13,7 @@ public:
 	~CSpriteBatch();
 	void begin(GLuint texture);
 	void end();
-	void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation);
+	void draw(float x, float y, int width, int height, float u1, float v1, float u2, float v2, float rotation);
 	void draw(CSprite* pSprite);
 	void setColor(float r, float g, float b, float a);
 	GLuint getCurrentTexture() { return  m_currentTexture; }

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <GLFW\glfw3.h>
 #include <glm/gtc/type_ptr.hpp>
 
 CShader::CShader(std::string filePath)
