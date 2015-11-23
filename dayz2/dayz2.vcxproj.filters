@@ -52,6 +52,9 @@
     <ClCompile Include="WindowSystem.cpp">
       <Filter>Engine\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="IActor.cpp">
+      <Filter>Interfaces</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">

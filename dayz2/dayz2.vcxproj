@@ -154,6 +154,7 @@
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GlobalSystem.cpp" />
+    <ClCompile Include="IActor.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />

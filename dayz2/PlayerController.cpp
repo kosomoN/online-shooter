@@ -68,10 +68,10 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 	return false;
 }
 
-void CPlayerController::updateMovement(CPlayer* pPlayer)
+void CPlayerController::updateMovement()
 {
-	float velocityY = m_yCoeff * pPlayer->getAttributes().movementSpeed;
-	float velocityX = m_xCoeff * pPlayer->getAttributes().movementSpeed;
-	if (pPlayer != nullptr)
-		pPlayer->setPosition(pPlayer->getPosition() + glm::vec2(velocityX,velocityY));
+	float velocityY = m_yCoeff * gSys->pPlayer->getAttributes().movementSpeed;
+	float velocityX = m_xCoeff * gSys->pPlayer->getAttributes().movementSpeed;
+	if (gSys->pPlayer != nullptr)
+		gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + glm::vec2(velocityX,velocityY));
 }

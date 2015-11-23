@@ -14,7 +14,7 @@ public:
 	virtual bool onInputEvent(GLFWwindow* window, int key, int scancode, int action, int mods);
 	//~IInput
 
-	void updateMovement(CPlayer * pEnt);
+	void updateMovement();
 	uint8_t& getInputSequence() { return m_inputSequence; }
 	
 private:

@@ -8,13 +8,10 @@ CGameState::~CGameState()
 {
 }
 
-std::vector<CSprite*>sprites;
-
-
 void CGameState::init()
 {
-	m_pClientPlayer = new CPlayer(0);
-	camera.setPosition(glm::vec2(540, 0));
+	gSys->pPlayer = new CPlayer(0);
+	new CPlayer(1);
 }
 
 void CGameState::render()
@@ -23,15 +20,14 @@ void CGameState::render()
 	glUseProgram(shader.getProgram());
 	shader.setMatrix(camera.getCombined());
 	gSys->pSpriteRenderer->renderSprites();
-	for(auto s : sprites)
-		s->m_rotation += 0.01;
 	glUseProgram(0);
 }
 
 void CGameState::update(float dt)
 {
 	gSys->pClient->update();
-	gSys->pPlayerController->updateMovement(m_pClientPlayer);
+	gSys->pPlayerController->updateMovement();
+	gSys->pEntitySystem->update();
 }
 
 void CGameState::enter()

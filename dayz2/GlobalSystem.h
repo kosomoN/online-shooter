@@ -11,7 +11,6 @@
 #include "WindowSystem.h"
 
 typedef std::string string;
-typedef unsigned int uint;
 
 class CGlobalSystem
 {
@@ -28,6 +27,7 @@ public:
 	CSpriteRenderer* pSpriteRenderer;
 	CPlayerController* pPlayerController;
 	CClient* pClient;
+	CPlayer* pPlayer;
 
 	void log(string);
 private:

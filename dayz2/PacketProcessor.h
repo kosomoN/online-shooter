@@ -16,5 +16,6 @@ public:
 
 struct PacketTypes
 {
+	static const uint8_t ENTITY_UPDATE = 0x11;
 };
 

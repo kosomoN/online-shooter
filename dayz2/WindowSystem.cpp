@@ -37,8 +37,6 @@ void CWindowSystem::init(int x, int y)
 
 void CWindowSystem::updateWindow()
 {
-	if(gSys->pEntitySystem != nullptr)
-		gSys->pEntitySystem->update();
 	glfwSwapBuffers(m_pWin);
 	glfwPollEvents();
 }

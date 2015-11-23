@@ -14,12 +14,19 @@ CPlayer::CPlayer(uint32_t id)
 void CPlayer::init()
 {
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, 0);
-	m_pPlayerSprite->m_pos = glm::vec2(200, 200);
-	m_pPlayerSprite->m_rotation = 1;
 }
 
 void CPlayer::update()
 {
-	m_pPlayerSprite->m_rotation += 0.01;
 	m_pPlayerSprite->m_pos = m_pos;
+	printf("X: %f \n", m_pos.x);
+}
+
+void CPlayer::parsePacket(uint8_t * data, unsigned int length)
+{
+	//Process other players differently
+	if (this != gSys->pPlayer)
+	{
+		IActor::parsePacket(data, length);
+	}
 }

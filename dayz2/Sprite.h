@@ -11,7 +11,7 @@ class CSprite
         ~CSprite() {}
 
         glm::vec2 m_pos;
-        float m_rotation;
+        float m_rotation = 0;
         float m_u1, m_u2, m_v1, m_v2;
         int m_width, m_height;
         GLuint m_texture;
