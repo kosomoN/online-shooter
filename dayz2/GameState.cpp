@@ -27,9 +27,13 @@ void CGameState::render()
 void CGameState::update(float dt)
 {
 	gSys->pClient->update();
+	gSys->pPlayerController->sendInput();
+
 	gSys->pPlayerController->updateMovement();
 	gSys->pEntitySystem->update();
 	gSys->pConsole->update();
+
+	enet_host_flush(gSys->pClient->client);
 }
 
 void CGameState::enter()

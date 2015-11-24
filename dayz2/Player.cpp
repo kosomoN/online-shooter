@@ -21,8 +21,6 @@ void CPlayer::init()
 void CPlayer::update()
 {
 	m_pPlayerSprite->m_pos = m_pos;
-	m_pPlayerSprite->m_rotation = m_pos.x / 100;
-	//printf("X: %f \n", m_pos.x);
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length)

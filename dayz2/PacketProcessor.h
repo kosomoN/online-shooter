@@ -17,5 +17,7 @@ public:
 struct PacketTypes
 {
 	static const uint8_t ENTITY_UPDATE = 0x11;
+
+	static const uint8_t INPUT_UPDATE = 0x20;
 };
 

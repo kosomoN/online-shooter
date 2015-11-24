@@ -38,7 +38,7 @@ bool CClient::connect(ENetAddress& address)
 {
 	if (client == nullptr)
 	{
-		client = enet_host_create(nullptr, 1, 1, 0, 0);
+		client = enet_host_create(nullptr, 1, MAX_CHANNELS, 0, 0);
 
 		if (client == nullptr)
 		{
@@ -48,7 +48,7 @@ bool CClient::connect(ENetAddress& address)
 		}
 	}
 
-	peer = enet_host_connect(client, &address, 1, 0);
+	peer = enet_host_connect(client, &address, MAX_CHANNELS, 0);
 
 	if (peer == nullptr)
 	{
