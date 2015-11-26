@@ -2,6 +2,7 @@
 
 #include "GlobalSystem.h"
 #include "lodepng.h"
+#include "Console.h"
 #include <vector>
 
 CGameState::~CGameState()
@@ -28,6 +29,7 @@ void CGameState::update(float dt)
 	gSys->pClient->update();
 	gSys->pPlayerController->updateMovement();
 	gSys->pEntitySystem->update();
+	gSys->pConsole->update();
 }
 
 void CGameState::enter()

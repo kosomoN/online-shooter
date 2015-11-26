@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Console.h"
 
 CPlayer::CPlayer(uint32_t id)
 {
@@ -8,18 +9,20 @@ CPlayer::CPlayer(uint32_t id)
 	m_y = 0;
 	m_x = 0;
 
-	m_attributes.movementSpeed = 1.f;
+	m_attributes.movementSpeed = 10.f;
+	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
 }
 
 void CPlayer::init()
 {
-	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, 0);
+	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/test.png");
 }
 
 void CPlayer::update()
 {
 	m_pPlayerSprite->m_pos = m_pos;
-	printf("X: %f \n", m_pos.x);
+	m_pPlayerSprite->m_rotation = m_pos.x / 100;
+	//printf("X: %f \n", m_pos.x);
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length)

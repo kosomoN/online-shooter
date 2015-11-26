@@ -17,9 +17,8 @@ public:
 	void enter();
 	void exit();
 	CPlayer* getClientPlayer() { return m_pClientPlayer; }
-
-private:
 	CShader shader = CShader("data/basic.glsl");
+private:
 	CCamera camera = CCamera(1280, 720);
 	CPlayer* m_pClientPlayer;
 };

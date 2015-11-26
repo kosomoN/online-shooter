@@ -1,4 +1,6 @@
 #include "GlobalSystem.h"
+#include "Console.h"
+
 
 CGlobalSystem::~CGlobalSystem()
 {
@@ -10,6 +12,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pSpriteRenderer;
 	delete pPlayerController;
 	delete pClient;
+	delete pConsole;
 }
 
 void CGlobalSystem::init()
@@ -23,6 +26,7 @@ void CGlobalSystem::init()
 	pStateSystem = new CStateSystem();
 	pSpriteRenderer = new CSpriteRenderer;
 	pClient = new CClient;
+	pConsole = new CConsole;
 	pClient->init();
 }
 

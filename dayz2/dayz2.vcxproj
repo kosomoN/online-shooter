@@ -162,6 +162,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Console.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="EntitySystem.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalSystem.h" />
+    <ClInclude Include="Console.h" />
     <ClInclude Include="IActor.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="IInputListener.h" />
@@ -192,6 +194,9 @@
     <ClInclude Include="StateSystem.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\basic.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

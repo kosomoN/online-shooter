@@ -55,6 +55,9 @@
     <ClCompile Include="IActor.cpp">
       <Filter>Interfaces</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>Engine\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -126,6 +129,9 @@
     <ClInclude Include="WindowSystem.h">
       <Filter>Engine\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>Engine\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -161,5 +167,10 @@
     <Filter Include="Game\Entities">
       <UniqueIdentifier>{6b6314b8-640e-45d7-9c68-1b0a93f2c339}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data\basic.glsl">
+      <Filter>Engine\Rendering</Filter>
+    </None>
   </ItemGroup>
 </Project>

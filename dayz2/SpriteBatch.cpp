@@ -1,4 +1,6 @@
 #include "SpriteBatch.h"
+#include "GlobalSystem.h"
+#include "GameState.h"
 
 CSpriteBatch::CSpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 * maxSprites)
 {
@@ -29,8 +31,9 @@ void CSpriteBatch::end()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * ELEMENTS_PER_VERTEX * m_vertices, m_bufferData.data());
 
 	//Bind diffuse
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, m_currentTexture);
+	glUniform1i(glGetUniformLocation(static_cast<CGameState*>(gSys->pStateSystem->getCurrentState())->shader.getProgram(), "u_textureSampler"), 1);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -38,8 +41,8 @@ void CSpriteBatch::end()
 
 	//Position, uv, color
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * ELEMENTS_PER_VERTEX, 0);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * ELEMENTS_PER_VERTEX, reinterpret_cast<void*>(sizeof(GLfloat) * 3));
-	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * ELEMENTS_PER_VERTEX, reinterpret_cast<void*>(sizeof(GLfloat) * 5));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * ELEMENTS_PER_VERTEX, reinterpret_cast<void*>(sizeof(GLfloat) * 2));
+	glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * ELEMENTS_PER_VERTEX, reinterpret_cast<void*>(sizeof(GLfloat) * 4));
 
 	glDrawArrays(GL_TRIANGLES, 0, m_vertices);
 

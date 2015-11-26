@@ -9,6 +9,7 @@
 #include "Client.h"
 #include <cstdint>
 #include "WindowSystem.h"
+class CConsole;
 
 typedef std::string string;
 
@@ -28,6 +29,7 @@ public:
 	CPlayerController* pPlayerController;
 	CClient* pClient;
 	CPlayer* pPlayer;
+	CConsole* pConsole;
 
 	void log(string);
 private:
