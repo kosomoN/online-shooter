@@ -87,7 +87,7 @@ void CPlayerController::sendInput()
 	{
 		packetData[1] = m_inputSequence;
 		ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
-		enet_peer_send(gSys->pClient->peer, INPUT_CHANNEL, packet);
+		enet_peer_send(gSys->pClient->peer, SNAPSHOT_CHANNEL, packet);
 		hasChanged = false;
 		lastSendTime = glfwGetTime();
 	}

@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "GlobalSystem.h"
+#include "ByteDecoder.h"
+#include "Player.h"
 
 CClient::CClient()
 {
@@ -62,6 +64,22 @@ bool CClient::connect(ENetAddress& address)
 		event.type == ENET_EVENT_TYPE_CONNECT)
 	{
 		gSys->log("Connected to server");
+		while (enet_host_service(client, &event, 1000))
+		{
+			switch(event.type)
+			{
+			case ENET_EVENT_TYPE_RECEIVE:
+				if (event.packet->dataLength >= 5 && *(event.packet->data) == PacketTypes::CONNECTION_ACCEPTED)
+				{
+					gSys->pPlayer = new CPlayer(readUint32(event.packet->data + 1));
+					return true;
+				}
+				break;
+			case ENET_EVENT_TYPE_DISCONNECT:
+				return false;
+				break;
+			}
+		}
 		return true;
 	}
 

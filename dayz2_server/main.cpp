@@ -1,5 +1,14 @@
 #include <iostream>
 #include <enet/enet.h>
+#include "Player.h"
+#include "Client.h"
+#include <chrono>
+#include "dayz2/NetworkConstants.h"
+#include <vector>
+
+typedef std::chrono::high_resolution_clock Clock;
+
+#define TICK_RATE 20
 
 int main(void)
 {
@@ -15,22 +24,37 @@ int main(void)
 	address.host = ENET_HOST_ANY;
 	address.port = 12321;
 
-	server = enet_host_create(&address, 32, 1, 0, 0);
+	server = enet_host_create(&address, 32, MAX_CHANNELS, 0, 0);
 	if (server == NULL)
 	{
 		fprintf(stderr,
 			"An error occurred while trying to create an ENet server host.\n");
 		exit(EXIT_FAILURE);
 	}
+	
+	std::vector<ServerClient> clientList;
+
+	uint32_t nextEntID = 0;
 
 	bool shouldClose = false;
 	
-	float x = 1.0f, y = 1.0f;
-	int t = 0;
 	ENetEvent event;
+	auto lastTime = Clock::now();
 	while (!shouldClose)
 	{
-		while (enet_host_service(server, &event, 100))
+		lastTime = Clock::now();
+
+
+
+		long timeToWait = 1000.0 / TICK_RATE - std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - lastTime).count();
+		
+		if (timeToWait < 0)
+		{
+			timeToWait = 0;
+			std::cout << "Server overloaded" << std::endl;
+		}
+
+		while (enet_host_service(server, &event, timeToWait))
 		{
 			switch (event.type)
 			{
@@ -39,6 +63,19 @@ int main(void)
 				printf("A new client connected from %x:%u.\n",
 					event.peer->address.host,
 					event.peer->address.port);
+
+				ServerClient newClient;
+				newClient.m_pPeer = event.peer;
+				uint32_t ID = nextEntID++;
+				newClient.m_pEntity = new Player(ID);
+				clientList.push_back(newClient);
+
+				uint8_t packetData[1 + sizeof(ID)];
+				packetData[0] = PacketTypes::CONNECTION_ACCEPTED;
+				memcpy(packetData + 1, &ID, sizeof(ID));
+
+				ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
+				enet_peer_send(event.peer, COMMAND_CHANNEL, packet);
 			}
 			break;
 			case ENET_EVENT_TYPE_RECEIVE:
@@ -55,17 +92,7 @@ int main(void)
 			}
 		}
 		
-		t += 1;
-		x = cos(t * 0.1f) * 100.f;
-		y = sin(t * 0.1f) * 100.f;
 
-		uint8_t packetData[] = { 0x11, 0x01, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f };
-		memcpy((packetData + 7), &x, sizeof(x));
-		memcpy((packetData + 11), &y, sizeof(y));
-		ENetPacket* packet = enet_packet_create(packetData,
-			sizeof(packetData),
-			ENET_PACKET_FLAG_RELIABLE);
-		enet_host_broadcast(server, 0, packet);
 	}
 
 	enet_host_destroy(server);

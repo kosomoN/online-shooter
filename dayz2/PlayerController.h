@@ -3,6 +3,7 @@
 #include "IInputListener.h"
 #include <glm\vec2.hpp>
 #include "PacketProcessor.h"
+#include "NetworkConstants.h"
 
 class CPlayer;
 

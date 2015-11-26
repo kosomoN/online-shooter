@@ -134,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="TextureCache.h">
       <Filter>Engine\Rendering</Filter>
+	</ClInclude>
+    <ClInclude Include="NetworkConstants.h">
+      <Filter>Engine\Net stuff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

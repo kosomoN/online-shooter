@@ -18,7 +18,11 @@ void CMain::init()
 	ENetAddress address;
 	enet_address_set_host(&address, "localhost");
 	address.port = 12321;
-	gSys->pClient->connect(address);
+	if (!gSys->pClient->connect(address))
+	{
+		gSys->log("Could not connect");
+		return;
+	}
 
 	CGameState* gameState = new CGameState();
 	gameState->init();

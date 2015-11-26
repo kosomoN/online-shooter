@@ -184,6 +184,7 @@
     <ClInclude Include="IState.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="NetworkConstants.h" />
     <ClInclude Include="PacketProcessor.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerController.h" />
