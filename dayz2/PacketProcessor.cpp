@@ -67,6 +67,14 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			entity->parsePacket(event.packet->data + index, payloadSize);
 		}
 		break;
+		case PacketTypes::ENTITY_DELETE:
+		{
+			if(IEntity* pEntity = gSys->pEntitySystem->getEntity(readUint32(event.packet->data + 1)))
+			{
+				gSys->pEntitySystem->deleteEntity(pEntity);
+			}
+		}
+		break;
 		default:
 			fprintf(stderr, "Unknown packet type: %u", *(event.packet->data));
 			break;

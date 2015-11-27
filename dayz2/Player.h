@@ -10,15 +10,17 @@ class CPlayer : public IActor
 {
 public:
 	CPlayer(uint32_t id);
-	~CPlayer() {};
+	virtual ~CPlayer() { 
+		gSys->pSpriteRenderer->removeSprite(m_pPlayerSprite);
+	};
 
 	// IActor
 	virtual void init();
 	virtual void update();
 	virtual void parsePacket(uint8_t* data, unsigned int length);
 	// ~IActor
+	CSprite* m_pPlayerSprite;
 
 private:
-	CSprite* m_pPlayerSprite;
 	int m_x, m_y;
 };

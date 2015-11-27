@@ -11,13 +11,12 @@ CPlayer::CPlayer(uint32_t id)
 	m_y = 0;
 	m_x = 0;
 
-	m_attributes.movementSpeed = 10.f;
 	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
 }
 
 void CPlayer::init()
 {
-	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/test.png");
+	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/survivor.png");
 }
 
 void CPlayer::update()
@@ -41,7 +40,7 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length)
 			float diff = (serverPos.x - m_pos.x) * (serverPos.x - m_pos.x)
 				+ (serverPos.y - m_pos.y) * (serverPos.y - m_pos.y);
 			
-			gSys->log(std::to_string(diff));
+			//gSys->log(std::to_string(diff));
 
 			//TODO Lerp small differences
 			if (diff > 10 * 10)

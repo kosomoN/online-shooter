@@ -27,7 +27,7 @@ void CGameState::update(float dt)
 	gSys->pClient->update();
 	gSys->pPlayerController->sendInput();
 
-	gSys->pPlayerController->updateMovement();
+	gSys->pPlayerController->updateMovement(dt);
 	gSys->pEntitySystem->update();
 	gSys->pConsole->update();
 

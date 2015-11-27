@@ -9,7 +9,7 @@ class CSprite
     public:
 		CSprite(int width, int height, float u1, float v1, float u2, float v2, GLuint texid)
 			: m_width(width), m_height(height), m_u1(u1), m_v1(v1), m_u2(u2), m_v2(v2), m_texture(texid){}
-		~CSprite() { glDeleteTextures(1, &m_texture); }
+		virtual ~CSprite() {}
 
         glm::vec2 m_pos;
         float m_rotation = 0;

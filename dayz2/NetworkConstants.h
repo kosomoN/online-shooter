@@ -17,6 +17,7 @@ struct PacketTypes
 
 	static const uint8_t ENTITY_CREATE = 0x10;
 	static const uint8_t ENTITY_UPDATE = 0x11;
+	static const uint8_t ENTITY_DELETE = 0x12;
 
 	static const uint8_t INPUT_UPDATE = 0x20;
 };

@@ -53,21 +53,27 @@ int main(void)
 		if (accumulatedTicks >= 1)
 		{
 			for (IEntity* ent : entityList)
-				ent->update(TICK_LENGTH);
+			{
+				if (ent != nullptr)
+					ent->update(TICK_LENGTH);
+			}
 			accumulatedTicks--;
 
 			packetBuffer[0] = PacketTypes::ENTITY_UPDATE;
 			int packetIndex = 1;
 			for (IEntity* ent : entityList)
 			{
-				//TODO RESTRICT PACKET SIZE!!
-				memcpy((packetBuffer + packetIndex), &ent->m_id, sizeof(ent->m_id));
-				packetIndex += sizeof(ent->m_id);
-				uint16_t serializedSize = ent->serializedSize();
-				memcpy((packetBuffer + packetIndex), &serializedSize, sizeof(serializedSize));
-				packetIndex += sizeof(serializedSize);
-				ent->serialize(packetBuffer + packetIndex);
-				packetIndex += serializedSize;
+				if (ent != nullptr)
+				{
+					//TODO RESTRICT PACKET SIZE!!
+					memcpy((packetBuffer + packetIndex), &ent->m_id, sizeof(ent->m_id));
+					packetIndex += sizeof(ent->m_id);
+					uint16_t serializedSize = ent->serializedSize();
+					memcpy((packetBuffer + packetIndex), &serializedSize, sizeof(serializedSize));
+					packetIndex += sizeof(serializedSize);
+					ent->serialize(packetBuffer + packetIndex);
+					packetIndex += serializedSize;
+				}
 			}
 			ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_UNSEQUENCED);
 			enet_host_broadcast(server, SNAPSHOT_CHANNEL, packet);
@@ -105,22 +111,25 @@ int main(void)
 				//Send old entities
 				for (IEntity* ent : entityList)
 				{
-					int packetIndex = 1;
-					packetBuffer[0] = PacketTypes::ENTITY_CREATE;
-					memcpy(packetBuffer + packetIndex, &ent->m_id, sizeof(ent->m_id));
-					packetIndex += sizeof(ent->m_id);
+					if (ent != nullptr)
+					{
+						int packetIndex = 1;
+						packetBuffer[0] = PacketTypes::ENTITY_CREATE;
+						memcpy(packetBuffer + packetIndex, &ent->m_id, sizeof(ent->m_id));
+						packetIndex += sizeof(ent->m_id);
 
-					packetBuffer[packetIndex++] = ent->m_type;
+						packetBuffer[packetIndex++] = ent->m_type;
 
-					uint16_t serializedSize = ent->serializedSize();
-					memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
-					packetIndex += sizeof(serializedSize);
+						uint16_t serializedSize = ent->serializedSize();
+						memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
+						packetIndex += sizeof(serializedSize);
 
-					ent->serialize(packetBuffer + packetIndex);
-					packetIndex += serializedSize;
+						ent->serialize(packetBuffer + packetIndex);
+						packetIndex += serializedSize;
 
-					packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
-					enet_peer_send(newClient->m_pPeer, COMMAND_CHANNEL, packet);
+						packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
+						enet_peer_send(newClient->m_pPeer, COMMAND_CHANNEL, packet);
+					}
 				}
 
 				//Broadcast new player entity
@@ -159,8 +168,31 @@ int main(void)
 
 			case ENET_EVENT_TYPE_DISCONNECT:
 				printf("%s disconnected.\n", event.peer->data);
+				ENetPacket* packet;
+				for (int i = 0; i < clientList.size(); i++)
+				{
+					ServerClient* c = clientList[i];
+					if (c->m_pPeer == event.peer)
+					{
+						uint32_t entId = c->m_pEntity->m_id;
+						printf("ENT ID: %i \n", entId);
 
-				//TODO Remove client data
+						uint8_t packetData[1 + sizeof(entId)];
+						packetData[0] = PacketTypes::ENTITY_DELETE;
+						memcpy(packetData + 1, &entId, sizeof(entId));
+
+						packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
+
+						delete static_cast<IEntity*>(c->m_pEntity);
+						delete c;
+						entityList.erase(entityList.begin() + i);
+						clientList.erase(clientList.begin() + i);
+					}
+				}
+
+				// Alert each client
+				for(ServerClient* c : clientList)
+					enet_peer_send(c->m_pPeer, COMMAND_CHANNEL, packet);
 			}
 		}
 

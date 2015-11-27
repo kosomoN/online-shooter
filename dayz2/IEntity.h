@@ -4,6 +4,7 @@
 
 struct IEntity
 {
+	virtual ~IEntity() {};
 	virtual void update() {};
 	virtual void init() = 0;
 	
