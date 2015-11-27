@@ -32,7 +32,8 @@ void CMain::init()
 	while (!gSys->pWindowSystem->shouldClose())
 	{
 		gSys->pWindowSystem->updateWindow();
-		dt = float(glfwGetTime() - lastTime); 
+		dt = glfwGetTime() - lastTime;
+		lastTime = glfwGetTime();
 
 		gSys->pStateSystem->getCurrentState()->update(dt);
 		gSys->pStateSystem->getCurrentState()->render();

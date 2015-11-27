@@ -5,6 +5,11 @@
 
 #include <iostream>
 
+#define UP_KEY    0
+#define DOWN_KEY  1
+#define LEFT_KEY  2
+#define RIGHT_KEY 3
+
 CPlayerController::CPlayerController() :
 m_xCoeff(0),
 m_yCoeff(0)
@@ -70,12 +75,26 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 	return false;
 }
 
-void CPlayerController::updateMovement()
+void CPlayerController::updateMovement(double dt)
 {
-	float velocityY = m_yCoeff * gSys->pPlayer->getAttributes().movementSpeed;
-	float velocityX = m_xCoeff * gSys->pPlayer->getAttributes().movementSpeed;
+	glm::vec2 velocity = glm::vec2(0);
+
+	CPlayer* pPlayer = gSys->pPlayer;
+
+	if ((m_inputSequence >> RIGHT_KEY) & 1)
+		velocity.x += dt * pPlayer->getAttributes().movementSpeed;
+
+	if ((m_inputSequence >> LEFT_KEY) & 1)
+		velocity.x -= dt * pPlayer->getAttributes().movementSpeed;
+
+	if ((m_inputSequence >> UP_KEY) & 1)
+		velocity.y += dt * pPlayer->getAttributes().movementSpeed;
+
+	if ((m_inputSequence >> DOWN_KEY) & 1)
+		velocity.y -= dt * pPlayer->getAttributes().movementSpeed;
+
 	if (gSys->pPlayer != nullptr)
-		gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + glm::vec2(velocityX,velocityY));
+		gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + velocity);
 }
 
 void CPlayerController::sendInput()
