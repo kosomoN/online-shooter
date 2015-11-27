@@ -58,26 +58,10 @@ void CShader::loadShader(std::string filePath)
 	glShaderSource(vertShader, 1, &vertShaderSrc, NULL);
 	glCompileShader(vertShader);
 
-	glGetShaderiv(vertShader, GL_COMPILE_STATUS, &success);
-	if (!success) {
-		glGetShaderiv(vertShader, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<GLchar> vertShaderError(logLength);
-		glGetShaderInfoLog(vertShader, logLength, NULL, &vertShaderError[0]);
-		printf("Error compiling shader type %d: '%s'\n", GL_VERTEX_SHADER, vertShaderError);
-	}
-
 
 	//Fragment shader
 	glShaderSource(fragShader, 1, &fragShaderSrc, NULL);
 	glCompileShader(fragShader);
-
-	glGetShaderiv(fragShader, GL_COMPILE_STATUS, &success);
-	if (!success) {
-		glGetShaderiv(fragShader, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<GLchar> fragShaderError(logLength);
-		glGetShaderInfoLog(fragShader, logLength, NULL, &fragShaderError[0]);
-		printf("Error compiling shader type %d: '%s'\n", GL_VERTEX_SHADER, fragShaderError);
-	}
 
 	program = glCreateProgram();
 	glAttachShader(program, vertShader);
@@ -85,22 +69,15 @@ void CShader::loadShader(std::string filePath)
 	glLinkProgram(program);
 
 	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (success == 0) {
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<GLchar> linkShaderError(logLength);
-		glGetProgramInfoLog(program, logLength, NULL, &linkShaderError[0]);
-		printf("Error linking shader program: '%s'\n", linkShaderError);
-	}
+	if (success == GL_FALSE) {
+		GLint maxSize;
+		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &maxSize);
 
-	glValidateProgram(program);
-
-	glGetProgramiv(program, GL_VALIDATE_STATUS, &success);
-	if (!success) {
-		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &logLength);
-		std::vector<GLchar> validateShaderError(logLength);
-		glGetProgramInfoLog(program, logLength, NULL, &validateShaderError[0]);
-		printf("Invalid shader program: '%s'\n", validateShaderError);
-		exit(1);
+		std::vector<GLchar> log(maxSize);
+		glGetProgramInfoLog(program, maxSize, &maxSize, &log[0]);
+		gSys->log("\n\n ==============SHADER LOG==============");
+		printf(log.data());
+		gSys->log("\n\n ======================================");
 	}
 
 	glDeleteShader(vertShader);

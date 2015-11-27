@@ -9,7 +9,9 @@
 #include "Client.h"
 #include <cstdint>
 #include "WindowSystem.h"
+
 class CConsole;
+class CTextureCache;
 
 typedef std::string string;
 
@@ -30,6 +32,7 @@ public:
 	CClient* pClient;
 	CPlayer* pPlayer;
 	CConsole* pConsole;
+	CTextureCache* pTextureCache;
 
 	void log(string);
 private:

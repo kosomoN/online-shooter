@@ -163,10 +163,10 @@
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StateSystem.cpp" />
+    <ClCompile Include="TextureCache.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +192,7 @@
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateSystem.h" />
+    <ClInclude Include="TextureCache.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
   </ItemGroup>

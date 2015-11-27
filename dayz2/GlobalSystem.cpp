@@ -1,5 +1,6 @@
 #include "GlobalSystem.h"
 #include "Console.h"
+#include "TextureCache.h"
 
 
 CGlobalSystem::~CGlobalSystem()
@@ -13,6 +14,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pPlayerController;
 	delete pClient;
 	delete pConsole;
+	delete pTextureCache;
 }
 
 void CGlobalSystem::init()
@@ -27,6 +29,7 @@ void CGlobalSystem::init()
 	pSpriteRenderer = new CSpriteRenderer;
 	pClient = new CClient;
 	pConsole = new CConsole;
+	pTextureCache = new CTextureCache;
 	pClient->init();
 }
 
