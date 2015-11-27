@@ -33,6 +33,10 @@ void CWindowSystem::init(int x, int y)
 	{
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
+
+	// Enable alpha
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void CWindowSystem::updateWindow()

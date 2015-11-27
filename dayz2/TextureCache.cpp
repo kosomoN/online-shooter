@@ -23,7 +23,7 @@ unsigned int CTextureCache::createTexture(std::string file)
 	}
 	catch (const std::exception& e)
 	{
-		gSys->log("error while loading texture.");
+		throw e;
 	}
 
 	glEnable(GL_TEXTURE_2D);

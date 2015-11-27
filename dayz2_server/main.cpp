@@ -5,6 +5,8 @@
 #include <chrono>
 #include "dayz2/NetworkConstants.h"
 #include <vector>
+#include <algorithm>
+
 
 typedef std::chrono::high_resolution_clock Clock;
 
@@ -169,26 +171,22 @@ int main(void)
 			case ENET_EVENT_TYPE_DISCONNECT:
 				printf("%s disconnected.\n", event.peer->data);
 				ENetPacket* packet;
-				for (int i = 0; i < clientList.size(); i++)
-				{
-					ServerClient* c = clientList[i];
-					if (c->m_pPeer == event.peer)
-					{
-						uint32_t entId = c->m_pEntity->m_id;
-						printf("ENT ID: %i \n", entId);
 
-						uint8_t packetData[1 + sizeof(entId)];
-						packetData[0] = PacketTypes::ENTITY_DELETE;
-						memcpy(packetData + 1, &entId, sizeof(entId));
+				Player* pPlayer = reinterpret_cast<ServerClient*>(event.peer->data)->m_pEntity;
 
-						packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
+				uint32_t entId = pPlayer->m_id;
+				printf("ENT ID: %i \n", entId);
 
-						delete static_cast<IEntity*>(c->m_pEntity);
-						delete c;
-						entityList.erase(entityList.begin() + i);
-						clientList.erase(clientList.begin() + i);
-					}
-				}
+				uint8_t packetData[1 + sizeof(entId)];
+				packetData[0] = PacketTypes::ENTITY_DELETE;
+				memcpy(packetData + 1, &entId, sizeof(entId));
+
+				packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
+
+				delete static_cast<IEntity*>(pPlayer);
+				delete reinterpret_cast<ServerClient*>(event.peer->data);
+				entityList.erase(std::remove(entityList.begin(), entityList.end(), static_cast<IEntity*>(pPlayer)));
+				clientList.erase(std::remove(clientList.begin(), clientList.end(), reinterpret_cast<ServerClient*>(event.peer->data)));
 
 				// Alert each client
 				for(ServerClient* c : clientList)
