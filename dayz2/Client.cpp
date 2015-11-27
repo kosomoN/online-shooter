@@ -80,7 +80,6 @@ bool CClient::connect(ENetAddress& address)
 				break;
 			}
 		}
-		return true;
 	}
 
 	enet_peer_reset(peer);
