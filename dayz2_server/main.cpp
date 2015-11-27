@@ -8,7 +8,7 @@
 
 typedef std::chrono::high_resolution_clock Clock;
 
-#define TICK_RATE 20
+#define TICK_LENGTH (1.0 / 20.0)
 
 int main(void)
 {
@@ -32,29 +32,50 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 	
-	std::vector<ServerClient> clientList;
+	std::vector<ServerClient*> clientList;
+	std::vector<IEntity*> entityList;
 
 	uint32_t nextEntID = 0;
 
 	bool shouldClose = false;
 	
+	uint8_t packetBuffer[2048];
 	ENetEvent event;
-	auto lastTime = Clock::now();
+	auto startTime = Clock::now();
+	double gameTime, lastGameTime = 0, dt, accumulatedTicks = 0;
 	while (!shouldClose)
 	{
-		lastTime = Clock::now();
+		gameTime = std::chrono::duration_cast<std::chrono::nanoseconds>(Clock::now() - startTime).count() / 1000000000.0;
+		dt = gameTime - lastGameTime;
+		lastGameTime = gameTime;
 
-
-
-		long timeToWait = 1000.0 / TICK_RATE - std::chrono::duration_cast<std::chrono::milliseconds>(Clock::now() - lastTime).count();
-		
-		if (timeToWait < 0)
+		accumulatedTicks += dt / TICK_LENGTH;
+		if (accumulatedTicks >= 1)
 		{
-			timeToWait = 0;
-			std::cout << "Server overloaded" << std::endl;
-		}
+			for (IEntity* ent : entityList)
+				ent->update(TICK_LENGTH);
+			accumulatedTicks--;
 
-		while (enet_host_service(server, &event, timeToWait))
+			packetBuffer[0] = PacketTypes::ENTITY_UPDATE;
+			int packetIndex = 1;
+			for (IEntity* ent : entityList)
+			{
+				//TODO RESTRICT PACKET SIZE!!
+				memcpy((packetBuffer + packetIndex), &ent->m_id, sizeof(ent->m_id));
+				packetIndex += sizeof(ent->m_id);
+				uint16_t serializedSize = ent->serializedSize();
+				memcpy((packetBuffer + packetIndex), &serializedSize, sizeof(serializedSize));
+				packetIndex += sizeof(serializedSize);
+				ent->serialize(packetBuffer + packetIndex);
+				packetIndex += serializedSize;
+			}
+			ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_UNSEQUENCED);
+			enet_host_broadcast(server, SNAPSHOT_CHANNEL, packet);
+		}
+		if (accumulatedTicks >= 1)
+			std::cout << "Server overloaded" << std::endl;
+
+		while (enet_host_service(server, &event, 0))
 		{
 			switch (event.type)
 			{
@@ -64,11 +85,15 @@ int main(void)
 					event.peer->address.host,
 					event.peer->address.port);
 
-				ServerClient newClient;
-				newClient.m_pPeer = event.peer;
+				ServerClient* newClient = new ServerClient;
+				newClient->m_pPeer = event.peer;
 				uint32_t ID = nextEntID++;
-				newClient.m_pEntity = new Player(ID);
+				Player* pPlayer = new Player(ID);
+				newClient->m_pEntity = pPlayer;
+				pPlayer->client = newClient;
 				clientList.push_back(newClient);
+				entityList.push_back(pPlayer);
+				event.peer->data = newClient;
 
 				uint8_t packetData[1 + sizeof(ID)];
 				packetData[0] = PacketTypes::CONNECTION_ACCEPTED;
@@ -76,22 +101,69 @@ int main(void)
 
 				ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
 				enet_peer_send(event.peer, COMMAND_CHANNEL, packet);
+
+				//Send old entities
+				for (IEntity* ent : entityList)
+				{
+					int packetIndex = 1;
+					packetBuffer[0] = PacketTypes::ENTITY_CREATE;
+					memcpy(packetBuffer + packetIndex, &ent->m_id, sizeof(ent->m_id));
+					packetIndex += sizeof(ent->m_id);
+
+					packetBuffer[packetIndex++] = ent->m_type;
+
+					uint16_t serializedSize = ent->serializedSize();
+					memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
+					packetIndex += sizeof(serializedSize);
+
+					ent->serialize(packetBuffer + packetIndex);
+					packetIndex += serializedSize;
+
+					packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
+					enet_peer_send(newClient->m_pPeer, COMMAND_CHANNEL, packet);
+				}
+
+				//Broadcast new player entity
+				int packetIndex = 1;
+				packetBuffer[0] = PacketTypes::ENTITY_CREATE;
+				memcpy(packetBuffer + packetIndex, &pPlayer->m_id, sizeof(pPlayer->m_id));
+				packetIndex += sizeof(pPlayer->m_id);
+
+				packetBuffer[packetIndex++] = EntityTypes::PLAYER;
+
+				uint16_t serializedSize = pPlayer->serializedSize();
+				memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
+				packetIndex += sizeof(serializedSize);
+
+				pPlayer->serialize(packetBuffer + packetIndex);
+				packetIndex += serializedSize;
+
+				packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
+				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
 			}
 			break;
 			case ENET_EVENT_TYPE_RECEIVE:
-				printf("A packet of length %u containing %s was received on channel %u.\n",
-					event.packet->dataLength,
-					event.packet->data,
-					event.channelID);
-				enet_packet_destroy(event.packet);
+
+				if (event.packet->dataLength > 0)
+				{
+					switch (*event.packet->data)
+					{
+					case PacketTypes::INPUT_UPDATE:
+						if (event.packet->dataLength >= 2)
+							reinterpret_cast<ServerClient*>(event.peer->data)->keyStates = *(event.packet->data + 1);
+						break;
+					}
+				}
 
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
 				printf("%s disconnected.\n", event.peer->data);
+
+				//TODO Remove client data
 			}
 		}
-		
+
 
 	}
 

@@ -12,7 +12,8 @@ void CEntitySystem::update()
 {
 	for (auto e : m_entityContainer)
 	{
-		e.second->update();
+		if(e.second != nullptr)
+			e.second->update();
 	}
 }
 

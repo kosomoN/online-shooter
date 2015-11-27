@@ -11,8 +11,6 @@ CGameState::~CGameState()
 
 void CGameState::init()
 {
-	gSys->pPlayer = new CPlayer(0);
-	new CPlayer(1);
 }
 
 void CGameState::render()

@@ -3,10 +3,7 @@
 #include "Player.h"
 #include "Client.h"
 
-#define UP    1
-#define DOWN  2
-#define LEFT  4
-#define RIGHT 8
+#include <iostream>
 
 CPlayerController::CPlayerController() :
 m_xCoeff(0),
@@ -26,44 +23,44 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 	// This code is horrible.
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
 	{
-		m_inputSequence |= UP;
+		m_inputSequence |= 1 << UP_KEY;
 		m_yCoeff = 1;
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
 	{
-		m_inputSequence |= DOWN;
+		m_inputSequence |= 1 << DOWN_KEY;
 		m_yCoeff = -1;
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
 	{
-		m_inputSequence |= LEFT;
+		m_inputSequence |= 1 << LEFT_KEY;
 		m_xCoeff = -1;
 	}
 	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
 	{
-		m_inputSequence |= RIGHT;
+		m_inputSequence |= 1 << RIGHT_KEY;
 		m_xCoeff = 1;
 	}
 
 
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
 	{
-		m_inputSequence &= ~UP;
+		m_inputSequence &= ~(1 << UP_KEY);
 		m_yCoeff = 0;
 	}
 	else if (key == GLFW_KEY_S && action == GLFW_RELEASE)
 	{
-		m_inputSequence &= ~DOWN;
+		m_inputSequence &= ~(1 << DOWN_KEY);
 		m_yCoeff = 0;
 	}
 	else if (key == GLFW_KEY_A && action == GLFW_RELEASE)
 	{
-		m_inputSequence &= ~LEFT;
+		m_inputSequence &= ~(1 << LEFT_KEY);
 		m_xCoeff = 0;
 	}
 	else if (key == GLFW_KEY_D && action == GLFW_RELEASE)
 	{
-		m_inputSequence &= ~RIGHT;
+		m_inputSequence &= ~(1 << RIGHT_KEY);
 		m_xCoeff = 0;
 	}
 

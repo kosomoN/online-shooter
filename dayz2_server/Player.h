@@ -1,13 +1,17 @@
 #pragma once
 #include "IActor.h"
+#include "Client.h"
 
 struct Player : public IActor
 {
-	Player(uint32_t ID) { m_id = ID; }
+	Player(uint32_t ID);
 
-	void serialize(uint8_t* array);
-	int serializedSize();
+	virtual void update(double dt);
+	virtual void serialize(uint8_t* array);
+	virtual uint16_t serializedSize();
 
 	virtual void init() {}
+
+	ServerClient* client = nullptr;
 };
 

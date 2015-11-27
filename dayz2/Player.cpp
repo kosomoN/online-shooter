@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Console.h"
 
+#include "ByteDecoder.h"
+
 CPlayer::CPlayer(uint32_t id)
 {
 	m_id = id;
@@ -29,5 +31,21 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length)
 	if (this != gSys->pPlayer)
 	{
 		IActor::parsePacket(data, length);
+	}
+	else
+	{
+		if (length == 8)
+		{
+			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
+
+			float diff = (serverPos.x - m_pos.x) * (serverPos.x - m_pos.x)
+				+ (serverPos.y - m_pos.y) * (serverPos.y - m_pos.y);
+			
+			gSys->log(std::to_string(diff));
+
+			//TODO Lerp small differences
+			if (diff > 10 * 10)
+				m_pos = serverPos;
+		}
 	}
 }

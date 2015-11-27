@@ -3,6 +3,7 @@
 #include <string>
 #include "GlobalSystem.h"
 #include "ByteDecoder.h"
+#include "Player.h"
 
 void CPacketProcessor::packetReceived(ENetEvent & event)
 {
@@ -26,9 +27,14 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 					index += 4;
 					uint16_t payloadSize = readUint16((event.packet->data + index));
 					index += 2;
+					IEntity* entity = gSys->pEntitySystem->getEntity(entityID);
+					if (entity == nullptr)
+					{
+						gSys->log("Entity does not exist");
+						return;
+					}
 
-					gSys->pEntitySystem->getEntity(entityID)
-						->parsePacket((event.packet->data + index), payloadSize);
+					entity->parsePacket((event.packet->data + index), payloadSize);
 					index += payloadSize;
 				}
 				else
@@ -36,6 +42,29 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 					reachedEnd = true;
 				}
 			}
+		}
+		break;
+		case PacketTypes::ENTITY_CREATE:
+		{
+			unsigned int index = 1;
+			uint32_t id = readUint32(event.packet->data + index);
+
+			//Player is already created
+			if (id == gSys->pPlayer->getID())
+				return;
+
+			index += sizeof(id);
+			IEntity* entity;
+			switch (*(event.packet->data + index))
+			{
+			case EntityTypes::PLAYER:
+				entity = new CPlayer(id);
+				break;
+			}
+			
+			uint16_t payloadSize = readUint16(event.packet->data + index);
+			index += sizeof(payloadSize);
+			entity->parsePacket(event.packet->data + index, payloadSize);
 		}
 		break;
 		default:
