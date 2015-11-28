@@ -2,13 +2,7 @@
 #include "GlobalSystem.h"
 #include "Player.h"
 #include "Client.h"
-
-#include <iostream>
-
-#define UP_KEY    0
-#define DOWN_KEY  1
-#define LEFT_KEY  2
-#define RIGHT_KEY 3
+#include "NetworkConstants.h"
 
 CPlayerController::CPlayerController() :
 m_xCoeff(0),
@@ -93,8 +87,10 @@ void CPlayerController::updateMovement(double dt)
 	if ((m_inputSequence >> DOWN_KEY) & 1)
 		velocity.y -= dt * pPlayer->getAttributes().movementSpeed;
 
-	if (gSys->pPlayer != nullptr)
-		gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + velocity);
+	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
+		velocity *= sqrt(0.5);
+
+	gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + velocity);
 }
 
 void CPlayerController::sendInput()
