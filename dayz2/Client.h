@@ -11,6 +11,7 @@ public:
 
 	void update();
 	bool connect(ENetAddress& address);
+	void disconnect();
 	void init();
 
 	ENetHost* client = nullptr;

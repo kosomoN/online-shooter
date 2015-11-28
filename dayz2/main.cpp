@@ -39,6 +39,8 @@ void CMain::init()
 		gSys->pStateSystem->getCurrentState()->render();
 	}
 
+	gSys->pClient->disconnect();
+
 	delete gameState;
 	delete gSys;
 	return;

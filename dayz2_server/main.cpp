@@ -169,13 +169,13 @@ int main(void)
 				break;
 
 			case ENET_EVENT_TYPE_DISCONNECT:
-				printf("%s disconnected.\n", event.peer->data);
+				std::cout << "Client disconnected\n";
 				ENetPacket* packet;
 
-				Player* pPlayer = reinterpret_cast<ServerClient*>(event.peer->data)->m_pEntity;
+				ServerClient* serverClient = static_cast<ServerClient*>(event.peer->data);
+				Player* pPlayer = serverClient->m_pEntity;
 
 				uint32_t entId = pPlayer->m_id;
-				printf("ENT ID: %i \n", entId);
 
 				uint8_t packetData[1 + sizeof(entId)];
 				packetData[0] = PacketTypes::ENTITY_DELETE;
@@ -184,13 +184,11 @@ int main(void)
 				packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
 
 				delete static_cast<IEntity*>(pPlayer);
-				delete reinterpret_cast<ServerClient*>(event.peer->data);
+				delete serverClient;
 				entityList.erase(std::remove(entityList.begin(), entityList.end(), static_cast<IEntity*>(pPlayer)));
-				clientList.erase(std::remove(clientList.begin(), clientList.end(), reinterpret_cast<ServerClient*>(event.peer->data)));
+				clientList.erase(std::remove(clientList.begin(), clientList.end(), serverClient));
 
-				// Alert each client
-				for(ServerClient* c : clientList)
-					enet_peer_send(c->m_pPeer, COMMAND_CHANNEL, packet);
+				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
 			}
 		}
 
