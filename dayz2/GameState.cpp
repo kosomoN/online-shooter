@@ -26,6 +26,8 @@ void CGameState::render()
 
 void CGameState::update(float dt)
 {
+	gameTime += dt;
+	
 	gSys->pClient->update();
 	gSys->pPlayerController->sendInput();
 

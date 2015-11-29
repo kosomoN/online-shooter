@@ -9,6 +9,7 @@
 #include "Client.h"
 #include <cstdint>
 #include "WindowSystem.h"
+#include "GameState.h"
 
 class CConsole;
 class CTextureCache;
@@ -33,6 +34,7 @@ public:
 	CPlayer* pPlayer;
 	CConsole* pConsole;
 	CTextureCache* pTextureCache;
+	CGameState* pGame;
 
 	void log(string);
 private:

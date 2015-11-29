@@ -15,6 +15,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pClient;
 	delete pConsole;
 	delete pTextureCache;
+	delete pGame;
 }
 
 void CGlobalSystem::init()
@@ -31,6 +32,7 @@ void CGlobalSystem::init()
 	pConsole = new CConsole;
 	pTextureCache = new CTextureCache;
 	pClient->init();
+	pGame = new CGameState;
 }
 
 void CGlobalSystem::log(string text)

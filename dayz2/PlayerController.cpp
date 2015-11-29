@@ -21,47 +21,23 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 	uint8_t oldInput = m_inputSequence;
 	// This code is horrible.
 	if (key == GLFW_KEY_W && action == GLFW_PRESS)
-	{
 		m_inputSequence |= 1 << UP_KEY;
-		m_yCoeff = 1;
-	}
 	else if (key == GLFW_KEY_S && action == GLFW_PRESS)
-	{
 		m_inputSequence |= 1 << DOWN_KEY;
-		m_yCoeff = -1;
-	}
 	else if (key == GLFW_KEY_A && action == GLFW_PRESS)
-	{
 		m_inputSequence |= 1 << LEFT_KEY;
-		m_xCoeff = -1;
-	}
 	else if (key == GLFW_KEY_D && action == GLFW_PRESS)
-	{
 		m_inputSequence |= 1 << RIGHT_KEY;
-		m_xCoeff = 1;
-	}
 
 
 	if (key == GLFW_KEY_W && action == GLFW_RELEASE)
-	{
 		m_inputSequence &= ~(1 << UP_KEY);
-		m_yCoeff = 0;
-	}
 	else if (key == GLFW_KEY_S && action == GLFW_RELEASE)
-	{
 		m_inputSequence &= ~(1 << DOWN_KEY);
-		m_yCoeff = 0;
-	}
 	else if (key == GLFW_KEY_A && action == GLFW_RELEASE)
-	{
 		m_inputSequence &= ~(1 << LEFT_KEY);
-		m_xCoeff = 0;
-	}
 	else if (key == GLFW_KEY_D && action == GLFW_RELEASE)
-	{
 		m_inputSequence &= ~(1 << RIGHT_KEY);
-		m_xCoeff = 0;
-	}
 
 	if (oldInput != m_inputSequence)
 		hasChanged = true;
@@ -71,7 +47,7 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 
 void CPlayerController::updateMovement(double dt)
 {
-	glm::vec2 velocity = glm::vec2(0);
+	glm::vec2 velocity;
 
 	CPlayer* pPlayer = gSys->pPlayer;
 
@@ -90,7 +66,7 @@ void CPlayerController::updateMovement(double dt)
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
 
-	gSys->pPlayer->setPosition(gSys->pPlayer->getPosition() + velocity);
+	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
 }
 
 void CPlayerController::sendInput()

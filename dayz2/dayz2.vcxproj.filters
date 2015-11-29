@@ -60,6 +60,9 @@
     </ClCompile>
     <ClCompile Include="Zombie.cpp">
       <Filter>Game\Entities</Filter>
+	</ClCompile>
+    <ClCompile Include="LerpVec2.cpp">
+      <Filter>Engine\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +129,6 @@
     <ClInclude Include="StateSystem.h">
       <Filter>Engine\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Vec2.h">
-      <Filter>Engine\Util</Filter>
-    </ClInclude>
     <ClInclude Include="WindowSystem.h">
       <Filter>Engine\Rendering</Filter>
     </ClInclude>
@@ -143,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="Zombie.h">
       <Filter>Game\Entities</Filter>
+	</ClInclude>
+    <ClInclude Include="LerpVec2.h">
+      <Filter>Engine\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

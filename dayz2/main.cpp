@@ -24,9 +24,8 @@ void CMain::init()
 		return;
 	}
 
-	CGameState* gameState = new CGameState();
-	gameState->init();
-	gSys->pStateSystem->enterState(gameState);
+	gSys->pGame->init();
+	gSys->pStateSystem->enterState(gSys->pGame);
 	
 	double dt, lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
@@ -41,7 +40,6 @@ void CMain::init()
 
 	gSys->pClient->disconnect();
 
-	delete gameState;
 	delete gSys;
 	return;
 }

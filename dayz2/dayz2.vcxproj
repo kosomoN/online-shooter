@@ -156,6 +156,7 @@
     <ClCompile Include="GlobalSystem.cpp" />
     <ClCompile Include="IActor.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LerpVec2.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketProcessor.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="IInputListener.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IState.h" />
+    <ClInclude Include="LerpVec2.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="NetworkConstants.h" />
@@ -195,7 +197,6 @@
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateSystem.h" />
     <ClInclude Include="TextureCache.h" />
-    <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>

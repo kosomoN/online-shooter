@@ -1,18 +1,19 @@
 #include "Player.h"
 #include "Console.h"
-
 #include "ByteDecoder.h"
+#include "GlobalSystem.h"
 
 CPlayer::CPlayer(uint32_t id)
 {
 	m_id = id;
 	gSys->pEntitySystem->registerEntity(this);
 
-	m_y = 0;
-	m_x = 0;
-
 	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
 }
+CPlayer::~CPlayer()
+{
+	gSys->pSpriteRenderer->removeSprite(m_pPlayerSprite);
+};
 
 void CPlayer::init()
 {
@@ -21,7 +22,7 @@ void CPlayer::init()
 
 void CPlayer::update()
 {
-	m_pPlayerSprite->m_pos = m_pos;
+	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length)
@@ -36,15 +37,16 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length)
 		if (length == 8)
 		{
 			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
+			glm::vec2 clientPos = m_pos.getLerp(0);
 
-			float diff = (serverPos.x - m_pos.x) * (serverPos.x - m_pos.x)
-				+ (serverPos.y - m_pos.y) * (serverPos.y - m_pos.y);
+			float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
+				+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
 			
 			//gSys->log(std::to_string(diff));
 
 			//TODO Lerp small differences
 			if (diff > 10 * 10)
-				m_pos = serverPos;
+				m_pos.addValue(serverPos, 0);
 		}
 	}
 }
