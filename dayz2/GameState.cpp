@@ -3,6 +3,7 @@
 #include "GlobalSystem.h"
 #include "lodepng.h"
 #include "Console.h"
+#include "Zombie.h"
 #include <vector>
 
 CGameState::~CGameState()
@@ -11,6 +12,7 @@ CGameState::~CGameState()
 
 void CGameState::init()
 {
+	new CZombie;
 }
 
 void CGameState::render()

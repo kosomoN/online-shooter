@@ -183,10 +183,10 @@ int main(void)
 
 				packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
 
-				delete static_cast<IEntity*>(pPlayer);
-				delete serverClient;
 				entityList.erase(std::remove(entityList.begin(), entityList.end(), static_cast<IEntity*>(pPlayer)));
 				clientList.erase(std::remove(clientList.begin(), clientList.end(), serverClient));
+				delete static_cast<IEntity*>(pPlayer);
+				delete serverClient;
 
 				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
 			}

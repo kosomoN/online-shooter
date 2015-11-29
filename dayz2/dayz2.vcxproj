@@ -168,6 +168,7 @@
     <ClCompile Include="StateSystem.cpp" />
     <ClCompile Include="TextureCache.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="TextureCache.h" />
     <ClInclude Include="Vec2.h" />
     <ClInclude Include="WindowSystem.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="data\basic.glsl" />
