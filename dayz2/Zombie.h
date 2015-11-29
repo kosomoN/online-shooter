@@ -6,7 +6,7 @@
 class CZombie : public IActor
 {
 public:
-	CZombie();
+	CZombie(uint32_t entId);
 	~CZombie();
 
 	// IEntity

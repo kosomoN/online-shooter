@@ -12,7 +12,6 @@ CGameState::~CGameState()
 
 void CGameState::init()
 {
-	new CZombie;
 }
 
 void CGameState::render()

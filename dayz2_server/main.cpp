@@ -6,6 +6,7 @@
 #include "dayz2/NetworkConstants.h"
 #include <vector>
 #include <algorithm>
+#include "Zombie.h"
 
 
 typedef std::chrono::high_resolution_clock Clock;
@@ -103,6 +104,9 @@ int main(void)
 				entityList.push_back(pPlayer);
 				event.peer->data = newClient;
 
+				auto zid = nextEntID++;
+				entityList.push_back(new CZombie(zid));
+
 				uint8_t packetData[1 + sizeof(ID)];
 				packetData[0] = PacketTypes::CONNECTION_ACCEPTED;
 				memcpy(packetData + 1, &ID, sizeof(ID));
@@ -151,6 +155,7 @@ int main(void)
 
 				packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
 				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
+
 			}
 			break;
 			case ENET_EVENT_TYPE_RECEIVE:
@@ -191,10 +196,7 @@ int main(void)
 				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
 			}
 		}
-
-
 	}
-
 	enet_host_destroy(server);
 	enet_deinitialize();
 }

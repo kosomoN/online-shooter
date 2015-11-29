@@ -3,8 +3,9 @@
 #include "SpriteRenderer.h"
 #include "Sprite.h"
 
-CZombie::CZombie()
+CZombie::CZombie(uint32_t entId)
 {
+	m_id = entId;
 	gSys->pEntitySystem->registerEntity(this);
 }
 
@@ -25,4 +26,5 @@ void CZombie::update()
 
 void CZombie::parsePacket(uint8_t * data, unsigned int length)
 {
+	IActor::parsePacket(data, length);
 }

@@ -4,6 +4,7 @@
 #include "GlobalSystem.h"
 #include "ByteDecoder.h"
 #include "Player.h"
+#include "Zombie.h"
 
 void CPacketProcessor::packetReceived(ENetEvent & event)
 {
@@ -57,10 +58,15 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			IEntity* entity;
 			switch (*(event.packet->data + index))
 			{
-			case EntityTypes::PLAYER:
-				entity = new CPlayer(id);
-				break;
+				case EntityTypes::PLAYER:
+					entity = new CPlayer(id);
+					break;
+				case EntityTypes::ZOMBIE:
+					entity = new CZombie(id);
+					break;
 			}
+
+
 			
 			uint16_t payloadSize = readUint16(event.packet->data + index);
 			index += sizeof(payloadSize);

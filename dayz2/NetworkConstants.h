@@ -25,4 +25,5 @@ struct PacketTypes
 struct EntityTypes
 {
 	static const uint8_t PLAYER = 0x00;
+	static const uint8_t ZOMBIE = 0x01;
 };
