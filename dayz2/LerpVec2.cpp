@@ -17,6 +17,9 @@ void LerpVec2::addValue(float x, float y, double time)
 	}
 	else
 	{
+		if (values[0].time > time)
+			return;
+
 		//First time, populate whole buffer
 		values[0].time = time;
 		values[0].vec.x = x;

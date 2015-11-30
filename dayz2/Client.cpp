@@ -72,6 +72,11 @@ bool CClient::connect(ENetAddress& address)
 				if (event.packet->dataLength >= 5 && *(event.packet->data) == PacketTypes::CONNECTION_ACCEPTED)
 				{
 					gSys->pPlayer = new CPlayer(readUint32(event.packet->data + 1));
+
+					uint8_t packetType = PacketTypes::REQUEST_TIME;
+					ENetPacket* packet = enet_packet_create(&packetType, sizeof(packetType), 0);
+					gSys->lastTimeRequest = glfwGetTime();
+					enet_peer_send(peer, COMMAND_CHANNEL, packet);
 					return true;
 				}
 				break;

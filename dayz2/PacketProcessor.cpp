@@ -14,8 +14,10 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 		{
 		case PacketTypes::ENTITY_UPDATE:
 		{
+			double timeStamp = 0;
+			memcpy(&timeStamp, event.packet->data + 1, sizeof(double));
 			//Current position in data
-			unsigned int index = 1;
+			unsigned int index = 9;
 
 			//Process all entity updates
 			bool reachedEnd = false;
@@ -35,7 +37,7 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 						return;
 					}
 
-					entity->parsePacket((event.packet->data + index), payloadSize);
+					entity->parsePacket((event.packet->data + index), payloadSize, timeStamp);
 					index += payloadSize;
 				}
 				else
@@ -70,7 +72,8 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			
 			uint16_t payloadSize = readUint16(event.packet->data + index);
 			index += sizeof(payloadSize);
-			entity->parsePacket(event.packet->data + index, payloadSize);
+			//TODO TIMESTAMP CREATE PACKETS
+			entity->parsePacket(event.packet->data + index, payloadSize, 0);
 		}
 		break;
 		case PacketTypes::ENTITY_DELETE:
@@ -79,6 +82,16 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			{
 				gSys->pEntitySystem->deleteEntity(pEntity);
 			}
+		}
+		case PacketTypes::REQUEST_TIME:
+		{
+			double serverTime = 0;
+			memcpy(&serverTime, event.packet->data + 1, sizeof(double));
+
+			//Add half of round-trip
+			//serverTime += (glfwGetTime() - gSys->lastTimeRequest) / 2;
+
+			gSys->pGame->serverTimeDelta = serverTime - glfwGetTime();
 		}
 		break;
 		default:

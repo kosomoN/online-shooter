@@ -24,7 +24,7 @@ void CZombie::update()
 	m_pZombieSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
 }
 
-void CZombie::parsePacket(uint8_t * data, unsigned int length)
+void CZombie::parsePacket(uint8_t * data, unsigned int length, double time)
 {
-	IActor::parsePacket(data, length);
+	IActor::parsePacket(data, length, time);
 }

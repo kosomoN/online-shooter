@@ -10,7 +10,7 @@ struct IEntity
 	virtual void init() = 0;
 	
 	virtual uint32_t getID() { return m_id; }
-	virtual void parsePacket(uint8_t* data, unsigned int length) = 0;
+	virtual void parsePacket(uint8_t* data, unsigned int length, double time) = 0;
 	LerpVec2 m_pos;
 protected:
 	uint32_t m_id;

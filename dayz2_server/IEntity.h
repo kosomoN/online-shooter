@@ -13,5 +13,5 @@ struct IEntity
 
 	glm::vec2 m_pos;
 	uint32_t m_id;
-	uint16_t m_type;
+	uint8_t m_type;
 };

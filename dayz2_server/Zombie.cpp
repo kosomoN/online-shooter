@@ -9,7 +9,7 @@ CZombie::CZombie(uint32_t ID)
 float a = 0;
 void CZombie::update(double dt)
 {
-	a += 0.1;
+	a += 2 * dt;
 	m_pos.x = 100 * cos(a);
 	m_pos.y = 100 * sin(a);
 }

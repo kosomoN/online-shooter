@@ -25,12 +25,12 @@ void CPlayer::update()
 	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
 }
 
-void CPlayer::parsePacket(uint8_t * data, unsigned int length)
+void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 {
 	//Process other players differently
 	if (this != gSys->pPlayer)
 	{
-		IActor::parsePacket(data, length);
+		IActor::parsePacket(data, length, time);
 	}
 	else
 	{

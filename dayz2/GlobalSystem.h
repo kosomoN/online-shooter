@@ -35,6 +35,7 @@ public:
 	CConsole* pConsole;
 	CTextureCache* pTextureCache;
 	CGameState* pGame;
+	double lastTimeRequest = 0;
 
 	void log(string);
 private:

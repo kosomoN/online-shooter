@@ -62,8 +62,11 @@ int main(void)
 			}
 			accumulatedTicks--;
 
+			std::cout << gameTime << std::endl;
+
 			packetBuffer[0] = PacketTypes::ENTITY_UPDATE;
-			int packetIndex = 1;
+			memcpy(packetBuffer + 1, &gameTime, sizeof(gameTime));
+			int packetIndex = 9;
 			for (IEntity* ent : entityList)
 			{
 				if (ent != nullptr)
@@ -78,7 +81,7 @@ int main(void)
 					packetIndex += serializedSize;
 				}
 			}
-			ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_UNSEQUENCED);
+			ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, 0);
 			enet_host_broadcast(server, SNAPSHOT_CHANNEL, packet);
 		}
 		if (accumulatedTicks >= 1)
@@ -168,6 +171,15 @@ int main(void)
 						if (event.packet->dataLength >= 2)
 							reinterpret_cast<ServerClient*>(event.peer->data)->keyStates = *(event.packet->data + 1);
 						break;
+					case PacketTypes::REQUEST_TIME:
+					{
+						uint8_t packetData[9];
+						packetData[0] = PacketTypes::REQUEST_TIME;
+						memcpy(packetData + 1, &gameTime, sizeof(double));
+						ENetPacket* returnPacket = enet_packet_create(packetData, sizeof(packetData), 0);
+						enet_peer_send(event.peer, COMMAND_CHANNEL, returnPacket);
+					}
+					break;
 					}
 				}
 

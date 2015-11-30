@@ -20,6 +20,7 @@ public:
 	CPlayer* getClientPlayer() { return m_pClientPlayer; }
 	CShader shader = CShader("data/basic.glsl");
 	double gameTime = 0;
+	double serverTimeDelta = 0;
 private:
 	CCamera camera = CCamera(1280, 720);
 	CPlayer* m_pClientPlayer;

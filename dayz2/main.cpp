@@ -34,6 +34,9 @@ void CMain::init()
 		dt = glfwGetTime() - lastTime;
 		lastTime = glfwGetTime();
 
+		if (fmod(gSys->pGame->gameTime, 1.0) < dt)
+			gSys->log("Ping: " + std::to_string(gSys->pClient->peer->roundTripTime));
+
 		gSys->pStateSystem->getCurrentState()->update(dt);
 		gSys->pStateSystem->getCurrentState()->render();
 	}
