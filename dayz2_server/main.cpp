@@ -62,8 +62,6 @@ int main(void)
 			}
 			accumulatedTicks--;
 
-			std::cout << gameTime << std::endl;
-
 			packetBuffer[0] = PacketTypes::ENTITY_UPDATE;
 			memcpy(packetBuffer + 1, &gameTime, sizeof(gameTime));
 			int packetIndex = 9;

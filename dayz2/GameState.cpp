@@ -18,6 +18,7 @@ void CGameState::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	glUseProgram(shader.getProgram());
+	camera.setPosition(gSys->pPlayer->m_pos.getLerp(gSys->pGame->gameTime));
 	shader.setMatrix(camera.getCombined());
 	gSys->pSpriteRenderer->renderSprites();
 	glUseProgram(0);
