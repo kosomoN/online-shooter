@@ -83,6 +83,7 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 				gSys->pEntitySystem->deleteEntity(pEntity);
 			}
 		}
+		break;
 		case PacketTypes::REQUEST_TIME:
 		{
 			double serverTime = 0;
