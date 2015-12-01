@@ -10,4 +10,8 @@ struct CZombie : public IActor
 	virtual uint16_t serializedSize();
 
 	virtual void init() {}
+
+private:
+	int m_tick;
+	int m_updateDelay;
 };

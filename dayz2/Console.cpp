@@ -19,7 +19,7 @@ DWORD WINAPI ConsoleListeningThread(void* arguments)
 		{
 			if (cvar == c.keyWord)
 			{
-				if (val != cvar)
+				if (val != cvar && val != "")
 				{
 					try
 					{

@@ -33,6 +33,7 @@ void CGlobalSystem::init()
 	pTextureCache = new CTextureCache;
 	pClient->init();
 	pGame = new CGameState;
+	//pSpriteRenderer->addSprite(1024, 1024, 0, 0, 1, 1, "data/grass.png");
 }
 
 void CGlobalSystem::log(string text)

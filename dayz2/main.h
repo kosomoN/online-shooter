@@ -6,7 +6,7 @@ public:
 	CMain() {};
 	~CMain() {};
 
-	void init();
+	void init(char* host);
 
 private:
 

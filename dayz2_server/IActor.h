@@ -5,6 +5,7 @@ struct Attributes
 {
 	uint32_t health = 100;
 	float movementSpeed = 100;
+	IEntity* pTarget = nullptr;
 };
 
 struct IActor : IEntity

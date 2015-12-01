@@ -7,18 +7,21 @@
 #include <vector>
 #include <algorithm>
 #include "Zombie.h"
+#include "main.h"
+#include "ZSpawner.h"
 
+CMain* gMain;
 
 typedef std::chrono::high_resolution_clock Clock;
 
 #define TICK_LENGTH (1.0 / 20.0)
 
-int main(void)
+void CMain::main()
 {
 	if (enet_initialize() != 0)
 	{
 		fprintf(stderr, "An error occurred while initializing ENet.\n");
-		return EXIT_FAILURE;
+		return;
 	}
 
 	ENetAddress address;
@@ -34,16 +37,19 @@ int main(void)
 			"An error occurred while trying to create an ENet server host.\n");
 		exit(EXIT_FAILURE);
 	}
-	
-	std::vector<ServerClient*> clientList;
-	std::vector<IEntity*> entityList;
+
+	gMain = this;
 
 	uint32_t nextEntID = 0;
 
 	bool shouldClose = false;
-	
-	uint8_t packetBuffer[2048];
+
+	pZSpawner = new CZSpawner;
+	pZSpawner->spawn(50, nextEntID);
+
+	uint8_t packetBuffer[204800];
 	ENetEvent event;
+	bool shouldUpdateTarget;
 	auto startTime = Clock::now();
 	double gameTime, lastGameTime = 0, dt, accumulatedTicks = 0;
 	while (!shouldClose)
@@ -106,11 +112,11 @@ int main(void)
 				event.peer->data = newClient;
 
 				auto zid = nextEntID++;
-				entityList.push_back(new CZombie(zid));
 
 				uint8_t packetData[1 + sizeof(ID)];
 				packetData[0] = PacketTypes::CONNECTION_ACCEPTED;
 				memcpy(packetData + 1, &ID, sizeof(ID));
+
 
 				ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), ENET_PACKET_FLAG_RELIABLE);
 				enet_peer_send(event.peer, COMMAND_CHANNEL, packet);
@@ -209,4 +215,14 @@ int main(void)
 	}
 	enet_host_destroy(server);
 	enet_deinitialize();
+}
+
+CMain::~CMain()
+{
+	delete pZSpawner;
+}
+
+int main(void)
+{
+	CMain();
 }
