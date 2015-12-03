@@ -173,6 +173,7 @@
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="StateSystem.cpp" />
     <ClCompile Include="TextureCache.cpp" />
+    <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="WindowSystem.cpp" />
     <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
@@ -204,6 +205,7 @@
     <ClInclude Include="SpriteRenderer.h" />
     <ClInclude Include="StateSystem.h" />
     <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="TileMap.h" />
     <ClInclude Include="WindowSystem.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>

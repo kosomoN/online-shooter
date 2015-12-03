@@ -15,6 +15,9 @@ CCamera::~CCamera()
 
 void CCamera::resize(int width, int height)
 {
+	m_size.x = width;
+	m_size.y = height;
+
 	m_projection = glm::ortho(-width / 2.f, width / 2.f, -height / 2.f, height / 2.f);
 	m_combined = m_projection * m_translation;
 }

@@ -4,9 +4,10 @@
 #include "AnimationLoader.h"
 #include <glm\vec4.hpp>
 
-CSpriteBatch::CSpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 * maxSprites)
+CSpriteBatch::CSpriteBatch(int maxSprites)
 {
-
+	m_bufferData.resize(ELEMENTS_PER_VERTEX * 6 * maxSprites);
+	m_maxVertices = maxSprites * 6;
 	glGenBuffers(1, &m_vb);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vb);
 	//Float bytes * (xy + uv + rgba) * four corners made up by two triangles * maxSprites
@@ -34,9 +35,8 @@ void CSpriteBatch::end()
 	glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(GLfloat) * ELEMENTS_PER_VERTEX * m_vertices, m_bufferData.data());
 
 	//Bind diffuse
-	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_currentTexture);
-	glUniform1i(glGetUniformLocation(static_cast<CGameState*>(gSys->pStateSystem->getCurrentState())->shader.getProgram(), "u_textureSampler"), 1);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -58,7 +58,7 @@ void CSpriteBatch::end()
 	m_isDrawing = false;
 	m_currentTexture = 0;
 	m_vertices = 0;
-	m_bufferData.clear();
+	m_index = 0;
 }
 
 void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
@@ -71,6 +71,11 @@ void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
 
 void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float v1, float u2, float v2, float rotation)
 {
+	if (m_vertices + 6 > m_maxVertices)
+	{
+		begin(m_currentTexture);
+	}
+	
 	m_vertices += 6;
 	
 	float cosTheta = cos(rotation);
@@ -80,44 +85,44 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 	//Bottom left'
 	glm::vec2 p = glm::vec2(x, y);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u1);
-	m_bufferData.push_back(v1);
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v1;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u2);
-	m_bufferData.push_back(v1);
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v1;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 
 	//Top left
 	p = glm::vec2(x, y + height);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u1);
-	m_bufferData.push_back(v2);
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v2;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 
 
 	//Second triangle
@@ -125,44 +130,129 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 	//Top left
 	p = glm::vec2(x, y + height);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u1);
-	m_bufferData.push_back(v2);
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v2;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u2);
-	m_bufferData.push_back(v1);
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v1;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 
 	//Top right
 	p = glm::vec2(x + width, y + height);
 	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
-	m_bufferData.push_back(p.x);
-	m_bufferData.push_back(p.y);
+	m_bufferData[m_index++] = p.x;
+	m_bufferData[m_index++] = p.y;
 
-	m_bufferData.push_back(u2);
-	m_bufferData.push_back(v2);
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v2;
 
-	m_bufferData.push_back(m_r);
-	m_bufferData.push_back(m_g);
-	m_bufferData.push_back(m_b);
-	m_bufferData.push_back(m_a);
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+}
+
+void CSpriteBatch::drawVertices(float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2)
+{
+	if (m_vertices + 6 > m_maxVertices)
+	{
+		begin(m_currentTexture);
+	}
+	
+	m_vertices += 6;
+	
+	//Bottom left
+	m_bufferData[m_index++] = x1;
+	m_bufferData[m_index++] = y1;
+
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v1;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+
+	//Bottom right
+	m_bufferData[m_index++] = x2;
+	m_bufferData[m_index++] = y1;
+
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v1;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+
+	//Top left
+	m_bufferData[m_index++] = x1;
+	m_bufferData[m_index++] = y2;
+
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v2;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+
+
+	//Second triangle
+
+	//Top left
+	m_bufferData[m_index++] = x1;
+	m_bufferData[m_index++] = y2;
+
+	m_bufferData[m_index++] = u1;
+	m_bufferData[m_index++] = v2;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+
+	//Bottom right
+	m_bufferData[m_index++] = x2;
+	m_bufferData[m_index++] = y1;
+
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v1;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
+
+	//Top right
+	m_bufferData[m_index++] = x2;
+	m_bufferData[m_index++] = y2;
+
+	m_bufferData[m_index++] = u2;
+	m_bufferData[m_index++] = v2;
+
+	m_bufferData[m_index++] = m_r;
+	m_bufferData[m_index++] = m_g;
+	m_bufferData[m_index++] = m_b;
+	m_bufferData[m_index++] = m_a;
 }
 
 void CSpriteBatch::draw(CSprite* pSprite)

@@ -5,6 +5,7 @@
 #include <string>
 #include "Camera.h"
 #include "Player.h"
+#include "TileMap.h"
 
 class CGameState : public IState
 {
@@ -14,15 +15,13 @@ public:
 	
 	void init();
 	void render();
-	void update(float dt);
+	void update();
 	void enter();
 	void exit();
-	CPlayer* getClientPlayer() { return m_pClientPlayer; }
 	CShader shader = CShader("data/basic.glsl");
-	double gameTime = 0;
+	double gameTime = 0, frameDelta = 0;
 	double serverTimeDelta = 0;
-private:
 	CCamera camera = CCamera(1280, 720);
-	CPlayer* m_pClientPlayer;
+	CTileMap map { "data/maps/Test.json" };
 };
 

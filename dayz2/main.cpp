@@ -42,10 +42,10 @@ void CMain::init(char* host)
 	while (!gSys->pWindowSystem->shouldClose())
 	{
 		gSys->pWindowSystem->updateWindow();
-		dt = glfwGetTime() - lastTime;
+		gSys->pGame->frameDelta = glfwGetTime() - lastTime;
 		lastTime = glfwGetTime();
 
-		gSys->pStateSystem->getCurrentState()->update(dt);
+		gSys->pStateSystem->getCurrentState()->update();
 		gSys->pStateSystem->getCurrentState()->render();
 	}
 

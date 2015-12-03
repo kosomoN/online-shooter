@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-
+#include "GlobalSystem.h"
 
 CAnimation::CAnimation(int col, int row):
 frame(0.f)
@@ -17,7 +17,9 @@ glm::vec4& CAnimation::render()
 {
 	auto uv = UVs[frame];
 
-	if (floor(frame += 0.1f) == UVs.size())
+	frame += gSys->pGame->frameDelta * 30;
+
+	if (floor(frame) >= UVs.size())
 		frame = 0.0f;
 
 	return *uv;

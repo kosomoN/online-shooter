@@ -26,7 +26,7 @@ void CGlobalSystem::init()
 	pPlayerController = new CPlayerController;
 	pWindowSystem = new CWindowSystem;
 	pWindowSystem->init(1280, 720);
-	pSpriteBatch = new CSpriteBatch(256);
+	pSpriteBatch = new CSpriteBatch(1024);
 	pStateSystem = new CStateSystem();
 	pSpriteRenderer = new CSpriteRenderer;
 	pClient = new CClient;

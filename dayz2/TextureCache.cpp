@@ -17,13 +17,12 @@ unsigned int CTextureCache::createTexture(std::string file)
 	unsigned int width, height;
 	std::vector<unsigned char> image;
 
-	try
+	auto e = lodepng::decode(image, width, height, file.c_str());
+
+	if (e != 0)
 	{
-		auto e = lodepng::decode(image, width, height, file.c_str());
-	}
-	catch (const std::exception& e)
-	{
-		throw e;
+		gSys->log("Could not load texture: " + file);
+		exit(1);
 	}
 
 	glEnable(GL_TEXTURE_2D);
@@ -34,8 +33,7 @@ unsigned int CTextureCache::createTexture(std::string file)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glGenerateMipmap(GL_TEXTURE_2D);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	m_texures[file] = texture;
 

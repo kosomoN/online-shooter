@@ -20,18 +20,19 @@ void CGameState::render()
 	glUseProgram(shader.getProgram());
 	camera.setPosition(gSys->pPlayer->m_pos.getLerp(gSys->pGame->gameTime));
 	shader.setMatrix(camera.getCombined());
+	map.renderMap();
 	gSys->pSpriteRenderer->renderSprites();
 	glUseProgram(0);
 }
 
-void CGameState::update(float dt)
+void CGameState::update()
 {
 	gameTime = glfwGetTime() + serverTimeDelta;
 	
 	gSys->pClient->update();
 	gSys->pPlayerController->sendInput();
 
-	gSys->pPlayerController->updateMovement(dt);
+	gSys->pPlayerController->updateMovement();
 	gSys->pEntitySystem->update();
 	gSys->pConsole->update();
 

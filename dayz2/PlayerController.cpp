@@ -45,23 +45,23 @@ bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode,
 	return false;
 }
 
-void CPlayerController::updateMovement(double dt)
+void CPlayerController::updateMovement()
 {
 	glm::vec2 velocity;
 
 	CPlayer* pPlayer = gSys->pPlayer;
 
 	if ((m_inputSequence >> RIGHT_KEY) & 1)
-		velocity.x += dt * pPlayer->getAttributes().movementSpeed;
+		velocity.x += gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> LEFT_KEY) & 1)
-		velocity.x -= dt * pPlayer->getAttributes().movementSpeed;
+		velocity.x -= gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> UP_KEY) & 1)
-		velocity.y += dt * pPlayer->getAttributes().movementSpeed;
+		velocity.y += gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> DOWN_KEY) & 1)
-		velocity.y -= dt * pPlayer->getAttributes().movementSpeed;
+		velocity.y -= gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
 
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
