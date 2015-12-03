@@ -2,6 +2,7 @@
 #include "Console.h"
 #include "ByteDecoder.h"
 #include "GlobalSystem.h"
+#include "AnimationLoader.h"
 
 CPlayer::CPlayer(uint32_t id)
 {
@@ -18,6 +19,8 @@ CPlayer::~CPlayer()
 void CPlayer::init()
 {
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/survivor.png");
+	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
+	m_pPlayerSprite->isUsingAnim = true;
 }
 
 void CPlayer::update()

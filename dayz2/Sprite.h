@@ -2,7 +2,10 @@
 
 #include <GL\glew.h>
 #include <glm\vec2.hpp>
+#include <glm\vec4.hpp>
+#include <vector>
 #include <string>
+#include "Animation.h"
 
 class CSprite 
 {
@@ -16,5 +19,7 @@ class CSprite
         float m_u1, m_u2, m_v1, m_v2;
         int m_width, m_height;
         GLuint m_texture;
+		CAnimation* m_pAnim = nullptr;
+		bool isUsingAnim = false;
 private:
 };

@@ -10,7 +10,7 @@ public:
 	~CZSpawner();
 
 
-	void spawn(int ammout, uint32_t& nextId);
+	void spawn(int ammount, uint32_t& nextId);
 
 private:
 	std::vector<IEntity*> m_zombies;

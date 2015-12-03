@@ -2,6 +2,7 @@
 #include "GlobalSystem.h"
 #include "SpriteRenderer.h"
 #include "Sprite.h"
+#include "AnimationLoader.h"
 
 CZombie::CZombie(uint32_t entId)
 {
@@ -16,7 +17,8 @@ CZombie::~CZombie()
 void CZombie::init()
 {
 	m_attributes.movementSpeed = 50;
-	m_pZombieSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/Kappa.png");
+	m_pZombieSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/explosion.png");
+	m_pZombieSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/explosion.anim");
 }
 
 void CZombie::update()

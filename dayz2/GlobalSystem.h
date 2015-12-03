@@ -13,6 +13,7 @@
 
 class CConsole;
 class CTextureCache;
+class CAnimationLoader;
 
 typedef std::string string;
 
@@ -35,6 +36,7 @@ public:
 	CConsole* pConsole;
 	CTextureCache* pTextureCache;
 	CGameState* pGame;
+	CAnimationLoader* pAnimLoader;
 	double lastTimeRequest = 0;
 
 	void log(string);

@@ -5,9 +5,9 @@
 #include <dayz2\NetworkConstants.h>
 #include <cfloat>
 
-void CZSpawner::spawn(int ammout, uint32_t& nextId)
+void CZSpawner::spawn(int ammount, uint32_t& nextId)
 {
-	for (int i = 0; i < ammout; i++)
+	for (int i = 0; i < ammount; i++)
 	{
 		auto z = new CZombie(nextId++);
 		z->getAttributes().pTarget = nullptr;

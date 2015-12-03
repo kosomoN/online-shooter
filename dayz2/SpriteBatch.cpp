@@ -1,9 +1,12 @@
 #include "SpriteBatch.h"
 #include "GlobalSystem.h"
 #include "GameState.h"
+#include "AnimationLoader.h"
+#include <glm\vec4.hpp>
 
 CSpriteBatch::CSpriteBatch(int maxSprites) : m_bufferData(ELEMENTS_PER_VERTEX * 6 * maxSprites)
 {
+
 	glGenBuffers(1, &m_vb);
 	glBindBuffer(GL_ARRAY_BUFFER, m_vb);
 	//Float bytes * (xy + uv + rgba) * four corners made up by two triangles * maxSprites
@@ -164,7 +167,12 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 void CSpriteBatch::draw(CSprite* pSprite)
 {
-	draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation);
+	if (pSprite->m_pAnim != nullptr)
+	{
+		auto uv = pSprite->m_pAnim->render();
+		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, uv.y, uv.x, uv.w, uv.z, pSprite->m_rotation);
+	} else
+		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation);
 }
 
 void CSpriteBatch::calcPoint(float cx, float cy, float rot, glm::vec2& point, float cos, float sin)

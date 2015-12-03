@@ -24,6 +24,4 @@ private:
 	float m_r = 1, m_g = 1, m_b = 1, m_a = 1;
 	GLuint m_vb, m_currentTexture;
 	bool m_isDrawing;
-
-
 };

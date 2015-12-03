@@ -17,8 +17,10 @@ void main(){
 
 out vec4 color;
 in vec2 v_uv;
+uniform vec2 b[8];
+uniform int a;
 uniform sampler2D u_textureSampler;
 
 void main(){
-    color = texture(u_textureSampler, v_uv);
+	color= texture(u_textureSampler,v_uv);
 }

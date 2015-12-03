@@ -1,7 +1,7 @@
 #include "GlobalSystem.h"
 #include "Console.h"
 #include "TextureCache.h"
-
+#include "AnimationLoader.h"
 
 CGlobalSystem::~CGlobalSystem()
 {
@@ -16,6 +16,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pConsole;
 	delete pTextureCache;
 	delete pGame;
+	delete pAnimLoader;
 }
 
 void CGlobalSystem::init()
@@ -33,7 +34,7 @@ void CGlobalSystem::init()
 	pTextureCache = new CTextureCache;
 	pClient->init();
 	pGame = new CGameState;
-	//pSpriteRenderer->addSprite(1024, 1024, 0, 0, 1, 1, "data/grass.png");
+	pAnimLoader = new CAnimationLoader;
 }
 
 void CGlobalSystem::log(string text)
