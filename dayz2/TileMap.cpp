@@ -81,6 +81,7 @@ void CTileMap::renderMap()
 
 	glm::ivec2 topRight(camPos.x + camSize.x / 2, camPos.y + camSize.y / 2);
 	topRight /= m_tileHeight;
+	topRight += 1;
 
 	bottomLeft.x = max(min(bottomLeft.x, m_width), 0);
 	bottomLeft.y = max(min(bottomLeft.y, m_height), 0);

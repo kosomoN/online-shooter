@@ -14,6 +14,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		gSys->pInput->key_callback(window, key, scancode, action, mods);
 }
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+	glViewport(0, 0, width, height);
+}
+
 void CWindowSystem::init(int x, int y)
 {
 	if (!glfwInit())
@@ -27,6 +32,8 @@ void CWindowSystem::init(int x, int y)
 
 	glfwMakeContextCurrent(m_pWin);
 	glfwSetKeyCallback(m_pWin, key_callback);
+	glfwSetFramebufferSizeCallback(m_pWin, framebuffer_size_callback);
+
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)

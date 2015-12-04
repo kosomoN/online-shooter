@@ -32,8 +32,8 @@ void CAnimation::calcUVs(int cols, int rows)
 	float texHeight = (1.f / rows);
 	for (int i = 0; i < rows; i++)
 	{
-		u2 = i*texHeight + texHeight;
-		u1 = i*texHeight;
+		u1 = i*texHeight + texHeight;
+		u2 = i*texHeight;
 		for (int j = 0; j < cols; j++)
 		{
 			v2 = j*texWidth + texWidth;
