@@ -17,6 +17,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
+	gSys->pGame->camera.resize(width, height);
 }
 
 void CWindowSystem::init(int x, int y)
@@ -33,7 +34,6 @@ void CWindowSystem::init(int x, int y)
 	glfwMakeContextCurrent(m_pWin);
 	glfwSetKeyCallback(m_pWin, key_callback);
 	glfwSetFramebufferSizeCallback(m_pWin, framebuffer_size_callback);
-
 
 	GLenum err = glewInit();
 	if (GLEW_OK != err)

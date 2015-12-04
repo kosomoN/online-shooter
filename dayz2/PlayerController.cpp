@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Client.h"
 #include "NetworkConstants.h"
+#include <glm\common.hpp>
 
 CPlayerController::CPlayerController() :
 m_xCoeff(0),
