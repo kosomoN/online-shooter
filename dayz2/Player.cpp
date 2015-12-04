@@ -39,19 +39,19 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 	}
 	else
 	{
-		//if (length == 8)
-		//{
-		//	glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
-		//	glm::vec2 clientPos = m_pos.getLerp(0);
+		if (length == 8)
+		{
+			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
+			glm::vec2 clientPos = m_pos.getLerp(0);
 
-		//	float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
-		//		+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
-		//	
-		//	//gSys->log(std::to_string(diff));
+			float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
+				+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
+			
+			//gSys->log(std::to_string(diff));
 
-		//	//TODO Lerp small differences
-		//	if (diff > 10 * 10)
-		//		m_pos.addValue(serverPos, 0);
-		//}
+			//TODO Lerp small differences
+			if (diff > 10 * 10)
+				m_pos.addValue(serverPos, 0);
+		}
 	}
 }
