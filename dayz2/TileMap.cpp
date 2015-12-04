@@ -69,10 +69,23 @@ CTileMap::CTileMap(std::string jsonPath)
 	{
 		rapidjson::Value& tileData = (*it)["data"];
 		MapLayer layer;
+		layer.m_layerName = (*it)["name"].GetString();
 		layer.m_tileData.resize(tileData.Size());
+
+		bool collisionLayer = layer.m_layerName == "Collision";
+		if (collisionLayer)
+			m_collisionData.resize(tileData.Size());
+
+		//Always hide collision layer
+		layer.m_visible = collisionLayer ? false : (*it)["visible"].GetBool();
+
 		for (int i = 0; i != tileData.Size(); i++)
 		{
 			layer.m_tileData[i % m_width].push_back(tileData[i].GetInt() - 1);
+
+			//All but zero is blocked
+			if (collisionLayer)
+				m_collisionData[i % m_width].push_back((tileData[i].GetInt()) != 0);
 		}
 		m_layers.push_back(layer);
 	}
