@@ -19,6 +19,7 @@ void CZombie::init()
 	m_attributes.movementSpeed = 50;
 	m_pZombieSprite = gSys->pSpriteRenderer->addSprite(50, 50, 0, 0, 1, 1, "data/explosion.png");
 	m_pZombieSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/explosion.anim");
+	m_pZombieSprite->m_rotPointOffset = glm::vec2(0.5);
 }
 
 void CZombie::update()

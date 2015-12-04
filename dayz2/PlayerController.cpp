@@ -66,13 +66,12 @@ void CPlayerController::updateMovement()
 
 	double xpos, ypos;
 	glfwGetCursorPos(gSys->pWindowSystem->getWindowPtr(), &xpos, &ypos);
-	m_point = glm::vec2(gSys->pGame->camera.getPosition().x, gSys->pGame->camera.getPosition().y) - (glm::vec2(gSys->pGame->camera.getSize().x / 2.0f, gSys->pGame->camera.getSize().y / 2)) + glm::vec2(xpos,ypos);
-
+	glm::vec2 rotPointOffser = glm::vec2(pPlayer->m_pPlayerSprite->m_width, pPlayer->m_pPlayerSprite->m_height) * pPlayer->m_pPlayerSprite->m_rotPointOffset;
+	m_point = glm::vec2(gSys->pGame->camera.getPosition().x, gSys->pGame->camera.getPosition().y)- rotPointOffser - (glm::vec2(gSys->pGame->camera.getSize().x / 2.0f, gSys->pGame->camera.getSize().y / 2)) + glm::vec2(xpos, ypos);
 	double angle = atan2((double)pPlayer->m_pos.getLerp(0).x - (double)m_point.x, (double)pPlayer->m_pos.getLerp(0).y - (double)m_point.y) + 3.14 / 2;
 	pPlayer->m_angle = angle;
 
-	if (m_point.x != 0 && m_point.y != 0)
-		pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
+	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
 }
 
 void CPlayerController::sendInput()

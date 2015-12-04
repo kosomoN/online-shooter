@@ -5,10 +5,10 @@
 
 void IActor::parsePacket(uint8_t* data, unsigned int length, double time)
 {
-	if (length == 12)
+	if (length >= 8)
 	{
 		m_pos.addValue(readFloat(data), readFloat(data + 4), time);
-		m_angle = readFloat(data + 8);
-		printf("%f \n", m_angle);
+		if(length == 12)
+			m_angle = readFloat(data + 8);
 	}
 }

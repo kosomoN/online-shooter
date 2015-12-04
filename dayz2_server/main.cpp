@@ -40,7 +40,6 @@ void CMain::main()
 	}
 
 	ENetAddress address;
-	ENetHost* server;
 
 	address.host = ENET_HOST_ANY;
 	address.port = 12321;
@@ -237,8 +236,7 @@ void CMain::initializeEntityOnClients(IEntity* pEnt)
 	packetIndex += serializedSize;
 
 	ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
-	for(ServerClient* c : clientList)
-		enet_peer_send(c->m_pPeer, COMMAND_CHANNEL, packet);
+	enet_host_broadcast(server, COMMAND_CHANNEL, packet);
 }	
 
 CMain::~CMain()

@@ -23,6 +23,7 @@ public:
 private:
 	uint8_t packetBuffer[204800];
 	HANDLE thread;
+	ENetHost* server;
 };
 
 extern CMain* gMain;

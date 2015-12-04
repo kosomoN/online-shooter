@@ -10,6 +10,7 @@ CZombie::CZombie(uint32_t ID)
 	m_updateDelay = 60 + rand() % 120;
 	m_type = EntityTypes::ZOMBIE;
 	m_angle = 4.20f;
+	m_pos = glm::vec2(0, 0);
 	m_attributes.movementSpeed = 20.0f + rand() % 10;
 	gMain->initializeEntityOnClients(this);
 }

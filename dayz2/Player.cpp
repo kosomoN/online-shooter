@@ -39,7 +39,7 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 	}
 	else
 	{
-		if (length == 8)
+		if (length == 12)
 		{
 			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
 			glm::vec2 clientPos = m_pos.getLerp(0);
