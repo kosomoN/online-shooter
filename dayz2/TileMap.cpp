@@ -58,13 +58,33 @@ CTileMap::CTileMap(std::string jsonPath)
 	}
 	m_tileHeight = document["tileheight"].GetInt();
 
-	m_layers.push_back(MapLayer());
+	if(!document["layers"].IsArray())
+	{
+		gSys->log("Error parsing map tiles: " + jsonPath);
+		exit(1);
+	}
+
+	auto &jsonLayers = document["layers"];
+	for (auto it = jsonLayers.Begin(); it < jsonLayers.End(); it++)
+	{
+		rapidjson::Value& tileData = (*it)["data"];
+		MapLayer layer;
+		layer.m_tileData.resize(tileData.Size());
+		for (int i = 0; i != tileData.Size(); i++)
+		{
+			layer.m_tileData[i % m_width].push_back(tileData[i].GetInt() - 1);
+		}
+		m_layers.push_back(layer);
+	}
+
 	m_textureID = gSys->pTextureCache->getTexture("data/maps/mountain_landscape.png");	
 
 	glBindTexture(GL_TEXTURE_2D, m_textureID);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
+
+	fclose(pFile);
 }
 
 CTileMap::~CTileMap()
@@ -91,16 +111,18 @@ void CTileMap::renderMap()
 
 	gSys->pSpriteBatch->begin(m_textureID);
 
-	for (MapLayer layer : m_layers)
+	for (MapLayer& layer : m_layers)
 	{
 		if (!layer.m_visible)
 			continue;
-
-		for (int x = bottomLeft.x; x < topRight.x; x++)
+		for (int y = bottomLeft.y; y < topRight.y; y++)
 		{
-			for (int y = bottomLeft.y; y < topRight.y; y++)
+			for (int x = bottomLeft.x; x < topRight.x; x++)
 			{
-				gSys->pSpriteBatch->drawVertices(x * m_tileWidth, y * m_tileHeight, (x + 1) * m_tileWidth, (y + 1) * m_tileHeight, 1 - 0.0625f, 0, 1, 0.0625f);
+				int tileId = layer.m_tileData[x][y];
+				float u = (tileId % 16) * 0.0625f;
+				float v = (tileId / 16) * 0.0625f;
+				gSys->pSpriteBatch->drawVertices(x * m_tileWidth, y * m_tileHeight, (x + 1) * m_tileWidth, (y + 1) * m_tileHeight, u, v, u + 0.0625f, v + 0.0625f);
 			}
 		}
 	}
