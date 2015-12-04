@@ -20,13 +20,12 @@ void CPlayer::init()
 {
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
-	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f/313.f, 120.0f/206.f);
-
+	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 120.0f * 0.3f);
 }
 
 void CPlayer::update()
 {
-	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
+	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1) - m_pPlayerSprite->m_rotPointOffset;
 	m_pPlayerSprite->m_rotation = m_angle;
 }
 

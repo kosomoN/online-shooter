@@ -257,7 +257,7 @@ void CSpriteBatch::drawVertices(float x1, float y1, float x2, float y2, float u1
 
 void CSpriteBatch::draw(CSprite* pSprite)
 {
-	auto rotPoint = pSprite->m_pos + pSprite->m_rotPointOffset*glm::vec2(pSprite->m_width, pSprite->m_height);
+	auto rotPoint = pSprite->m_pos + pSprite->m_rotPointOffset;
 	if (pSprite->m_pAnim != nullptr)
 	{
 		auto uv = pSprite->m_pAnim->render();
