@@ -2,6 +2,7 @@
 #include <vector>
 #include "IEntity.h"
 #include "Client.h"
+#include <Windows.h>
 
 class CZSpawner;
 
@@ -15,9 +16,13 @@ public:
 
 	std::vector<IEntity*> entityList;
 	std::vector<ServerClient*> clientList;
+	void initializeEntityOnClients(IEntity* pEnt);
+	CZSpawner* pZSpawner;
+	uint32_t nextEntID = 0;
 
 private:
-	CZSpawner* pZSpawner;
+	uint8_t packetBuffer[204800];
+	HANDLE thread;
 };
 
 extern CMain* gMain;

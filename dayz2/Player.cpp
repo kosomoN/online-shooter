@@ -20,12 +20,14 @@ void CPlayer::init()
 {
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
-	m_pPlayerSprite->isUsingAnim = true;
+	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f/313.f, 120.0f/206.f);
+
 }
 
 void CPlayer::update()
 {
 	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
+	m_pPlayerSprite->m_rotation = m_angle;
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
@@ -37,19 +39,19 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 	}
 	else
 	{
-		if (length == 8)
-		{
-			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
-			glm::vec2 clientPos = m_pos.getLerp(0);
+		//if (length == 8)
+		//{
+		//	glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
+		//	glm::vec2 clientPos = m_pos.getLerp(0);
 
-			float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
-				+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
-			
-			//gSys->log(std::to_string(diff));
+		//	float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
+		//		+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
+		//	
+		//	//gSys->log(std::to_string(diff));
 
-			//TODO Lerp small differences
-			if (diff > 10 * 10)
-				m_pos.addValue(serverPos, 0);
-		}
+		//	//TODO Lerp small differences
+		//	if (diff > 10 * 10)
+		//		m_pos.addValue(serverPos, 0);
+		//}
 	}
 }

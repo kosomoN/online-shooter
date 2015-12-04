@@ -12,6 +12,7 @@ struct IEntity
 	virtual uint16_t serializedSize() = 0;
 
 	glm::vec2 m_pos;
+	float m_angle;
 	uint32_t m_id;
 	uint8_t m_type;
 };

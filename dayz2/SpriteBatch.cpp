@@ -69,7 +69,7 @@ void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
 	m_a = alpha;
 }
 
-void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float v1, float u2, float v2, float rotation)
+void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float v1, float u2, float v2, float rotation, glm::vec2 rotPoint)
 {
 	if (m_vertices + 6 > m_maxVertices)
 	{
@@ -84,7 +84,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Bottom left'
 	glm::vec2 p = glm::vec2(x, y);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -98,7 +98,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -112,7 +112,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -129,7 +129,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Top left
 	p = glm::vec2(x, y + height);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -143,7 +143,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Bottom right
 	p = glm::vec2(x + width, y);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -157,7 +157,7 @@ void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float
 
 	//Top right
 	p = glm::vec2(x + width, y + height);
-	calcPoint(x+width / 2, y+height / 2, rotation, p, cosTheta, sinTheta);
+	calcPoint(rotPoint, rotation, p, cosTheta, sinTheta);
 	m_bufferData[m_index++] = p.x;
 	m_bufferData[m_index++] = p.y;
 
@@ -257,24 +257,25 @@ void CSpriteBatch::drawVertices(float x1, float y1, float x2, float y2, float u1
 
 void CSpriteBatch::draw(CSprite* pSprite)
 {
+	auto rotPoint = pSprite->m_pos + pSprite->m_rotPointOffset*glm::vec2(pSprite->m_width, pSprite->m_height);
 	if (pSprite->m_pAnim != nullptr)
 	{
 		auto uv = pSprite->m_pAnim->render();
-		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, uv.y, uv.x, uv.w, uv.z, pSprite->m_rotation);
+		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, uv.y, uv.x, uv.w, uv.z, pSprite->m_rotation, rotPoint);
 	} else
-		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation);
+		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation, rotPoint);
 }
 
-void CSpriteBatch::calcPoint(float cx, float cy, float rot, glm::vec2& point, float cos, float sin)
+void CSpriteBatch::calcPoint(glm::vec2 rotationPoint, float rot, glm::vec2& point, float cos, float sin)
 {
-	point.x -= cx;
-	point.y -= cy;
+	point.x -= rotationPoint.x;
+	point.y -= rotationPoint.y;
 
 	float x = point.x * cos - point.y * sin;
 	float y = point.x * sin + point.y * cos;
 
-	point.x = x + cx;
-	point.y = y + cy;
+	point.x = x + rotationPoint.x;
+	point.y = y + rotationPoint.y;
 }
 
 CSpriteBatch::~CSpriteBatch()

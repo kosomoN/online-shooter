@@ -13,9 +13,7 @@ m_yCoeff(0)
 
 CPlayerController::~CPlayerController()
 {
-
 }
-
 bool CPlayerController::onInputEvent(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
 	uint8_t oldInput = m_inputSequence;
@@ -66,7 +64,15 @@ void CPlayerController::updateMovement()
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
 
-	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
+	double xpos, ypos;
+	glfwGetCursorPos(gSys->pWindowSystem->getWindowPtr(), &xpos, &ypos);
+	m_point = glm::vec2(gSys->pGame->camera.getPosition().x, gSys->pGame->camera.getPosition().y) - (glm::vec2(gSys->pGame->camera.getSize().x / 2.0f, gSys->pGame->camera.getSize().y / 2)) + glm::vec2(xpos,ypos);
+
+	double angle = atan2((double)pPlayer->m_pos.getLerp(0).x - (double)m_point.x, (double)pPlayer->m_pos.getLerp(0).y - (double)m_point.y) + 3.14 / 2;
+	pPlayer->m_angle = angle;
+
+	if (m_point.x != 0 && m_point.y != 0)
+		pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
 }
 
 void CPlayerController::sendInput()
@@ -79,4 +85,9 @@ void CPlayerController::sendInput()
 		hasChanged = false;
 		lastSendTime = glfwGetTime();
 	}
+
+	anglePacket[0] = PacketTypes::INPUT_UPDATE;
+	memcpy(anglePacket + 1, &gSys->pPlayer->m_angle, sizeof(float));
+	ENetPacket* packet = enet_packet_create(anglePacket, sizeof(anglePacket), ENET_PACKET_FLAG_RELIABLE);
+	enet_peer_send(gSys->pClient->peer, SNAPSHOT_CHANNEL, packet);
 }

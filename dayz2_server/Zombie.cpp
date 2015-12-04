@@ -9,7 +9,9 @@ CZombie::CZombie(uint32_t ID)
 	m_tick = 0;
 	m_updateDelay = 60 + rand() % 120;
 	m_type = EntityTypes::ZOMBIE;
+	m_angle = 4.20f;
 	m_attributes.movementSpeed = 20.0f + rand() % 10;
+	gMain->initializeEntityOnClients(this);
 }
 
 void CZombie::update(double dt)
@@ -49,9 +51,10 @@ void CZombie::serialize(uint8_t * array)
 {
 	memcpy(array, &m_pos.x, sizeof(m_pos.x));
 	memcpy(array + sizeof(m_pos.x), &m_pos.y, sizeof(m_pos.y));
+	memcpy(array + sizeof(m_pos.x) + sizeof(m_pos.y), &m_angle, sizeof(m_angle));
 }
 
 uint16_t CZombie::serializedSize()
 {
-	return sizeof(m_pos.x) + sizeof(m_pos.y);
+	return sizeof(m_pos.x) + sizeof(m_pos.y) + sizeof(m_angle);
 }

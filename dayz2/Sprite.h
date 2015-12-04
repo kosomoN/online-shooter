@@ -21,5 +21,6 @@ class CSprite
         GLuint m_texture;
 		CAnimation* m_pAnim = nullptr;
 		bool isUsingAnim = false;
+		glm::vec2 m_rotPointOffset = glm::vec2(m_width / 2, m_height / 2);
 private:
 };

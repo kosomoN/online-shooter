@@ -70,7 +70,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Engine\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -160,7 +162,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Engine\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMap.h">
+      <Filter>Engine\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">

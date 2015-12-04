@@ -9,12 +9,27 @@
 #include "Zombie.h"
 #include "main.h"
 #include "ZSpawner.h"
+#include <string>
+#include "dayz2/ByteDecoder.h"
 
 CMain* gMain;
 
 typedef std::chrono::high_resolution_clock Clock;
 
 #define TICK_LENGTH (1.0 / 20.0)
+
+DWORD WINAPI ConsoleListeningThread(void* arguments)
+{
+	while (true)
+	{
+		std::string line;
+		std::getline(std::cin, line);
+
+		if (line == "spawnz")
+			gMain->pZSpawner->spawn(100, gMain->nextEntID);
+
+	}
+}
 
 void CMain::main()
 {
@@ -38,16 +53,17 @@ void CMain::main()
 		exit(EXIT_FAILURE);
 	}
 
+	thread = CreateThread(nullptr, 0, ConsoleListeningThread, 0, 0, nullptr);
+
 	gMain = this;
 
-	uint32_t nextEntID = 0;
+	nextEntID = 0;
 
 	bool shouldClose = false;
 
 	pZSpawner = new CZSpawner;
 	pZSpawner->spawn(50, nextEntID);
 
-	uint8_t packetBuffer[204800];
 	ENetEvent event;
 	bool shouldUpdateTarget;
 	auto startTime = Clock::now();
@@ -144,25 +160,6 @@ void CMain::main()
 						enet_peer_send(newClient->m_pPeer, COMMAND_CHANNEL, packet);
 					}
 				}
-
-				//Broadcast new player entity
-				int packetIndex = 1;
-				packetBuffer[0] = PacketTypes::ENTITY_CREATE;
-				memcpy(packetBuffer + packetIndex, &pPlayer->m_id, sizeof(pPlayer->m_id));
-				packetIndex += sizeof(pPlayer->m_id);
-
-				packetBuffer[packetIndex++] = EntityTypes::PLAYER;
-
-				uint16_t serializedSize = pPlayer->serializedSize();
-				memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
-				packetIndex += sizeof(serializedSize);
-
-				pPlayer->serialize(packetBuffer + packetIndex);
-				packetIndex += serializedSize;
-
-				packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
-				enet_host_broadcast(server, COMMAND_CHANNEL, packet);
-
 			}
 			break;
 			case ENET_EVENT_TYPE_RECEIVE:
@@ -172,9 +169,15 @@ void CMain::main()
 					switch (*event.packet->data)
 					{
 					case PacketTypes::INPUT_UPDATE:
-						if (event.packet->dataLength >= 2)
+						if (event.packet->dataLength == 2)
+						{
 							reinterpret_cast<ServerClient*>(event.peer->data)->keyStates = *(event.packet->data + 1);
-						break;
+						}
+						else if(event.packet->dataLength == 5)
+						{
+							reinterpret_cast<ServerClient*>(event.peer->data)->m_pEntity->m_angle = readFloat((event.packet->data + 1));
+						}
+					break;
 					case PacketTypes::REQUEST_TIME:
 					{
 						uint8_t packetData[9];
@@ -217,8 +220,30 @@ void CMain::main()
 	enet_deinitialize();
 }
 
+void CMain::initializeEntityOnClients(IEntity* pEnt) 
+{
+	int packetIndex = 1;
+	packetBuffer[0] = PacketTypes::ENTITY_CREATE;
+	memcpy(packetBuffer + packetIndex, &pEnt->m_id, sizeof(pEnt->m_id));
+	packetIndex += sizeof(pEnt->m_id);
+
+	packetBuffer[packetIndex++] = pEnt->m_type;
+
+	uint16_t serializedSize = pEnt->serializedSize();
+	memcpy(packetBuffer + packetIndex, &serializedSize, sizeof(serializedSize));
+	packetIndex += sizeof(serializedSize);
+
+	pEnt->serialize(packetBuffer + packetIndex);
+	packetIndex += serializedSize;
+
+	ENetPacket* packet = enet_packet_create(packetBuffer, packetIndex, ENET_PACKET_FLAG_RELIABLE);
+	for(ServerClient* c : clientList)
+		enet_peer_send(c->m_pPeer, COMMAND_CHANNEL, packet);
+}	
+
 CMain::~CMain()
 {
+	CloseHandle(thread);
 	delete pZSpawner;
 }
 

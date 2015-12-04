@@ -2,11 +2,14 @@
 
 #include "dayz2/NetworkConstants.h"
 #include <iostream>
+#include "main.h"
 
 Player::Player(uint32_t ID)
 {
 	m_id = ID;
 	m_type = EntityTypes::PLAYER;
+	m_angle = 4.20f;
+	gMain->initializeEntityOnClients(this);
 }
 
 void Player::update(double dt)
@@ -35,9 +38,10 @@ void Player::serialize(uint8_t * array)
 {
 	memcpy(array, &m_pos.x, sizeof(m_pos.x));
 	memcpy(array + sizeof(m_pos.x), &m_pos.y, sizeof(m_pos.y));
+	memcpy(array + sizeof(m_pos.x) + sizeof(m_pos.y), &m_angle, sizeof(m_angle));
 }
 
 uint16_t Player::serializedSize()
 {
-	return sizeof(m_pos.x) + sizeof(m_pos.y);
+	return sizeof(m_pos.x) + sizeof(m_pos.y) + sizeof(m_angle);
 }
