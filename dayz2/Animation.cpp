@@ -22,9 +22,9 @@ glm::vec4& CAnimation::render()
 	else
 		uv = UVs[1];
 
-	m_frame += gSys->pGame->frameDelta * 30;
+	m_frame += gSys->pGame->frameDelta * 30 * m_speed;
 
-	if (floor(m_frame * m_speed) >= UVs.size())
+	if (floor(m_frame) >= UVs.size())
 		m_frame = 0.0f;
 
 	return *uv;

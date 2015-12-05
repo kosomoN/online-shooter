@@ -63,12 +63,18 @@ void CPlayerController::updateMovement()
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
 
-	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
-
-	if (velocity.x > 0 || velocity.y > 0)
+	if (m_inputSequence != 0)
+	{
 		pPlayer->m_pPlayerSprite->m_pAnim->activated = true;
+		pPlayer->m_pFeetSprite->m_pAnim->activated = true;
+	}
 	else
+	{
 		pPlayer->m_pPlayerSprite->m_pAnim->activated = false;
+		pPlayer->m_pFeetSprite->m_pAnim->activated = false;
+	}
+
+	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
 
 	double xpos, ypos;
 	glfwGetCursorPos(gSys->pWindowSystem->getWindowPtr(), &xpos, &ypos);
