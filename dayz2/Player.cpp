@@ -13,11 +13,16 @@ CPlayer::CPlayer(uint32_t id)
 }
 CPlayer::~CPlayer()
 {
+	gSys->pSpriteRenderer->removeSprite(m_pFeetSprite);
 	gSys->pSpriteRenderer->removeSprite(m_pPlayerSprite);
 };
 
 void CPlayer::init()
 {
+	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 1, 1, "data/survivor_walk.png");
+	m_pFeetSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor_walk.anim");
+	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
+
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
 	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
@@ -25,8 +30,15 @@ void CPlayer::init()
 
 void CPlayer::update()
 {
-	m_pPlayerSprite->m_pos = m_pos.getLerp(gSys->pGame->gameTime - 0.1) - m_pPlayerSprite->m_rotPointOffset;
+	glm::vec2 lerpPos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
+	m_pPlayerSprite->m_pos = lerpPos - m_pPlayerSprite->m_rotPointOffset;
 	m_pPlayerSprite->m_rotation = m_angle;
+
+	m_pFeetSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
+	if (abs(lerpPos.x - lastFramePos.x) > 0 || abs(lerpPos.y - lastFramePos.y) > 0)
+		m_pFeetSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
+
+	lastFramePos = lerpPos;
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
