@@ -9,6 +9,6 @@ void IActor::parsePacket(uint8_t* data, unsigned int length, double time)
 	{
 		m_pos.addValue(readFloat(data), readFloat(data + 4), time);
 		if(length == 12)
-			m_angle = readFloat(data + 8);
+			m_angle.addValue(readFloat(data + 8), time);
 	}
 }

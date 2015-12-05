@@ -73,6 +73,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Engine\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="LerpRotation.cpp">
+      <Filter>Engine\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -166,6 +169,9 @@
       <Filter>Engine\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Utils.hpp">
+      <Filter>Engine\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="LerpRotation.h">
       <Filter>Engine\Util</Filter>
     </ClInclude>
   </ItemGroup>

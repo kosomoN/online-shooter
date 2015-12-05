@@ -162,6 +162,7 @@
     <ClCompile Include="GlobalSystem.cpp" />
     <ClCompile Include="IActor.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LerpRotation.cpp" />
     <ClCompile Include="LerpVec2.cpp" />
     <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="main.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="IInputListener.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="IState.h" />
+    <ClInclude Include="LerpRotation.h" />
     <ClInclude Include="LerpVec2.h" />
     <ClInclude Include="lodepng.h" />
     <ClInclude Include="main.h" />

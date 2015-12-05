@@ -83,7 +83,7 @@ void CPlayerController::updateMovement()
 				- (glm::vec2(gSys->pGame->camera.getSize().x / 2.0f, -gSys->pGame->camera.getSize().y / 2))
 				+ glm::vec2(xpos, -ypos);
 
-	float oldAngle = pPlayer->m_angle;
+	float oldAngle = pPlayer->m_angle.getLerp(0);
 
 
 	double radius = 33 / 3;
@@ -103,9 +103,10 @@ void CPlayerController::updateMovement()
 	double x = rotNorm.x * sideLength;
 	double y = rotNorm.y * sideLength;
 
-	pPlayer->m_angle = atan2(y, x);
+	double finalAngle = atan2(y, x);
+	pPlayer->m_angle.addValue(finalAngle, 0);
 
-	if (oldAngle != pPlayer->m_angle)
+	if (oldAngle != finalAngle)
 		hasChanged = true;
 }
 
