@@ -207,6 +207,7 @@
     <ClInclude Include="StateSystem.h" />
     <ClInclude Include="TextureCache.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Utils.hpp" />
     <ClInclude Include="WindowSystem.h" />
     <ClInclude Include="Zombie.h" />
   </ItemGroup>

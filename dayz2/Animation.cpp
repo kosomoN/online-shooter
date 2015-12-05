@@ -2,10 +2,11 @@
 
 #include "GlobalSystem.h"
 
-CAnimation::CAnimation(int col, int row):
-frame(0.f)
+CAnimation::CAnimation(int col, int row, float speed):
+m_frame(0.f)
 {
 	calcUVs(col, row);
+	m_speed = speed;
 }
 
 
@@ -15,12 +16,16 @@ CAnimation::~CAnimation()
 
 glm::vec4& CAnimation::render()
 {
-	auto uv = UVs[frame];
+	glm::vec4* uv;
+	if (activated)
+		uv = UVs[m_frame];
+	else
+		uv = UVs[1];
 
-	frame += gSys->pGame->frameDelta * 30;
+	m_frame += gSys->pGame->frameDelta * 30;
 
-	if (floor(frame) >= UVs.size())
-		frame = 0.0f;
+	if (floor(m_frame * m_speed) >= UVs.size())
+		m_frame = 0.0f;
 
 	return *uv;
 }

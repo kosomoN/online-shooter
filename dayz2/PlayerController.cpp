@@ -65,6 +65,11 @@ void CPlayerController::updateMovement()
 
 	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
 
+	if (velocity.x > 0 || velocity.y > 0)
+		pPlayer->m_pPlayerSprite->m_pAnim->activated = true;
+	else
+		pPlayer->m_pPlayerSprite->m_pAnim->activated = false;
+
 	double xpos, ypos;
 	glfwGetCursorPos(gSys->pWindowSystem->getWindowPtr(), &xpos, &ypos);
 	glm::vec2 rotPointOffset = pPlayer->m_pPlayerSprite->m_rotPointOffset;

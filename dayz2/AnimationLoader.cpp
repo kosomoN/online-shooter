@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "GlobalSystem.h"
+#include "Utils.hpp"
 
 CAnimationLoader::CAnimationLoader()
 {
@@ -29,13 +30,13 @@ CAnimation* CAnimationLoader::loadAnimation(std::string ifile)
 	std::stringstream ss;
 	ss << f.rdbuf();
 	std::string content = ss.str();
-	std::string srows = content.substr(0, content.find(','));
-	std::string scols = content.substr(content.find(',') + 1);
+	auto props = Split(content, ',');
 
-	int rows = atoi(srows.c_str());
-	int cols = atoi(scols.c_str());;
+	int rows = atoi(props[0].c_str());
+	int cols = atoi(props[1].c_str());
+	float speed = atof(props[2].c_str());
 
-	auto a = new CAnimation(rows,cols);
+	auto a = new CAnimation(rows,cols,speed);
 	m_anims.push_back(a);
 	return a;
 }
