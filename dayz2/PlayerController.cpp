@@ -78,6 +78,15 @@ void CPlayerController::updateMovement()
 
 	double xpos, ypos;
 	glfwGetCursorPos(gSys->pWindowSystem->getWindowPtr(), &xpos, &ypos);
+	int width, height;
+	glfwGetWindowSize(gSys->pWindowSystem->getWindowPtr(), &width, &height);
+
+	xpos /= width;
+	ypos /= height;
+
+	xpos *= gSys->pGame->camera.getSize().x;
+	ypos *= gSys->pGame->camera.getSize().y;
+
 	glm::vec2 rotPointOffset = pPlayer->m_pPlayerSprite->m_rotPointOffset;
 	glm::vec2 mousePoint = glm::vec2(gSys->pGame->camera.getPosition().x, gSys->pGame->camera.getPosition().y)
 				- (glm::vec2(gSys->pGame->camera.getSize().x / 2.0f, -gSys->pGame->camera.getSize().y / 2))
