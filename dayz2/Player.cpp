@@ -20,7 +20,7 @@ void CPlayer::init()
 {
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
-	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 120.0f * 0.3f);
+	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
 }
 
 void CPlayer::update()

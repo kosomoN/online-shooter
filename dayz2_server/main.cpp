@@ -61,7 +61,6 @@ void CMain::main()
 	bool shouldClose = false;
 
 	pZSpawner = new CZSpawner;
-	pZSpawner->spawn(50, nextEntID);
 
 	ENetEvent event;
 	bool shouldUpdateTarget;
@@ -168,13 +167,10 @@ void CMain::main()
 					switch (*event.packet->data)
 					{
 					case PacketTypes::INPUT_UPDATE:
-						if (event.packet->dataLength == 2)
+						if (event.packet->dataLength == 6)
 						{
-							reinterpret_cast<ServerClient*>(event.peer->data)->keyStates = *(event.packet->data + 1);
-						}
-						else if(event.packet->dataLength == 5)
-						{
-							reinterpret_cast<ServerClient*>(event.peer->data)->m_pEntity->m_angle = readFloat((event.packet->data + 1));
+							static_cast<ServerClient*>(event.peer->data)->keyStates = *(event.packet->data + 1);
+							static_cast<ServerClient*>(event.peer->data)->m_pEntity->m_angle = readFloat((event.packet->data + 2));
 						}
 					break;
 					case PacketTypes::REQUEST_TIME:

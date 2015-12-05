@@ -24,13 +24,9 @@ public:
 	void sendInput();
 	
 private:
-	double m_oldx = 0.0, m_oldy = 0.0;
-	glm::vec2 m_point;
-	int m_xCoeff, m_yCoeff;
 	bool hasChanged = false;
 	double lastSendTime = 0;
-	uint8_t packetData[2] = { PacketTypes::INPUT_UPDATE, 0x00 };
-	uint8_t anglePacket[5];
+	uint8_t packetData[6] = { PacketTypes::INPUT_UPDATE, 0x00, 0x00, 0x00, 0x00, 0x00 };
 	uint8_t m_inputSequence = 0;
 
 };
