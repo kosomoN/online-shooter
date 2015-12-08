@@ -257,13 +257,17 @@ void CSpriteBatch::drawVertices(float x1, float y1, float x2, float y2, float u1
 
 void CSpriteBatch::draw(CSprite* pSprite)
 {
-	auto rotPoint = pSprite->m_pos + pSprite->m_rotPointOffset;
-	if (pSprite->m_pAnim != nullptr)
+	if (pSprite->m_shouldDraw)
 	{
-		auto uv = pSprite->m_pAnim->render();
-		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, uv.y, uv.x, uv.w, uv.z, pSprite->m_rotation, rotPoint);
-	} else
-		draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation, rotPoint);
+		auto rotPoint = pSprite->m_pos + pSprite->m_rotPointOffset;
+		if (pSprite->m_pAnim != nullptr)
+		{
+			auto uv = pSprite->m_pAnim->render();
+			draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, uv.y, uv.x, uv.w, uv.z, pSprite->m_rotation, rotPoint);
+		}
+		else
+			draw(pSprite->m_pos.x, pSprite->m_pos.y, pSprite->m_width, pSprite->m_height, pSprite->m_u1, pSprite->m_v1, pSprite->m_u2, pSprite->m_v2, pSprite->m_rotation, rotPoint);
+	}
 }
 
 void CSpriteBatch::calcPoint(glm::vec2 rotationPoint, float rot, glm::vec2& point, float cos, float sin)

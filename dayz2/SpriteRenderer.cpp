@@ -18,12 +18,12 @@ void CSpriteRenderer::renderSprites()
 		CSpriteBatch* sb = gSys->pSpriteBatch;
 		sb->begin(m_sprites.front()->m_texture);
 
-		for (auto i = m_sprites.begin(); i < m_sprites.end(); i++)
+		for (auto s : m_sprites)
 		{
-			if ((*i)->m_texture != sb->getCurrentTexture())
-				sb->begin((*i)->m_texture);
+			if (s->m_texture != sb->getCurrentTexture())
+				sb->begin(s->m_texture);
 
-			sb->draw((*i));
+			sb->draw(s);
 		}
 
 		sb->end();

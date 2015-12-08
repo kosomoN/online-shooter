@@ -3,6 +3,8 @@
 #include "ByteDecoder.h"
 #include "GlobalSystem.h"
 #include "AnimationLoader.h"
+#include "Animation.h"
+#include "Sprite.h"
 
 CPlayer::CPlayer(uint32_t id)
 {
@@ -13,8 +15,6 @@ CPlayer::CPlayer(uint32_t id)
 }
 CPlayer::~CPlayer()
 {
-	gSys->pSpriteRenderer->removeSprite(m_pFeetSprite);
-	gSys->pSpriteRenderer->removeSprite(m_pPlayerSprite);
 };
 
 void CPlayer::init()
@@ -23,9 +23,18 @@ void CPlayer::init()
 	m_pFeetSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor_walk.anim");
 	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
 
+	m_pFeetIdleSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 1, 1, "data/survivor_walk_idle.png");
+	m_pFeetIdleSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
+	m_pFeetIdleSprite->m_shouldDraw = false;
+
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor.anim");
 	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
+
+	m_pPlayerIdleSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor_idle.png");
+	m_pPlayerIdleSprite->m_pAnim = gSys->pAnimLoader->loadAnimation("data/survivor_idle.anim");
+	m_pPlayerIdleSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
+	m_pPlayerIdleSprite->m_shouldDraw = false;
 }
 
 void CPlayer::update()
@@ -33,10 +42,33 @@ void CPlayer::update()
 	glm::vec2 lerpPos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
 	m_pPlayerSprite->m_pos = lerpPos - m_pPlayerSprite->m_rotPointOffset;
 	m_pPlayerSprite->m_rotation = m_angle.getLerp(gSys->pGame->gameTime - 0.1);
+	m_pPlayerIdleSprite->m_pos = lerpPos - m_pPlayerSprite->m_rotPointOffset;
+	m_pPlayerIdleSprite->m_rotation = m_angle.getLerp(gSys->pGame->gameTime - 0.1);
 
 	m_pFeetSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
+	m_pFeetIdleSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
 	if (abs(lerpPos.x - lastFramePos.x) > 0 || abs(lerpPos.y - lastFramePos.y) > 0)
+	{
 		m_pFeetSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
+		m_pFeetIdleSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
+	}
+
+	if (m_oldPos == m_pos.getLerp(0))
+	{
+		m_pFeetIdleSprite->m_shouldDraw = true;
+		m_pPlayerIdleSprite->m_shouldDraw = true;
+		m_pFeetSprite->m_shouldDraw = false;
+		m_pPlayerSprite->m_shouldDraw = false;
+	}
+	else
+	{
+		m_pFeetIdleSprite->m_shouldDraw = false;
+		m_pPlayerIdleSprite->m_shouldDraw = false;
+		m_pFeetSprite->m_shouldDraw = true;
+		m_pPlayerSprite->m_shouldDraw = true;
+	}
+
+	m_oldPos = m_pos.getLerp(0);
 
 	lastFramePos = lerpPos;
 }

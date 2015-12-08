@@ -11,7 +11,6 @@ public:
 	glm::vec4& render();
 
 	std::vector<glm::vec4*> UVs;
-	bool activated;
 private:
 	void calcUVs(int col, int row);
 	float m_frame;

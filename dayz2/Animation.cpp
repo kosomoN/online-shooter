@@ -16,11 +16,7 @@ CAnimation::~CAnimation()
 
 glm::vec4& CAnimation::render()
 {
-	glm::vec4* uv;
-	if (activated)
-		uv = UVs[m_frame];
-	else
-		uv = UVs[1];
+	glm::vec4* uv = UVs[m_frame];
 
 	m_frame += gSys->pGame->frameDelta * 30 * m_speed;
 

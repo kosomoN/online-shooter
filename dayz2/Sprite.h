@@ -20,7 +20,7 @@ class CSprite
         int m_width, m_height;
         GLuint m_texture;
 		CAnimation* m_pAnim = nullptr;
-		bool isUsingAnim = false;
+		bool m_shouldDraw = true;
 		glm::vec2 m_rotPointOffset = glm::vec2(0.5);
 private:
 };
