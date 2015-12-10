@@ -48,6 +48,11 @@ void CZombie::update(double dt)
 	}	
 }
 
+void CZombie::hit(Player* pPlayer)
+{
+	m_attributes.health -= 20;
+}
+
 void CZombie::serialize(uint8_t * array)
 {
 	memcpy(array, &m_pos.x, sizeof(m_pos.x));

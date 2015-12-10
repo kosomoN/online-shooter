@@ -2,7 +2,7 @@
 #include <vector>
 #include "IEntity.h"
 #include "Client.h"
-#include <Windows.h>
+#include "ShootingHandler.h"
 
 class CZSpawner;
 
@@ -21,6 +21,7 @@ public:
 	uint32_t nextEntID = 0;
 
 private:
+	CShootingHandler shootingHandler;
 	uint8_t packetBuffer[204800];
 	HANDLE thread;
 	ENetHost* server;

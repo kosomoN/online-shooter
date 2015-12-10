@@ -21,6 +21,7 @@ struct PacketTypes
 	static const uint8_t ENTITY_DELETE = 0x12;
 
 	static const uint8_t INPUT_UPDATE = 0x20;
+	static const uint8_t PLAYER_SHOOT = 0x21;
 };
 
 struct EntityTypes

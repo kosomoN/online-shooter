@@ -15,6 +15,9 @@ public:
 	virtual void update();
 	virtual void parsePacket(uint8_t* data, unsigned int length, double time);
 	// ~IActor
+
+	void fire(float angle);
+
 	CSprite* m_pPlayerSprite;
 	CSprite* m_pFeetSprite;
 	CPlayerAnimController* m_pAnimController;

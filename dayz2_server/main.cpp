@@ -173,6 +173,13 @@ void CMain::main()
 							static_cast<ServerClient*>(event.peer->data)->m_pEntity->m_angle = readFloat((event.packet->data + 2));
 						}
 					break;
+					case PacketTypes::PLAYER_SHOOT:
+						if (event.packet->dataLength == 5)
+						{
+							float angle = 0;
+							memcpy(&angle, event.packet->data + 1, sizeof(angle));
+							shootingHandler.fire(static_cast<ServerClient*>(event.peer->data)->m_pEntity, angle);
+						}
 					case PacketTypes::REQUEST_TIME:
 					{
 						uint8_t packetData[9];

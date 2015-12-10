@@ -22,11 +22,15 @@ public:
 	void updateMovement();
 	uint8_t& getInputSequence() { return m_inputSequence; }
 	void sendInput();
+	void mouseButtonCallback(int button, int action, int mods);
+
 	
 private:
+	float calculateRotation();
 	bool hasChanged = false;
 	double lastSendTime = 0;
 	uint8_t packetData[6] = { PacketTypes::INPUT_UPDATE, 0x00, 0x00, 0x00, 0x00, 0x00 };
+	uint8_t shootPacketData[5] = { PacketTypes::PLAYER_SHOOT, 0x00, 0x00, 0x00, 0x00 };
 	uint8_t m_inputSequence = 0;
 
 };

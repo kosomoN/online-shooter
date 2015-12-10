@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShootingHandler.cpp" />
     <ClCompile Include="Zombie.cpp" />
     <ClCompile Include="ZSpawner.cpp" />
   </ItemGroup>
@@ -156,6 +157,7 @@
     <ClInclude Include="IActor.h" />
     <ClInclude Include="IEntity.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShootingHandler.h" />
     <ClInclude Include="Zombie.h" />
     <ClInclude Include="ZSpawner.h" />
   </ItemGroup>

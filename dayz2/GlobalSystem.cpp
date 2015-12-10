@@ -21,11 +21,11 @@ CGlobalSystem::~CGlobalSystem()
 
 void CGlobalSystem::init()
 {
+	pWindowSystem = new CWindowSystem;
+	pWindowSystem->init(1280, 720);
 	pEntitySystem = new CEntitySystem;
 	pInput = new CInput;
 	pPlayerController = new CPlayerController;
-	pWindowSystem = new CWindowSystem;
-	pWindowSystem->init(1280, 720);
 	pSpriteBatch = new CSpriteBatch(1024);
 	pStateSystem = new CStateSystem();
 	pSpriteRenderer = new CSpriteRenderer;

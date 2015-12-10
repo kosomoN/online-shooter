@@ -74,8 +74,13 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 			//gSys->log(std::to_string(diff));
 
 			//TODO Lerp small differences
-			if (diff > 10 * 10)
+			if (diff > 20 * 20)
 				m_pos.addValue(serverPos, 0);
 		}
 	}
+}
+
+void CPlayer::fire(float angle)
+{
+	
 }

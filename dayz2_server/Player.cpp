@@ -8,7 +8,8 @@ Player::Player(uint32_t ID)
 {
 	m_id = ID;
 	m_type = EntityTypes::PLAYER;
-	m_angle = 4.20f;
+	m_width = 42;
+	m_height = 42;
 	gMain->initializeEntityOnClients(this);
 }
 
@@ -32,6 +33,11 @@ void Player::update(double dt)
 		velocity *= sqrt(0.5);
 
 	m_pos += velocity;
+}
+
+void Player::hit(Player * pPlayer)
+{
+	m_attributes.health -= 20;
 }
 
 void Player::serialize(uint8_t * array)
