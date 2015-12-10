@@ -76,6 +76,9 @@
     <ClCompile Include="LerpRotation.cpp">
       <Filter>Engine\Util</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerAnimController.cpp">
+      <Filter>Game\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="LerpRotation.h">
       <Filter>Engine\Util</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerAnimController.h">
+      <Filter>Game\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -208,6 +214,9 @@
     </Filter>
     <Filter Include="Game\Entities">
       <UniqueIdentifier>{6b6314b8-640e-45d7-9c68-1b0a93f2c339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\System">
+      <UniqueIdentifier>{fbbcd2c1-a4d9-4db6-aa2a-a65a3ccfc0b8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

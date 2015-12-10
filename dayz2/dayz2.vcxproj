@@ -157,6 +157,7 @@
     <ClCompile Include="AnimationLoader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="PlayerAnimController.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GlobalSystem.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="ByteDecoder.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="PlayerAnimController.h" />
     <ClInclude Include="EntitySystem.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GlobalSystem.h" />

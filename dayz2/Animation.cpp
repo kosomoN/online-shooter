@@ -2,8 +2,10 @@
 
 #include "GlobalSystem.h"
 
-CAnimation::CAnimation(int col, int row, float speed):
-m_frame(0.f)
+CAnimation::CAnimation(int col, int row, float speed) :
+m_frame(0.f),
+m_loopLimit(-1),
+m_loops(0)
 {
 	calcUVs(col, row);
 	m_speed = speed;
@@ -16,14 +18,22 @@ CAnimation::~CAnimation()
 
 glm::vec4& CAnimation::render()
 {
-	glm::vec4* uv = UVs[m_frame];
+	glm::vec4 uv = glm::vec4(0, 0, 0, 0);
 
-	m_frame += gSys->pGame->frameDelta * 30 * m_speed;
+	if (m_loops <= m_loopLimit)
+	{
+		uv = UVs[m_frame];
 
-	if (floor(m_frame) >= UVs.size())
-		m_frame = 0.0f;
+		m_frame += gSys->pGame->frameDelta * 30 * m_speed;
 
-	return *uv;
+		if (floor(m_frame) >= UVs.size())
+		{
+			m_frame = 0.0f;
+			m_loops++;
+		}
+	}
+
+	return uv;
 }
 
 void CAnimation::calcUVs(int cols, int rows)
@@ -39,7 +49,7 @@ void CAnimation::calcUVs(int cols, int rows)
 		{
 			v2 = j*texWidth + texWidth;
 			v1 = j*texWidth;
-			UVs.push_back(new glm::vec4(u1, v1, u2, v2));
+			UVs.push_back(glm::vec4(u1, v1, u2, v2));
 		}
 	}
 }

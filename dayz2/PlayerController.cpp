@@ -4,6 +4,7 @@
 #include "Client.h"
 #include "NetworkConstants.h"
 #include <glm\common.hpp>
+#include "PlayerAnimController.h"
 
 CPlayerController::CPlayerController()
 {

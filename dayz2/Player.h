@@ -3,6 +3,7 @@
 
 class CSprite;
 class CAnimation;
+class CPlayerAnimController;
 
 class CPlayer : public IActor
 {
@@ -16,8 +17,7 @@ public:
 	// ~IActor
 	CSprite* m_pPlayerSprite;
 	CSprite* m_pFeetSprite;
-	CSprite* m_pFeetIdleSprite;
-	CSprite* m_pPlayerIdleSprite;
+	CPlayerAnimController* m_pAnimController;
 
 private:
 	glm::vec2 lastFramePos;
