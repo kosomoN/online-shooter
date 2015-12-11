@@ -38,7 +38,7 @@ void CMain::init(char* host)
 	
 	gSys->pConsole->registerCVar("ping", (float*)&gSys->pClient->peer->roundTripTime);
 
-	double dt, lastTime = glfwGetTime();
+	double lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
 	{
 		gSys->pWindowSystem->updateWindow();

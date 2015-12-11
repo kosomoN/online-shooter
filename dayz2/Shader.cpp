@@ -52,7 +52,6 @@ void CShader::loadShader(std::string filePath)
 	GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
 	
 	GLint success;
-	int logLength;
 
 	//Vertex shader
 	glShaderSource(vertShader, 1, &vertShaderSrc, NULL);

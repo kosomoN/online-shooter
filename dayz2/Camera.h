@@ -5,10 +5,10 @@
 class CCamera
 {
 public:
-	CCamera(int width, int height);
+	CCamera(float width, float height);
 	~CCamera();
 
-	void resize(int width, int height);
+	void resize(float width, float height);
 	void setPosition(const glm::vec2& pos);
 	const glm::vec3& getPosition() { return m_pos; }
 	const glm::vec2& getSize() { return m_size; }
