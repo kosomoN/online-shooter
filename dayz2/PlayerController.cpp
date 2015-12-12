@@ -5,6 +5,7 @@
 #include "NetworkConstants.h"
 #include <glm\common.hpp>
 #include "PlayerAnimController.h"
+#include <Box2D/Box2D.h>
 
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
 {
@@ -16,6 +17,7 @@ CPlayerController::CPlayerController()
 	gSys->pInput->addListener(this);
 
 	glfwSetMouseButtonCallback(gSys->pWindowSystem->getWindowPtr(), mouse_button_callback);
+
 }
 
 CPlayerController::~CPlayerController()
@@ -57,21 +59,24 @@ void CPlayerController::updateMovement()
 	CPlayer* pPlayer = gSys->pPlayer;
 
 	if ((m_inputSequence >> RIGHT_KEY) & 1)
-		velocity.x += gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
+		velocity.x += pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> LEFT_KEY) & 1)
-		velocity.x -= gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
+		velocity.x -= pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> UP_KEY) & 1)
-		velocity.y += gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
+		velocity.y += pPlayer->getAttributes().movementSpeed;
 
 	if ((m_inputSequence >> DOWN_KEY) & 1)
-		velocity.y -= gSys->pGame->frameDelta * pPlayer->getAttributes().movementSpeed;
+		velocity.y -= pPlayer->getAttributes().movementSpeed;
 
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
 
-	pPlayer->m_pos.addValue(pPlayer->m_pos.getLerp(0) + velocity, 0);
+	pPlayer->body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
+	b2Vec2 pos = pPlayer->body->GetPosition();
+	pPlayer->m_pos.addValue(pos.x, pos.y, 0);
+
 
 	float oldAngle = pPlayer->m_angle.getLerp(0);
 	double finalAngle = calculateRotation();
@@ -128,7 +133,7 @@ float CPlayerController::calculateRotation()
 
 
 
-	double radius = 33 * 0.3;
+	double radius = 0.132;
 	glm::vec2 playerToMouse = mousePoint - gSys->pPlayer->m_pos.getLerp(0);
 	double playerMouseLength = glm::length(playerToMouse);
 	if (playerMouseLength < radius)

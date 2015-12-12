@@ -6,6 +6,7 @@
 #include "Animation.h"
 #include "Sprite.h"
 #include "PlayerAnimController.h"
+#include <Box2D/Box2D.h>
 
 CPlayer::CPlayer(uint32_t id)
 {
@@ -13,6 +14,21 @@ CPlayer::CPlayer(uint32_t id)
 	gSys->pEntitySystem->registerEntity(this);
 
 	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
+
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(0.0f, 0.0f);
+	bodyDef.fixedRotation = true;
+	body = gSys->pb2World->CreateBody(&bodyDef);
+	b2CircleShape circleShape;
+	circleShape.m_radius = 0.6;
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circleShape;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.filter.groupIndex = -1;
+	body->CreateFixture(&fixtureDef);
 }
 CPlayer::~CPlayer()
 {
@@ -21,11 +37,12 @@ CPlayer::~CPlayer()
 
 void CPlayer::init()
 {
-	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 1, 1, "data/survivor_walk.png");
-	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
+	float scale = 0.828f / 207.f;
+	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172.f * scale, 124.f * scale, 0, 0, 1, 1, "data/survivor_walk.png");
+	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * scale, 62.0f * scale);
 
-	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
-	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
+	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(313.f * scale, 207.f * scale, 0, 0, 1, 1, "data/survivor.png");
+	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * scale, 86.0f * scale);
 
 	m_pAnimController = new CPlayerAnimController;
 	std::vector<string> anims = { "data/survivor_walk","data/survivor_walk_idle","data/survivor","data/survivor_idle" };
@@ -71,11 +88,9 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 			float diff = (serverPos.x - clientPos.x) * (serverPos.x - clientPos.x)
 				+ (serverPos.y - clientPos.y) * (serverPos.y - clientPos.y);
 			
-			//gSys->log(std::to_string(diff));
-
 			//TODO Lerp small differences
-			if (diff > 20 * 20)
-				m_pos.addValue(serverPos, 0);
+			if (diff > 0.6f * 0.6f)
+				body->SetTransform(b2Vec2(serverPos.x, serverPos.y), 0);
 		}
 	}
 }

@@ -2,6 +2,8 @@
 #include "IActor.h"
 #include "Client.h"
 
+class b2Body;
+
 struct Player : public IActor
 {
 	Player(uint32_t ID);
@@ -13,6 +15,7 @@ struct Player : public IActor
 
 	virtual void init() {}
 
+	b2Body* body;
 	ServerClient* client = nullptr;
 };
 

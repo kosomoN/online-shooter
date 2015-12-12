@@ -11,6 +11,7 @@
 #include "ZSpawner.h"
 #include <string>
 #include "dayz2/ByteDecoder.h"
+#include <Box2D/Box2D.h>
 
 CMain* gMain;
 
@@ -55,6 +56,8 @@ void CMain::main()
 	thread = CreateThread(nullptr, 0, ConsoleListeningThread, 0, 0, nullptr);
 
 	gMain = this;
+	
+	pWorld = new b2World(b2Vec2(0, 0));
 
 	nextEntID = 0;
 
@@ -63,7 +66,6 @@ void CMain::main()
 	pZSpawner = new CZSpawner;
 
 	ENetEvent event;
-	bool shouldUpdateTarget;
 	auto startTime = Clock::now();
 	double gameTime, lastGameTime = 0, dt, accumulatedTicks = 0;
 	while (!shouldClose)
@@ -80,6 +82,9 @@ void CMain::main()
 				if (ent != nullptr)
 					ent->update(TICK_LENGTH);
 			}
+
+			pWorld->Step(TICK_LENGTH, 6, 2);
+
 			accumulatedTicks--;
 
 			packetBuffer[0] = PacketTypes::ENTITY_UPDATE;
@@ -246,6 +251,7 @@ CMain::~CMain()
 {
 	CloseHandle(thread);
 	delete pZSpawner;
+	delete pWorld;
 }
 
 int main(void)

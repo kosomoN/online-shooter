@@ -4,7 +4,7 @@
 struct Attributes
 {
 	uint32_t health = 100;
-	float movementSpeed = 100;
+	float movementSpeed = 2;
 	IEntity* pTarget = nullptr;
 };
 

@@ -4,7 +4,7 @@
 struct Attributes
 {
 	uint32_t health;
-	float movementSpeed = 100;
+	float movementSpeed = 2;
 };
 
 struct IActor : IEntity

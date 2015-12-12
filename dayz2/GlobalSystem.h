@@ -10,6 +10,7 @@
 #include <cstdint>
 #include "WindowSystem.h"
 #include "GameState.h"
+#include <Box2D/Box2D.h>
 
 class CConsole;
 class CTextureCache;
@@ -37,6 +38,7 @@ public:
 	CTextureCache* pTextureCache;
 	CGameState* pGame;
 	CAnimationLoader* pAnimLoader;
+	b2World* pb2World;
 	double lastTimeRequest = 0;
 
 	void log(string);

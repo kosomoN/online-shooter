@@ -38,14 +38,25 @@ void CMain::init(char* host)
 	
 	gSys->pConsole->registerCVar("ping", (float*)&gSys->pClient->peer->roundTripTime);
 
-	double lastTime = glfwGetTime();
+	double accumulatedTicks = 0, lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
 	{
+		Sleep(10);
 		gSys->pWindowSystem->updateWindow();
 		gSys->pGame->frameDelta = glfwGetTime() - lastTime;
 		lastTime = glfwGetTime();
 
-		gSys->pStateSystem->getCurrentState()->update();
+		accumulatedTicks += gSys->pGame->frameDelta / TICK_LENGTH;
+
+		if (accumulatedTicks > 10)
+			accumulatedTicks = 10;
+
+		while (accumulatedTicks >= 1)
+		{
+			gSys->pStateSystem->getCurrentState()->update();
+			accumulatedTicks--;
+		}
+
 		gSys->pStateSystem->getCurrentState()->render();
 	}
 
