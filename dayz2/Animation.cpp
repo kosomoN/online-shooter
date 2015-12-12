@@ -5,7 +5,8 @@
 CAnimation::CAnimation(int col, int row, float speed) :
 m_frame(0.f),
 m_loopLimit(-1),
-m_loops(0)
+m_loops(0),
+isDone(true)
 {
 	calcUVs(col, row);
 	m_speed = speed;
@@ -20,7 +21,7 @@ glm::vec4& CAnimation::render()
 {
 	glm::vec4 uv = glm::vec4(0, 0, 0, 0);
 
-	if (m_loops <= m_loopLimit)
+	if (m_loops < m_loopLimit || m_loopLimit == -1)
 	{
 		uv = UVs[m_frame];
 
@@ -31,9 +32,25 @@ glm::vec4& CAnimation::render()
 			m_frame = 0.0f;
 			m_loops++;
 		}
+		return uv;
 	}
 
+	isDone = true;
+
 	return uv;
+}
+
+void CAnimation::setPlayLimit(int n)
+{
+	m_loopLimit = n;
+	m_loops = 0;
+	isDone = false;
+}
+
+void CAnimation::resetLoops()
+{
+	m_loops = 0;
+	isDone = false;
 }
 
 void CAnimation::calcUVs(int cols, int rows)

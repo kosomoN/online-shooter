@@ -7,7 +7,7 @@ class CAnimation;
 
 enum EState
 {
-	MOVE, IDLE, SHOOT
+	MOVE, IDLE = 2, SHOOT = 4
 };
 
 struct SAnimData
@@ -25,11 +25,12 @@ public:
 
 	void init(std::vector<std::string>& files, CSprite* body, CSprite* feet, CSprite* shoot);
 	void setState(EState state);
-private:
 	std::vector<SAnimData> m_animData;
+private:
 	CSprite* m_pBody;
 	CSprite* m_pFeet;
 	CSprite* m_pShoot;
+	EState m_lastState;
 
 };
 

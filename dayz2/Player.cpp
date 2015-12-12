@@ -11,25 +11,35 @@ CPlayer::CPlayer(uint32_t id)
 {
 	m_id = id;
 	gSys->pEntitySystem->registerEntity(this);
-
-	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
 }
 CPlayer::~CPlayer()
 {
+	gSys->pSpriteRenderer->removeSprite(m_pFeetSprite);
+	gSys->pSpriteRenderer->removeSprite(m_pPlayerSprite);
 	delete m_pAnimController;
 };
 
 void CPlayer::init()
 {
-	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 1, 1, "data/survivor_walk.png");
+	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 0, 0, "data/survivor_walk.png");
 	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
 
-	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 1, 1, "data/survivor.png");
+	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 0, 0, "data/survivor.png");
 	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
 
+	auto pShootSprite = gSys->pSpriteRenderer->addSprite(512 * 0.3f, 220 * 0.3f, 0, 0, 0, 0, "data/survivor_shoot.png");
+	pShootSprite->m_rotPointOffset = glm::vec2(93 * 0.3f, 118 * 0.3f);
+
 	m_pAnimController = new CPlayerAnimController;
-	std::vector<string> anims = { "data/survivor_walk","data/survivor_walk_idle","data/survivor","data/survivor_idle" };
-	m_pAnimController->init(anims, m_pPlayerSprite, m_pFeetSprite, nullptr);
+	std::vector<string> anims = { 
+		"data/survivor_walk",
+		"data/survivor",
+		"data/survivor_walk_idle",
+		"data/survivor_idle",
+		"data/survivor_walk_idle",
+		"data/survivor_shoot"
+	};
+	m_pAnimController->init(anims, m_pPlayerSprite, m_pFeetSprite, pShootSprite);
 }
 
 void CPlayer::update()
@@ -40,16 +50,14 @@ void CPlayer::update()
 
 	m_pFeetSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
 	if (abs(lerpPos.x - lastFramePos.x) > 0 || abs(lerpPos.y - lastFramePos.y) > 0)
-	{
 		m_pFeetSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
-	}
 
-	if (m_oldPos == m_pos.getLerp(0))
+	if (m_oldPos == lerpPos)
 		m_pAnimController->setState(EState::IDLE);
 	else
 		m_pAnimController->setState(EState::MOVE);	
 
-	m_oldPos = m_pos.getLerp(0);
+	m_oldPos = lerpPos;
 
 	lastFramePos = lerpPos;
 }
@@ -82,5 +90,6 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 
 void CPlayer::fire(float angle)
 {
-	
+	m_pAnimController->m_animData[EState::SHOOT].anim->setPlayLimit(10);
+	m_pAnimController->setState(EState::SHOOT);
 }

@@ -29,17 +29,35 @@ void CPlayerAnimController::init(std::vector<std::string>& files, CSprite* body,
 		m_animData.push_back(data);
 	}
 
-	m_pBody->m_shouldDraw = true;
-	m_pFeet->m_shouldDraw = true;
+	m_lastState = IDLE;
 }
 
 void CPlayerAnimController::setState(EState state)
 {
-	// Animation
-	m_pFeet->m_pAnim = m_animData[state].anim;
-	m_pBody->m_pAnim = m_animData[state+2].anim;
+	if (m_animData[m_lastState].anim->isDone && state != m_lastState)
+	{
+		// Animation
+		m_pFeet->m_pAnim = m_animData[state].anim;
+		m_pBody->m_pAnim = m_animData[state + 1].anim;
 
-	// Texuture
-	m_pFeet->m_texture = m_animData[state].texId;
-	m_pBody->m_texture = m_animData[state+2].texId;
+		// Texuture
+		m_pFeet->m_texture = m_animData[state].texId;
+		m_pBody->m_texture = m_animData[state + 1].texId;
+
+		// The shoot animation has a different width, so we need to modify that too.
+		if (state == SHOOT)
+		{
+			m_pBody->m_width = m_pShoot->m_width;
+			m_pBody->m_height = m_pShoot->m_height;
+			m_pBody->m_rotPointOffset = m_pShoot->m_rotPointOffset;
+		}
+		else
+		{
+			m_pBody->m_width = 312 * 0.3f;
+			m_pBody->m_height = 207 * 0.3f;
+			m_pBody->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
+		}
+
+		m_lastState = state;
+	}
 }

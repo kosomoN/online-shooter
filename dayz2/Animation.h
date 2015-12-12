@@ -10,10 +10,11 @@ public:
 
 	glm::vec4& render();
 	// Loops the animations n times
-	void setPlayLimit(int n) { m_loopLimit = n; };
-	void resetLoops() { m_loops = 0; };
+	void setPlayLimit(int n);
+	void resetLoops();
 
 	std::vector<glm::vec4> UVs;
+	bool isDone;
 private:
 	void calcUVs(int col, int row);
 	float m_frame;
