@@ -36,7 +36,7 @@ void CSpriteRenderer::removeSprite(CSprite * pSprite)
 	delete pSprite;
 }
 
-CSprite* CSpriteRenderer::addSprite(int width, int height, float u1, float v1, float u2, float v2, std::string texture)
+CSprite* CSpriteRenderer::addSprite(float width, float height, float u1, float v1, float u2, float v2, std::string texture)
 {
 	auto pSprite = new CSprite(width, height, u1, v1, u2, v2, gSys->pTextureCache->getTexture(texture));
 	m_sprites.push_back(pSprite);

@@ -49,14 +49,14 @@ CTileMap::CTileMap(std::string jsonPath)
 		exit(1);
 	}
 
-	m_tileWidth = document["tilewidth"].GetInt();
+	m_tileWidth = 0.5f;// document["tilewidth"].GetInt();
 
 	if (!document["tileheight"].IsInt())
 	{
 		gSys->log("Error parsing map tileheight: " + jsonPath);
 		exit(1);
 	}
-	m_tileHeight = document["tileheight"].GetInt();
+	m_tileHeight = 0.5f;// document["tileheight"].GetInt();
 
 	if(!document["layers"].IsArray())
 	{
@@ -67,27 +67,34 @@ CTileMap::CTileMap(std::string jsonPath)
 	auto &jsonLayers = document["layers"];
 	for (auto it = jsonLayers.Begin(); it < jsonLayers.End(); it++)
 	{
-		rapidjson::Value& tileData = (*it)["data"];
-		MapLayer layer;
-		layer.m_layerName = (*it)["name"].GetString();
-		layer.m_tileData.resize(tileData.Size());
-
-		bool collisionLayer = layer.m_layerName == "Collision";
-		if (collisionLayer)
-			m_collisionData.resize(tileData.Size());
-
-		//Always hide collision layer
-		layer.m_visible = collisionLayer ? false : (*it)["visible"].GetBool();
-
-		for (int i = 0; i != tileData.Size(); i++)
+		string layerType = (*it)["type"].GetString();
+		if (layerType == "tilelayer")
 		{
-			layer.m_tileData[i % m_width].push_back(tileData[i].GetInt() - 1);
+			rapidjson::Value& tileData = (*it)["data"];
+			MapLayer layer;
+			layer.m_layerName = (*it)["name"].GetString();
+			layer.m_tileData.resize(tileData.Size());
 
-			//All but zero is blocked
+			bool collisionLayer = layer.m_layerName == "Collision";
 			if (collisionLayer)
-				m_collisionData[i % m_width].push_back((tileData[i].GetInt()) != 0);
+				m_collisionData.resize(tileData.Size());
+
+			//Always hide collision layer
+			layer.m_visible = collisionLayer ? false : (*it)["visible"].GetBool();
+
+			for (int i = 0; i != tileData.Size(); i++)
+			{
+				layer.m_tileData[i % m_width].push_back(tileData[i].GetInt() - 1);
+
+				//All but zero is blocked
+				if (collisionLayer)
+					m_collisionData[i % m_width].push_back((tileData[i].GetInt()) != 0);
+			}
+			m_layers.push_back(layer);
 		}
-		m_layers.push_back(layer);
+		else if(layerType == "objectgroup" && (*it)["name"].GetString() == "Collison")
+		{
+		}
 	}
 
 	m_textureID = gSys->pTextureCache->getTexture("data/maps/mountain_landscape.png");	
@@ -109,10 +116,10 @@ void CTileMap::renderMap()
 	const glm::vec3& camPos = gSys->pGame->camera.getPosition();
 	const glm::vec2& camSize = gSys->pGame->camera.getSize();
 
-	glm::ivec2 bottomLeft(camPos.x - camSize.x / 2, camPos.y - camSize.y / 2);
+	glm::vec2 bottomLeft(camPos.x - camSize.x / 2, camPos.y - camSize.y / 2);
 	bottomLeft /= m_tileWidth;
 
-	glm::ivec2 topRight(camPos.x + camSize.x / 2, camPos.y + camSize.y / 2);
+	glm::vec2 topRight(camPos.x + camSize.x / 2, camPos.y + camSize.y / 2);
 	topRight /= m_tileHeight;
 	topRight += 1;
 

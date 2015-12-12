@@ -3,6 +3,7 @@
 #include "dayz2/NetworkConstants.h"
 #include <iostream>
 #include "main.h"
+#include <Box2D/Box2D.h>
 
 Player::Player(uint32_t ID)
 {
@@ -11,6 +12,20 @@ Player::Player(uint32_t ID)
 	m_width = 42;
 	m_height = 42;
 	gMain->initializeEntityOnClients(this);
+
+	b2BodyDef bodyDef;
+	bodyDef.type = b2_dynamicBody;
+	bodyDef.position.Set(0.0f, 0.0f);
+	bodyDef.fixedRotation = true;
+	body = gMain->pWorld->CreateBody(&bodyDef);
+	b2CircleShape circleShape;
+	circleShape.m_radius = 0.6;
+	b2FixtureDef fixtureDef;
+	fixtureDef.shape = &circleShape;
+	fixtureDef.density = 1.0f;
+	fixtureDef.friction = 0.3f;
+	fixtureDef.filter.groupIndex = -1;
+	body->CreateFixture(&fixtureDef);
 }
 
 void Player::update(double dt)
@@ -18,21 +33,24 @@ void Player::update(double dt)
 	glm::vec2 velocity = glm::vec2(0);
 
 	if ((client->keyStates >> RIGHT_KEY) & 1)
-		velocity.x += dt * getAttributes().movementSpeed;
+		velocity.x += getAttributes().movementSpeed;
 
 	if ((client->keyStates >> LEFT_KEY) & 1)
-		velocity.x -= dt * getAttributes().movementSpeed;
+		velocity.x -= getAttributes().movementSpeed;
 
 	if ((client->keyStates >> UP_KEY) & 1)
-		velocity.y += dt * getAttributes().movementSpeed;
+		velocity.y += getAttributes().movementSpeed;
 
 	if ((client->keyStates >> DOWN_KEY) & 1)
-		velocity.y -= dt * getAttributes().movementSpeed;
+		velocity.y -= getAttributes().movementSpeed;
 
 	if (abs(velocity.x) > 0 && abs(velocity.y) > 0)
 		velocity *= sqrt(0.5);
 
-	m_pos += velocity;
+	body->SetLinearVelocity(b2Vec2(velocity.x, velocity.y));
+	b2Vec2 pos = body->GetPosition();
+	m_pos.x = pos.x;
+	m_pos.y = pos.y;
 }
 
 void Player::hit(Player * pPlayer)

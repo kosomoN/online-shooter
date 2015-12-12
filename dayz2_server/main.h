@@ -5,6 +5,7 @@
 #include "ShootingHandler.h"
 
 class CZSpawner;
+class b2World;
 
 class CMain
 {
@@ -19,6 +20,7 @@ public:
 	void initializeEntityOnClients(IEntity* pEnt);
 	CZSpawner* pZSpawner;
 	uint32_t nextEntID = 0;
+	b2World* pWorld;
 
 private:
 	CShootingHandler shootingHandler;

@@ -4,6 +4,7 @@
 class CSprite;
 class CAnimation;
 class CPlayerAnimController;
+class b2Body;
 
 class CPlayer : public IActor
 {
@@ -21,6 +22,7 @@ public:
 	CSprite* m_pPlayerSprite;
 	CSprite* m_pFeetSprite;
 	CPlayerAnimController* m_pAnimController;
+	b2Body* body;
 
 private:
 	glm::vec2 lastFramePos;

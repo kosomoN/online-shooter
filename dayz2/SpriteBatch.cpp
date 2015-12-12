@@ -69,7 +69,7 @@ void CSpriteBatch::setColor(float red, float green, float blue, float alpha)
 	m_a = alpha;
 }
 
-void CSpriteBatch::draw(float x, float y, int width, int height, float u1, float v1, float u2, float v2, float rotation, glm::vec2 rotPoint)
+void CSpriteBatch::draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation, glm::vec2 rotPoint)
 {
 	if (m_vertices + 6 > m_maxVertices)
 	{

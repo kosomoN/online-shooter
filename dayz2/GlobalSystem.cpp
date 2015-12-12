@@ -23,6 +23,7 @@ void CGlobalSystem::init()
 {
 	pWindowSystem = new CWindowSystem;
 	pWindowSystem->init(1280, 720);
+	pb2World = new b2World(b2Vec2(0.0f, 0.0f));
 	pEntitySystem = new CEntitySystem;
 	pInput = new CInput;
 	pPlayerController = new CPlayerController;

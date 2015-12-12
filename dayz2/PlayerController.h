@@ -6,6 +6,7 @@
 #include "NetworkConstants.h"
 
 class CPlayer;
+class b2Body;
 
 #define MAX_INPUT_SEND_RATE 128
 
@@ -32,5 +33,4 @@ private:
 	uint8_t packetData[6] = { PacketTypes::INPUT_UPDATE, 0x00, 0x00, 0x00, 0x00, 0x00 };
 	uint8_t shootPacketData[5] = { PacketTypes::PLAYER_SHOOT, 0x00, 0x00, 0x00, 0x00 };
 	uint8_t m_inputSequence = 0;
-
 };

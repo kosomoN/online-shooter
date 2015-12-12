@@ -26,7 +26,7 @@ private:
 	std::vector<MapLayer> m_layers;
 	std::vector<std::vector<bool>> m_collisionData;
 	uint16_t m_width, m_height;
-	uint16_t m_tileWidth, m_tileHeight;
+	float m_tileWidth, m_tileHeight;
 	GLuint m_textureID;
 };
 

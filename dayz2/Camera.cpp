@@ -3,7 +3,7 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-CCamera::CCamera(int width, int height)
+CCamera::CCamera(float width, float height)
 {
 	resize(width, height);
 }
@@ -13,7 +13,7 @@ CCamera::~CCamera()
 {
 }
 
-void CCamera::resize(int width, int height)
+void CCamera::resize(float width, float height)
 {
 	m_size.x = width;
 	m_size.y = height;
