@@ -36,6 +36,10 @@ void CPlayerAnimController::setState(EState state)
 {
 	if (m_animData[m_lastState].anim->isDone && state != m_lastState)
 	{
+		m_pBody->m_shouldDraw = true;
+		m_pFeet->m_shouldDraw = true;
+		m_pShoot->m_shouldDraw = true;
+
 		// Animation
 		m_pFeet->m_pAnim = m_animData[state].anim;
 		m_pBody->m_pAnim = m_animData[state + 1].anim;
@@ -53,9 +57,10 @@ void CPlayerAnimController::setState(EState state)
 		}
 		else
 		{
-			m_pBody->m_width = 312 * 0.3f;
-			m_pBody->m_height = 207 * 0.3f;
-			m_pBody->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
+			float scale = 0.828f / 207.f;
+			m_pBody->m_width = 312.f * scale;
+			m_pBody->m_height = 207.f * scale;
+			m_pBody->m_rotPointOffset = glm::vec2(95.0f * scale, 86.0f * scale);
 		}
 
 		m_lastState = state;

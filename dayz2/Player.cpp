@@ -38,20 +38,18 @@ CPlayer::~CPlayer()
 
 void CPlayer::init()
 {
-	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172 * 0.3f, 124 * 0.3f, 0, 0, 0, 0, "data/survivor_walk.png");
-	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * 0.3f, 62.0f * 0.3f);
-
-	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(312 * 0.3f, 207 * 0.3f, 0, 0, 0, 0, "data/survivor.png");
-	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * 0.3f, 86.0f * 0.3f);
 	float scale = 0.828f / 207.f;
 	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172.f * scale, 124.f * scale, 0, 0, 1, 1, "data/survivor_walk.png");
 	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * scale, 62.0f * scale);
+	m_pFeetSprite->m_shouldDraw = false;
 
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(313.f * scale, 207.f * scale, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * scale, 86.0f * scale);
+	m_pPlayerSprite->m_shouldDraw = false;
 
-	auto pShootSprite = gSys->pSpriteRenderer->addSprite(512 * 0.3f, 220 * 0.3f, 0, 0, 0, 0, "data/survivor_shoot.png");
-	pShootSprite->m_rotPointOffset = glm::vec2(93 * 0.3f, 118 * 0.3f);
+	auto pShootSprite = gSys->pSpriteRenderer->addSprite(512 * scale, 220 * scale, 0, 0, 0, 0, "data/survivor_shoot.png");
+	pShootSprite->m_rotPointOffset = glm::vec2(93 * scale, 118 * scale);
+	pShootSprite->m_shouldDraw = false;
 
 	m_pAnimController = new CPlayerAnimController;
 	std::vector<string> anims = { 
