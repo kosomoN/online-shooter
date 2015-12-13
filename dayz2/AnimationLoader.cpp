@@ -35,8 +35,10 @@ CAnimation* CAnimationLoader::loadAnimation(std::string ifile)
 	int rows = atoi(props[0].c_str());
 	int cols = atoi(props[1].c_str());
 	float speed = atof(props[2].c_str());
+	glm::vec2 size = glm::vec2(atof(props[3].c_str()), atof(props[4].c_str()));
+	glm::vec2 rotPoint = glm::vec2(atof(props[5].c_str()), atof(props[6].c_str()));
 
-	auto a = new CAnimation(rows,cols,speed);
+	auto a = new CAnimation(rows,cols,speed,size,rotPoint);
 	m_anims.push_back(a);
 	return a;
 }

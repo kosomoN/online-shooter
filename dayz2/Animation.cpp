@@ -2,7 +2,7 @@
 
 #include "GlobalSystem.h"
 
-CAnimation::CAnimation(int col, int row, float speed) :
+CAnimation::CAnimation(int col, int row, float speed, glm::vec2 size, glm::vec2 rotPoint) :
 m_frame(0.f),
 m_loopLimit(-1),
 m_loops(0),
@@ -10,6 +10,9 @@ isDone(true)
 {
 	calcUVs(col, row);
 	m_speed = speed;
+	float scale = 0.828f / 207.f;
+	m_size = size * scale;
+	m_rotPointOffset = rotPoint * scale;
 }
 
 
@@ -19,11 +22,9 @@ CAnimation::~CAnimation()
 
 glm::vec4& CAnimation::render()
 {
-	glm::vec4 uv = glm::vec4(0, 0, 0, 0);
-
 	if (m_loops < m_loopLimit || m_loopLimit == -1)
 	{
-		uv = UVs[m_frame];
+		m_uv = UVs[m_frame];
 
 		m_frame += gSys->pGame->frameDelta * 30 * m_speed;
 
@@ -32,12 +33,12 @@ glm::vec4& CAnimation::render()
 			m_frame = 0.0f;
 			m_loops++;
 		}
-		return uv;
+		return m_uv;
 	}
 
 	isDone = true;
 
-	return uv;
+	return m_uv;
 }
 
 void CAnimation::setPlayLimit(int n)

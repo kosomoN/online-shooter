@@ -41,15 +41,9 @@ void CPlayer::init()
 	float scale = 0.828f / 207.f;
 	m_pFeetSprite = gSys->pSpriteRenderer->addSprite(172.f * scale, 124.f * scale, 0, 0, 1, 1, "data/survivor_walk.png");
 	m_pFeetSprite->m_rotPointOffset = glm::vec2(86.0f * scale, 62.0f * scale);
-	m_pFeetSprite->m_shouldDraw = false;
 
 	m_pPlayerSprite = gSys->pSpriteRenderer->addSprite(313.f * scale, 207.f * scale, 0, 0, 1, 1, "data/survivor.png");
 	m_pPlayerSprite->m_rotPointOffset = glm::vec2(95.0f * scale, 86.0f * scale);
-	m_pPlayerSprite->m_shouldDraw = false;
-
-	auto pShootSprite = gSys->pSpriteRenderer->addSprite(512 * scale, 220 * scale, 0, 0, 0, 0, "data/survivor_shoot.png");
-	pShootSprite->m_rotPointOffset = glm::vec2(93 * scale, 118 * scale);
-	pShootSprite->m_shouldDraw = false;
 
 	m_pAnimController = new CPlayerAnimController;
 	std::vector<string> anims = { 
@@ -60,7 +54,7 @@ void CPlayer::init()
 		"data/survivor_walk_idle",
 		"data/survivor_shoot"
 	};
-	m_pAnimController->init(anims, m_pPlayerSprite, m_pFeetSprite, pShootSprite);
+	m_pAnimController->init(anims, m_pPlayerSprite, m_pFeetSprite);
 }
 
 void CPlayer::update()
@@ -109,6 +103,6 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 
 void CPlayer::fire(float angle)
 {
-	m_pAnimController->m_animData[EState::SHOOT].anim->setPlayLimit(10);
+	m_pAnimController->m_animData[EState::SHOOT]->setPlayLimit(1);
 	m_pAnimController->setState(EState::SHOOT);
 }
