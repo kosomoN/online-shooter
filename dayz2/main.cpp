@@ -41,7 +41,6 @@ void CMain::init(char* host)
 	double accumulatedTicks = 0, lastTime = glfwGetTime();
 	while (!gSys->pWindowSystem->shouldClose())
 	{
-		Sleep(10);
 		gSys->pWindowSystem->updateWindow();
 		gSys->pGame->frameDelta = glfwGetTime() - lastTime;
 		lastTime = glfwGetTime();
