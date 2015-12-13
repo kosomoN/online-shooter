@@ -6,6 +6,7 @@
 #include "Zombie.h"
 #include <vector>
 #include "main.h"
+#include "AwesomiumUI.h"
 
 CGameState::~CGameState()
 {
@@ -23,6 +24,7 @@ void CGameState::render()
 	shader.setMatrix(camera.getCombined());
 	map.renderMap();
 	gSys->pSpriteRenderer->renderSprites();
+	gSys->pAwesomiumUI->update();
 	glUseProgram(0);
 }
 

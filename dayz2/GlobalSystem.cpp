@@ -2,6 +2,7 @@
 #include "Console.h"
 #include "TextureCache.h"
 #include "AnimationLoader.h"
+#include "AwesomiumUI.h"
 
 CGlobalSystem::~CGlobalSystem()
 {
@@ -17,6 +18,7 @@ CGlobalSystem::~CGlobalSystem()
 	delete pTextureCache;
 	delete pGame;
 	delete pAnimLoader;
+	delete pAwesomiumUI;
 }
 
 void CGlobalSystem::init()
@@ -36,6 +38,9 @@ void CGlobalSystem::init()
 	pClient->init();
 	pGame = new CGameState;
 	pAnimLoader = new CAnimationLoader;
+	pAwesomiumUI = new CAwesomiumUI;
+	
+	pAwesomiumUI->createUiObject(1280, 720, 0, 0, "data/ui.html");
 }
 
 void CGlobalSystem::log(string text)

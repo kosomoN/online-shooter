@@ -12,9 +12,11 @@
 #include "GameState.h"
 #include <Box2D/Box2D.h>
 
+
 class CConsole;
 class CTextureCache;
 class CAnimationLoader;
+class CAwesomiumUI;
 
 typedef std::string string;
 
@@ -39,6 +41,7 @@ public:
 	CGameState* pGame;
 	CAnimationLoader* pAnimLoader;
 	b2World* pb2World;
+	CAwesomiumUI* pAwesomiumUI;
 	double lastTimeRequest = 0;
 
 	void log(string);

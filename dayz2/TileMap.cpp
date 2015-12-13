@@ -135,9 +135,11 @@ void CTileMap::renderMap()
 	{
 		if (!layer.m_visible)
 			continue;
+		int y = 0;
 		for (int y = bottomLeft.y; y < topRight.y; y++)
 		{
-			for (int x = bottomLeft.x; x < topRight.x; x++)
+			int x = 0;
+			for (x = bottomLeft.x; x < topRight.x; x++)
 			{
 				int tileId = layer.m_tileData[x][y];
 				float u = (tileId % 16) * 0.0625f;

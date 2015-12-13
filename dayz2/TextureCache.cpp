@@ -22,7 +22,7 @@ unsigned int CTextureCache::createTexture(std::string file)
 	if (e != 0)
 	{
 		gSys->log("Could not load texture: " + file);
-		exit(1);
+		return 0;
 	}
 
 	glEnable(GL_TEXTURE_2D);

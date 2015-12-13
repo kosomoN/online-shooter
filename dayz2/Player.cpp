@@ -60,17 +60,17 @@ void CPlayer::init()
 void CPlayer::update()
 {
 	glm::vec2 lerpPos = m_pos.getLerp(gSys->pGame->gameTime - 0.1);
+	if (m_oldPos == lerpPos)
+		m_pAnimController->setState(EState::IDLE);
+	else
+		m_pAnimController->setState(EState::MOVE);
+
 	m_pPlayerSprite->m_pos = lerpPos - m_pPlayerSprite->m_rotPointOffset;
 	m_pPlayerSprite->m_rotation = m_angle.getLerp(gSys->pGame->gameTime - 0.1);
 
 	m_pFeetSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
 	if (abs(lerpPos.x - lastFramePos.x) > 0 || abs(lerpPos.y - lastFramePos.y) > 0)
 		m_pFeetSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
-
-	if (m_oldPos == lerpPos)
-		m_pAnimController->setState(EState::IDLE);
-	else
-		m_pAnimController->setState(EState::MOVE);	
 
 	m_oldPos = lerpPos;
 

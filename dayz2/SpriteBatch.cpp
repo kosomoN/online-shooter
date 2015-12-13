@@ -170,7 +170,7 @@ void CSpriteBatch::draw(float x, float y, float width, float height, float u1, f
 	m_bufferData[m_index++] = m_a;
 }
 
-void CSpriteBatch::drawVertices(float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2)
+void CSpriteBatch::drawVertices(const float& x1, const float& y1, const float& x2, const float& y2, const float& u1, const float& v1, const float& u2, const float& v2)
 {
 	if (m_vertices + 6 > m_maxVertices)
 	{

@@ -79,6 +79,7 @@
     <ClCompile Include="PlayerAnimController.cpp">
       <Filter>Game\System</Filter>
     </ClCompile>
+    <ClCompile Include="AwesomiumUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -180,6 +181,7 @@
     <ClInclude Include="PlayerAnimController.h">
       <Filter>Game\System</Filter>
     </ClInclude>
+    <ClInclude Include="AwesomiumUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
