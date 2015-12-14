@@ -1,7 +1,9 @@
+#include "GlobalSystem.h"
+#include "HUD.h"
+#include "AwesomiumUI.h"
 #include "Player.h"
 #include "Console.h"
 #include "ByteDecoder.h"
-#include "GlobalSystem.h"
 #include "AnimationLoader.h"
 #include "Animation.h"
 #include "Sprite.h"
@@ -13,7 +15,7 @@ CPlayer::CPlayer(uint32_t id)
 	m_id = id;
 	gSys->pEntitySystem->registerEntity(this);
 	gSys->pConsole->registerCVar("movementSpeed", &m_attributes.movementSpeed);
-
+	m_attributes.health = 100;
 
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
@@ -105,4 +107,5 @@ void CPlayer::fire(float angle)
 {
 	m_pAnimController->m_animData[EState::SHOOT]->setPlayLimit(1);
 	m_pAnimController->setState(EState::SHOOT);
+	static_cast<CHUD*>(gSys->pAwesomiumUI->m_elements[0])->update((int)m_attributes.health, (int)angle);
 }

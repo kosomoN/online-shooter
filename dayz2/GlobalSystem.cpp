@@ -3,6 +3,7 @@
 #include "TextureCache.h"
 #include "AnimationLoader.h"
 #include "AwesomiumUI.h"
+#include "HUD.h"
 
 CGlobalSystem::~CGlobalSystem()
 {
@@ -40,7 +41,7 @@ void CGlobalSystem::init()
 	pAnimLoader = new CAnimationLoader;
 	pAwesomiumUI = new CAwesomiumUI;
 	
-	pAwesomiumUI->createUiObject(1280, 720, 0, 0, "data/ui.html");
+	IUIElement* e = new CHUD(1280, 720, 0, 0, "data/ui.html");
 }
 
 void CGlobalSystem::log(string text)

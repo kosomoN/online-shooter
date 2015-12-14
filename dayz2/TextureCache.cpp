@@ -1,6 +1,8 @@
 #include "TextureCache.h"
 #include "lodepng.h"
 #include "GlobalSystem.h"
+#include <Awesomium\BitmapSurface.h>
+
 
 CTextureCache::CTextureCache()
 {
@@ -46,4 +48,29 @@ unsigned int CTextureCache::getTexture(string file)
 		return createTexture(file);
 
 	return m_texures[file];
+}
+
+unsigned int CTextureCache::createUITexture(Awesomium::BitmapSurface* surface)
+{
+	if (surface == nullptr)
+		return 0;
+
+	int w = surface->width();
+	int h = surface->height();
+
+	unsigned char *buffer = new unsigned char[w * h * 4];
+	surface->CopyTo(buffer, w * 4, 4, false, false);
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, buffer);
+
+	delete[] buffer;
+
+	return texture;
 }

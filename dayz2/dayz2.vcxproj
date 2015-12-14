@@ -158,6 +158,7 @@
     <ClCompile Include="AwesomiumUI.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="HUD.cpp" />
     <ClCompile Include="PlayerAnimController.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -188,6 +189,8 @@
     <ClInclude Include="ByteDecoder.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="HUD.h" />
+    <ClInclude Include="IUIElement.h" />
     <ClInclude Include="PlayerAnimController.h" />
     <ClInclude Include="EntitySystem.h" />
     <ClInclude Include="GameState.h" />

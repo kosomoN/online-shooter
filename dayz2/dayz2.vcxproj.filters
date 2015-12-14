@@ -79,7 +79,12 @@
     <ClCompile Include="PlayerAnimController.cpp">
       <Filter>Game\System</Filter>
     </ClCompile>
-    <ClCompile Include="AwesomiumUI.cpp" />
+    <ClCompile Include="AwesomiumUI.cpp">
+      <Filter>Engine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="HUD.cpp">
+      <Filter>Engine\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ByteDecoder.h">
@@ -181,7 +186,15 @@
     <ClInclude Include="PlayerAnimController.h">
       <Filter>Game\System</Filter>
     </ClInclude>
-    <ClInclude Include="AwesomiumUI.h" />
+    <ClInclude Include="IUIElement.h">
+      <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="AwesomiumUI.h">
+      <Filter>Engine\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="HUD.h">
+      <Filter>Engine\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Game">
@@ -219,6 +232,9 @@
     </Filter>
     <Filter Include="Game\System">
       <UniqueIdentifier>{fbbcd2c1-a4d9-4db6-aa2a-a65a3ccfc0b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\UI">
+      <UniqueIdentifier>{ebf47bf6-a9fa-4270-aeb3-bf72cc81e0a5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

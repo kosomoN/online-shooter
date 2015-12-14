@@ -8,12 +8,28 @@
   .gay
   {
       color:red;
-      font-size: 100px;
+      font-size: 10px;
   }
   </style>
+  <script type="text/javascript">
+  function setStats(health, ammo)
+  {
+    var hpElem = document.getElementById('hp');
+    var ammoElem = document.getElementById('ammo');
+
+    if(hpElem != undefined && ammoElem != undefined)
+    {
+      var hp = "Health: "+health;
+      var amunition = "Ammo: "+ammo;
+      hpElem.innerText = hp;
+      ammoElem.innerText = amunition;
+    }
+  }
+  </script>
   <body>
     <div class="gay">
-      <h1>TESTESTETSESTEST</h1>
+      <h1 id="hp">Health: 100</h1>
+      <h1 id="ammo">Ammo: 100</h1>
     </div>
   </body>
 </html>

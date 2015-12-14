@@ -3,15 +3,15 @@
 #include <vector>
 
 class CSprite;
+struct IUIElement;
 
 class CAwesomiumUI
 {
 public:
 	CAwesomiumUI();
 	~CAwesomiumUI();
-	CSprite* createUiObject(int width, int height, int x, int y, std::string htmlFile);
+	void registerUIElement(IUIElement* pElem);
 	void update();
-private:
-	std::vector<CSprite*> m_uiSprites;
+	std::vector<IUIElement*> m_elements;
 };
 
