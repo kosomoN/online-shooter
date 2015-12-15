@@ -4,7 +4,8 @@
 
 #define COMMAND_CHANNEL 0
 #define SNAPSHOT_CHANNEL 1
-#define MAX_CHANNELS 2
+#define EFFECTS_CHANNEL 2
+#define MAX_CHANNELS 3
 
 #define UP_KEY    0
 #define DOWN_KEY  1

@@ -181,9 +181,17 @@ void CMain::main()
 					case PacketTypes::PLAYER_SHOOT:
 						if (event.packet->dataLength == 5)
 						{
+							Player* pPlayer = static_cast<ServerClient*>(event.peer->data)->m_pEntity;
 							float angle = 0;
 							memcpy(&angle, event.packet->data + 1, sizeof(angle));
-							shootingHandler.fire(static_cast<ServerClient*>(event.peer->data)->m_pEntity, angle);
+							shootingHandler.fire(pPlayer, angle);
+
+							uint8_t packetData[9];
+							packetData[0] = PacketTypes::PLAYER_SHOOT;
+							memcpy(packetData + 1, &pPlayer->m_id, sizeof(uint32_t));
+							memcpy(packetData + 5, &angle, sizeof(float));
+							ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), 0);
+							enet_host_broadcast(server, EFFECTS_CHANNEL, packet);
 						}
 					case PacketTypes::REQUEST_TIME:
 					{

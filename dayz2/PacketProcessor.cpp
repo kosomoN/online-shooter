@@ -84,6 +84,16 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			}
 		}
 		break;
+		case PacketTypes::PLAYER_SHOOT:
+		{
+			uint32_t playerID = readUint32(event.packet->data + 1);
+			
+			if (CPlayer* pPlayer = static_cast<CPlayer*>(gSys->pEntitySystem->getEntity(readUint32(event.packet->data + 1))))
+			{
+				pPlayer->fire(readFloat(event.packet->data + 5));
+			}
+		}
+		break;
 		case PacketTypes::REQUEST_TIME:
 		{
 			double serverTime = 0;
