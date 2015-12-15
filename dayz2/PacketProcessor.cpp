@@ -94,6 +94,20 @@ void CPacketProcessor::packetReceived(ENetEvent & event)
 			}
 		}
 		break;
+		case PacketTypes::PLAYER_HIT:
+		{
+			uint32_t playerID = readUint32(event.packet->data + 1);
+
+			if (CPlayer* pPlayer = static_cast<CPlayer*>(gSys->pEntitySystem->getEntity(readUint32(event.packet->data + 1))))
+			{
+				float angle = readFloat(event.packet->data + 5);
+				CSprite* bloodSprite = gSys->pSpriteRenderer->addSprite(0.5f, 0.2f, 0, 1, 1, 0, "data/blood_splatter.png");
+				bloodSprite->m_pos = pPlayer->m_pos.getLerp(gSys->pGame->gameTime - 0.1) + glm::vec2(cos(angle), sin(angle)) * 0.4f;
+				bloodSprite->m_rotPointOffset = glm::vec2(0, 0.1f);
+				bloodSprite->m_rotation = angle;
+			}
+		}
+		break;
 		case PacketTypes::REQUEST_TIME:
 		{
 			double serverTime = 0;

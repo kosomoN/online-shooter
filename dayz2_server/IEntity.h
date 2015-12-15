@@ -9,7 +9,7 @@ struct IEntity
 	virtual ~IEntity() {}
 	virtual void update(double dt) = 0;
 	virtual void init() = 0;
-	virtual void hit(Player* pPlayer) = 0;
+	virtual void hit(Player* pPlayer, float angle) = 0;
 	
 	virtual void serialize(uint8_t* array) = 0;
 	virtual uint16_t serializedSize() = 0;

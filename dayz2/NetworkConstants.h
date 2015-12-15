@@ -23,6 +23,8 @@ struct PacketTypes
 
 	static const uint8_t INPUT_UPDATE = 0x20;
 	static const uint8_t PLAYER_SHOOT = 0x21;
+
+	static const uint8_t PLAYER_HIT = 0x30;
 };
 
 struct EntityTypes

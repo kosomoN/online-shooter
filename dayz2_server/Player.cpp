@@ -53,9 +53,16 @@ void Player::update(double dt)
 	m_pos.y = pos.y;
 }
 
-void Player::hit(Player * pPlayer)
+void Player::hit(Player * pPlayer, float angle)
 {
 	m_attributes.health -= 20;
+
+	uint8_t packetData[9];
+	packetData[0] = PacketTypes::PLAYER_HIT;
+	memcpy(packetData + 1, &m_id, sizeof(m_id));
+	memcpy(packetData + 5, &angle, sizeof(float));
+	ENetPacket* packet = enet_packet_create(packetData, sizeof(packetData), 0);
+	enet_host_broadcast(gMain->server, EFFECTS_CHANNEL, packet);
 }
 
 void Player::serialize(uint8_t * array)

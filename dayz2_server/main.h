@@ -21,12 +21,12 @@ public:
 	CZSpawner* pZSpawner;
 	uint32_t nextEntID = 0;
 	b2World* pWorld;
+	ENetHost* server;
 
 private:
 	CShootingHandler shootingHandler;
 	uint8_t packetBuffer[204800];
 	HANDLE thread;
-	ENetHost* server;
 };
 
 extern CMain* gMain;

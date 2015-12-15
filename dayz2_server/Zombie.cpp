@@ -48,7 +48,7 @@ void CZombie::update(double dt)
 	}	
 }
 
-void CZombie::hit(Player* pPlayer)
+void CZombie::hit(Player* pPlayer, float angle)
 {
 	m_attributes.health -= 20;
 }

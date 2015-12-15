@@ -71,12 +71,10 @@ void CPlayer::update()
 	m_pPlayerSprite->m_rotation = m_angle.getLerp(gSys->pGame->gameTime - 0.1);
 
 	m_pFeetSprite->m_pos = lerpPos - m_pFeetSprite->m_rotPointOffset;
-	if (abs(lerpPos.x - lastFramePos.x) > 0 || abs(lerpPos.y - lastFramePos.y) > 0)
-		m_pFeetSprite->m_rotation = atan2(lerpPos.y - lastFramePos.y, lerpPos.x - lastFramePos.x);
+	if (m_oldPos != lerpPos)
+		m_pFeetSprite->m_rotation = atan2(lerpPos.y - m_oldPos.y, lerpPos.x - m_oldPos.x);
 
 	m_oldPos = lerpPos;
-
-	lastFramePos = lerpPos;
 }
 
 void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)

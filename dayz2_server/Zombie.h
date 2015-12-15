@@ -6,7 +6,7 @@ struct CZombie : public IActor
 	CZombie(uint32_t ID);
 
 	virtual void update(double dt);
-	virtual void hit(Player* pPlayer);
+	virtual void hit(Player* pPlayer,float angle);
 	virtual void serialize(uint8_t* array);
 	virtual uint16_t serializedSize();
 

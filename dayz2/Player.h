@@ -25,6 +25,5 @@ public:
 	b2Body* body;
 
 private:
-	glm::vec2 lastFramePos;
 	glm::vec2 m_oldPos;
 };

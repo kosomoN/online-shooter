@@ -49,7 +49,7 @@ void CShootingHandler::fire(Player* pPlayer, float shootingAngle)
 			if (rayPos.x < p1.x || rayPos.x > p2.x || rayPos.y < p1.y || rayPos.y > p2.y)
 				continue;
 
-			ent->hit(pPlayer);
+			ent->hit(pPlayer, shootingAngle);
 			hasHit = true;
 			break;
 		}
