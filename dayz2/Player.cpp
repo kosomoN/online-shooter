@@ -106,4 +106,10 @@ void CPlayer::fire(float angle)
 	m_pAnimController->m_animData[EState::SHOOT]->setPlayLimit(1);
 	m_pAnimController->setState(EState::SHOOT);
 	static_cast<CHUD*>(gSys->pAwesomiumUI->m_elements[0])->update((int)m_attributes.health, (int)angle);
+
+	if (this == gSys->pPlayer)
+	{
+		angle += (rand() / ((float)RAND_MAX)) * 0.5f;
+		gSys->pGame->camera.shake = glm::vec2(-cos(angle), -sin(angle)) * 0.05f;
+	}
 }

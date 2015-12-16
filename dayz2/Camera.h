@@ -14,6 +14,8 @@ public:
 	const glm::vec2& getSize() { return m_size; }
 	const glm::mat4& getCombined() { return m_combined; }
 	const glm::mat4& getProjection() { return m_projection; }
+
+	glm::vec2 shake;
 private:
 	glm::vec2 m_size;
 	glm::vec3 m_pos;
