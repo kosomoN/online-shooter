@@ -2,8 +2,8 @@
 
 #include "main.h"
 
-#define STEP_LENGTH 5
-#define MAX_RAY_STEPS (2000 / STEP_LENGTH)
+#define STEP_LENGTH 0.2f
+#define MAX_RAY_STEPS (50 / STEP_LENGTH)
 
 CShootingHandler::CShootingHandler()
 {

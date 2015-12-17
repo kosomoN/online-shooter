@@ -50,7 +50,7 @@ void CMain::init(char* host)
 		if (accumulatedTicks > 10)
 			accumulatedTicks = 10;
 
-		while (accumulatedTicks >= 1)
+		//while (accumulatedTicks >= 1)
 		{
 			gSys->pStateSystem->getCurrentState()->update();
 			accumulatedTicks--;

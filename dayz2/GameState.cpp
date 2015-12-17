@@ -36,7 +36,7 @@ void CGameState::update()
 	gSys->pClient->update();
 	gSys->pPlayerController->sendInput();
 
-	gSys->pb2World->Step(TICK_LENGTH, 6, 2);
+	gSys->pb2World->Step(gSys->pGame->frameDelta, 6, 2);
 	gSys->pPlayerController->updateMovement();
 	gSys->pEntitySystem->update();
 	gSys->pConsole->update();

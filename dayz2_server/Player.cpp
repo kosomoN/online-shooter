@@ -9,8 +9,8 @@ Player::Player(uint32_t ID)
 {
 	m_id = ID;
 	m_type = EntityTypes::PLAYER;
-	m_width = 10;
-	m_height = 10;
+	m_width = 0.6f;
+	m_height = 0.6f;
 	gMain->initializeEntityOnClients(this);
 
 	b2BodyDef bodyDef;
