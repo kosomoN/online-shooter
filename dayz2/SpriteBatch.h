@@ -15,6 +15,7 @@ public:
 	void end();
 	void draw(float x, float y, float width, float height, float u1, float v1, float u2, float v2, float rotation, glm::vec2 rotPoint);
 	void drawVertices(const float& x1, const float& y1, const float& x2, const float& y2, const float& u1, const float& v1, const float& u2, const float& v2);
+	void drawUI(const float& x1, const float& y1, const float& x2, const float& y2, const float& u1, const float& v1, const float& u2, const float& v2);
 	void draw(CSprite* pSprite);
 	void setColor(float r, float g, float b, float a);
 	GLuint getCurrentTexture() { return  m_currentTexture; }

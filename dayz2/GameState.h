@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "TileMap.h"
 
+class CHUD;
+
 class CGameState : public IState
 {
 public:
@@ -23,5 +25,7 @@ public:
 	double serverTimeDelta = 0;
 	CCamera camera = CCamera(15.36f, 8.64f);
 	CTileMap map { "data/maps/Test.json" };
+	CHUD* pGameHud;
+
 };
 

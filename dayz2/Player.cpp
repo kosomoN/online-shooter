@@ -74,6 +74,18 @@ void CPlayer::update()
 	if (m_oldPos != lerpPos)
 		m_pFeetSprite->m_rotation = atan2(lerpPos.y - m_oldPos.y, lerpPos.x - m_oldPos.x);
 
+	if (m_attributes.health >= 20)
+	{
+		m_pPlayerSprite->m_shouldDraw = true;
+		m_pFeetSprite->m_shouldDraw = true;
+		m_isDead = false;
+	}
+	else
+	{
+		m_pPlayerSprite->m_shouldDraw = false;
+		m_pFeetSprite->m_shouldDraw = false;
+	}
+
 	m_oldPos = lerpPos;
 }
 
@@ -86,7 +98,7 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 	}
 	else
 	{
-		if (length == 12)
+		if (length == 16)
 		{
 			glm::vec2 serverPos(readFloat(data), readFloat((data + 4)));
 			glm::vec2 clientPos = m_pos.getLerp(0);
@@ -101,11 +113,19 @@ void CPlayer::parsePacket(uint8_t * data, unsigned int length, double time)
 	}
 }
 
+void CPlayer::hit(float angle)
+{
+	m_attributes.health -= 20;
+	gSys->pGame->pGameHud->update((int)m_attributes.health, 0/*Ammo not implemented yet*/);
+
+	if (m_attributes.health < 20)
+		m_isDead;
+}
+
 void CPlayer::fire(float angle)
 {
-	m_pAnimController->m_animData[EState::SHOOT]->setPlayLimit(1);
+	m_pAnimController->m_animData[EState::SHOOT+1]->setPlayLimit(1);
 	m_pAnimController->setState(EState::SHOOT);
-	static_cast<CHUD*>(gSys->pAwesomiumUI->m_elements[0])->update((int)m_attributes.health, (int)angle);
 
 	if (this == gSys->pPlayer)
 	{

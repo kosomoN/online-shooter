@@ -13,6 +13,7 @@ public:
 	virtual void update();
 	virtual void init();
 	virtual void parsePacket(uint8_t* data, unsigned int length, double time);
+	virtual void hit(float angle) {}
 	// ~IEntity
 
 private:

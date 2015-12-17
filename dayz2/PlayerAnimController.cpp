@@ -29,7 +29,7 @@ void CPlayerAnimController::init(std::vector<std::string>& files, CSprite* body,
 
 void CPlayerAnimController::setState(EState state)
 {
-	if (m_animData[m_lastState]->isDone && state != m_lastState)
+	if (m_animData[m_lastState+1]->isDone && state != m_lastState)
 	{
 		// Animation
 		m_pFeet->m_pAnim = m_animData[state];

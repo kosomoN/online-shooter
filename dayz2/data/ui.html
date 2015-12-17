@@ -7,29 +7,37 @@
 
   .gay
   {
-      color:red;
-      font-size: 10px;
+    text-align: center;
+    color: rgba(1,1,1,0.6);
+    font-size: 10px;
+    background-color: rgba(1,1,1,0.2);
+    width: 60px;
   }
+
+  .gay img
+  {
+      width: 50px;
+      height: 50px;
+      display: inline-block;
+  }
+
   </style>
   <script type="text/javascript">
-  function setStats(health, ammo)
+  function setStats(health)
   {
     var hpElem = document.getElementById('hp');
-    var ammoElem = document.getElementById('ammo');
 
-    if(hpElem != undefined && ammoElem != undefined)
+    if(hpElem != undefined)
     {
-      var hp = "Health: "+health;
-      var amunition = "Ammo: "+ammo;
-      hpElem.innerText = hp;
-      ammoElem.innerText = amunition;
+      hpElem.innerText = health;
     }
   }
   </script>
   <body>
     <div class="gay">
-      <h1 id="hp">Health: 100</h1>
-      <h1 id="ammo">Ammo: 100</h1>
+      <img src="http://tint.servegame.com/1450143408_health_medicine_emergency.png">
+        <h1 id="hp">100%</h1>
+      </img>
     </div>
   </body>
 </html>

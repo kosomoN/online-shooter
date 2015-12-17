@@ -17,5 +17,7 @@ struct Player : public IActor
 
 	b2Body* body;
 	ServerClient* client = nullptr;
+	double m_deathTime = 0.0;
+	bool m_isDead = false;
 };
 

@@ -17,6 +17,10 @@ public:
 	virtual void parsePacket(uint8_t* data, unsigned int length, double time);
 	// ~IActor
 
+	// IEntity
+	virtual void hit(float angle);
+	// ~IEntity
+
 	void fire(float angle);
 
 	CSprite* m_pPlayerSprite;
@@ -26,4 +30,5 @@ public:
 
 private:
 	glm::vec2 m_oldPos;
+	bool m_isDead;
 };

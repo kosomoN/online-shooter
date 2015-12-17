@@ -17,6 +17,7 @@ class CConsole;
 class CTextureCache;
 class CAnimationLoader;
 class CAwesomiumUI;
+class CHUD;
 
 typedef std::string string;
 

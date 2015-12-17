@@ -39,7 +39,7 @@ void CHUD::init()
 	std::string content = ss.str();
 
 	auto web_core = WebCore::Initialize(WebConfig());
-	auto view = web_core->CreateWebView(m_width, m_height);
+	auto view = web_core->CreateWebView(m_width * 1.5, m_height * 1.5);
 	m_pWebView = view;
 	view->SetTransparent(true);
 	WebURL url(WSLit(std::string("data:text/html,"+content).c_str()));
@@ -56,7 +56,7 @@ void CHUD::init()
 
 	// Create sprite
 	float scale = gSys->pGame->camera.getSize().y / (float)m_height;
-	auto sprite = gSys->pSpriteRenderer->addSprite(m_width * scale , m_height * scale , 0, 1, 1, 0, "");
+	CSprite* sprite = gSys->pSpriteRenderer->addSprite(m_width*scale, m_height*scale, 0, 1, 1, 0, "data/survivor.png");
 	sprite->m_texture = texture;
 	sprite->m_pos = glm::vec2(0, 0);
 	m_x *= scale;
@@ -72,7 +72,6 @@ void CHUD::update(int health, int ammo)
 	{
 		JSArray args;
 		args.Push(WSLit(std::to_string(health).c_str()));
-		args.Push(WSLit(std::to_string(ammo).c_str()));
 		win.ToObject().Invoke(WSLit("setStats"), args);
 	}
 

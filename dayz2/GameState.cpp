@@ -1,12 +1,12 @@
+#include "AwesomiumUI.h"
 #include "GameState.h"
-
 #include "GlobalSystem.h"
 #include "lodepng.h"
 #include "Console.h"
 #include "Zombie.h"
 #include <vector>
 #include "main.h"
-#include "AwesomiumUI.h"
+#include "HUD.h"
 
 CGameState::~CGameState()
 {
@@ -14,6 +14,7 @@ CGameState::~CGameState()
 
 void CGameState::init()
 {
+	pGameHud = new CHUD(1280, 720, 0, 0, "data/ui.html");
 }
 
 void CGameState::render()

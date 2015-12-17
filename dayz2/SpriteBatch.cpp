@@ -255,6 +255,91 @@ void CSpriteBatch::drawVertices(const float& x1, const float& y1, const float& x
 	m_bufferData[m_index++] = m_a;
 }
 
+void CSpriteBatch::drawUI(const float & x1, const float & y1, const float & x2, const float & y2, const float & u1, const float & v1, const float & u2, const float & v2)
+{
+	//if (m_vertices + 12 > m_maxVertices)
+	//{
+	//	begin(m_currentTexture);
+	//}
+
+	//m_vertices += 6;
+
+	////Bottom left
+	//m_bufferData[m_index++] = x1;
+	//m_bufferData[m_index++] = y1;
+
+	//m_bufferData[m_index++] = u1;
+	//m_bufferData[m_index++] = v1;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+
+	////Bottom right
+	//m_bufferData[m_index++] = x2;
+	//m_bufferData[m_index++] = y1;
+
+	//m_bufferData[m_index++] = u2;
+	//m_bufferData[m_index++] = v1;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+
+	////Top left
+	//m_bufferData[m_index++] = x1;
+	//m_bufferData[m_index++] = y2;
+
+	//m_bufferData[m_index++] = u1;
+	//m_bufferData[m_index++] = v2;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+
+
+	////Second triangle
+
+	////Top left
+	//m_bufferData[m_index++] = x1;
+	//m_bufferData[m_index++] = y2;
+
+	//m_bufferData[m_index++] = u1;
+	//m_bufferData[m_index++] = v2;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+
+	////Bottom right
+	//m_bufferData[m_index++] = x2;
+	//m_bufferData[m_index++] = y1;
+
+	//m_bufferData[m_index++] = u2;
+	//m_bufferData[m_index++] = v1;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+
+	////Top right
+	//m_bufferData[m_index++] = x2;
+	//m_bufferData[m_index++] = y2;
+
+	//m_bufferData[m_index++] = u2;
+	//m_bufferData[m_index++] = v2;
+
+	//m_bufferData[m_index++] = m_r;
+	//m_bufferData[m_index++] = m_g;
+	//m_bufferData[m_index++] = m_b;
+	//m_bufferData[m_index++] = m_a;
+}
+
 void CSpriteBatch::draw(CSprite* pSprite)
 {
 	if (pSprite->m_shouldDraw)

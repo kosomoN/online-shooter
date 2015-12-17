@@ -40,8 +40,6 @@ void CGlobalSystem::init()
 	pGame = new CGameState;
 	pAnimLoader = new CAnimationLoader;
 	pAwesomiumUI = new CAwesomiumUI;
-	
-	IUIElement* e = new CHUD(1280, 720, 0, 0, "data/ui.html");
 }
 
 void CGlobalSystem::log(string text)
